@@ -1,17 +1,17 @@
 {
   "source": "github-actions",
   "live": true,
-  "collectedAt": "2026-06-11T14:09:03+09:00",
+  "collectedAt": "2026-06-11T14:22:08+09:00",
   "asOf": "",
   "metrics": {
     "seoulAvg": 163.1,
     "nationAvg": 33.5,
     "shortfall": 0,
-    "seoulCut": 32
+    "seoulCut": 58
   },
   "refs": {
     "lotteryCase": 0,
-    "seoulCut": 32,
+    "seoulCut": 58,
     "gangnamMin": null
   },
   "regions": [
@@ -119,8 +119,14 @@
       "gj": null,
       "ch": null,
       "rate": 951.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 69,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "둔산 자이 아이파크",
@@ -129,7 +135,7 @@
       "gj": null,
       "ch": null,
       "rate": 940.8,
-      "cutoff": null,
+      "cutoff": 74,
       "special": []
     },
     {
@@ -139,8 +145,14 @@
       "gj": null,
       "ch": null,
       "rate": 643.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 73,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "역삼센트럴자이",
@@ -149,8 +161,14 @@
       "gj": null,
       "ch": null,
       "rate": 446.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 69,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "오티에르 반포",
@@ -159,8 +177,14 @@
       "gj": null,
       "ch": null,
       "rate": 441.3,
-      "cutoff": null,
-      "special": []
+      "cutoff": 69,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "힐스테이트 이수역센트럴",
@@ -169,8 +193,14 @@
       "gj": null,
       "ch": null,
       "rate": 317.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 66,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "반포 래미안 트리니원",
@@ -179,8 +209,14 @@
       "gj": null,
       "ch": null,
       "rate": 305.9,
-      "cutoff": null,
-      "special": []
+      "cutoff": 70,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더샵 프리엘라",
@@ -189,8 +225,14 @@
       "gj": null,
       "ch": null,
       "rate": 184.0,
-      "cutoff": null,
-      "special": []
+      "cutoff": 62,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "둔산 자이 아이파크(보류지)",
@@ -199,7 +241,7 @@
       "gj": null,
       "ch": null,
       "rate": 178.3,
-      "cutoff": null,
+      "cutoff": 69,
       "special": []
     },
     {
@@ -209,8 +251,14 @@
       "gj": null,
       "ch": null,
       "rate": 153.4,
-      "cutoff": null,
-      "special": []
+      "cutoff": 52,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더샵 시에르네(조합원 취소분)",
@@ -219,8 +267,14 @@
       "gj": null,
       "ch": null,
       "rate": 147.3,
-      "cutoff": null,
-      "special": []
+      "cutoff": 51,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더샵 송도그란테르 G5-6블록",
@@ -229,8 +283,14 @@
       "gj": null,
       "ch": null,
       "rate": 123.6,
-      "cutoff": null,
-      "special": []
+      "cutoff": 64,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "이촌 르엘",
@@ -239,8 +299,11 @@
       "gj": null,
       "ch": null,
       "rate": 118.0,
-      "cutoff": null,
-      "special": []
+      "cutoff": 69,
+      "special": [
+        "다자녀",
+        "노부모"
+      ]
     },
     {
       "name": "공덕역자이르네",
@@ -249,8 +312,14 @@
       "gj": null,
       "ch": null,
       "rate": 81.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 62,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더샵 송도그란테르 G5-11블록",
@@ -259,8 +328,14 @@
       "gj": null,
       "ch": null,
       "rate": 71.2,
-      "cutoff": null,
-      "special": []
+      "cutoff": 46,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "인천 검단신도시 AB13블록 호반써밋Ⅲ(본청약)",
@@ -269,8 +344,14 @@
       "gj": null,
       "ch": null,
       "rate": 71.2,
-      "cutoff": null,
-      "special": []
+      "cutoff": 54,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "베뉴브 해운대",
@@ -279,8 +360,14 @@
       "gj": null,
       "ch": null,
       "rate": 57.2,
-      "cutoff": null,
-      "special": []
+      "cutoff": 34,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "래미안 엘라비네",
@@ -289,8 +376,14 @@
       "gj": null,
       "ch": null,
       "rate": 53.8,
-      "cutoff": null,
-      "special": []
+      "cutoff": 42,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더샵 송도그란테르 G5-1블록",
@@ -299,8 +392,14 @@
       "gj": null,
       "ch": null,
       "rate": 52.0,
-      "cutoff": null,
-      "special": []
+      "cutoff": 62,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "검단호수공원역 파라곤(AA36BL)",
@@ -309,8 +408,14 @@
       "gj": null,
       "ch": null,
       "rate": 50.9,
-      "cutoff": null,
-      "special": []
+      "cutoff": 57,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더샵 분당티에르원",
@@ -319,8 +424,14 @@
       "gj": null,
       "ch": null,
       "rate": 45.9,
-      "cutoff": null,
-      "special": []
+      "cutoff": 55,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "써밋 더힐",
@@ -329,8 +440,14 @@
       "gj": null,
       "ch": null,
       "rate": 39.6,
-      "cutoff": null,
-      "special": []
+      "cutoff": 62,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더샵 송도그란테르 G5-5블록",
@@ -339,8 +456,14 @@
       "gj": null,
       "ch": null,
       "rate": 39.2,
-      "cutoff": null,
-      "special": []
+      "cutoff": 63,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더샵 송도그란테르 G5-3블록",
@@ -349,8 +472,14 @@
       "gj": null,
       "ch": null,
       "rate": 33.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 55,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "힐스테이트 평거 센트럴",
@@ -359,8 +488,14 @@
       "gj": null,
       "ch": null,
       "rate": 33.3,
-      "cutoff": null,
-      "special": []
+      "cutoff": 58,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "성남복정1지구 B1블록 복정역 에피트",
@@ -369,8 +504,14 @@
       "gj": null,
       "ch": null,
       "rate": 31.9,
-      "cutoff": null,
-      "special": []
+      "cutoff": 63,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더샵 분당센트로",
@@ -379,8 +520,14 @@
       "gj": null,
       "ch": null,
       "rate": 31.6,
-      "cutoff": null,
-      "special": []
+      "cutoff": 52,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "엘리프 성성호수공원 1BL",
@@ -389,8 +536,14 @@
       "gj": null,
       "ch": null,
       "rate": 31.1,
-      "cutoff": null,
-      "special": []
+      "cutoff": 54,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더샵 신길센트럴시티",
@@ -399,8 +552,14 @@
       "gj": null,
       "ch": null,
       "rate": 30.4,
-      "cutoff": null,
-      "special": []
+      "cutoff": 54,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "골드클래스 시그니처",
@@ -409,8 +568,14 @@
       "gj": null,
       "ch": null,
       "rate": 30.2,
-      "cutoff": null,
-      "special": []
+      "cutoff": 36,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "드파인 연희",
@@ -419,8 +584,14 @@
       "gj": null,
       "ch": null,
       "rate": 29.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 61,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "아산탕정 동일하이빌 파크레인",
@@ -429,8 +600,14 @@
       "gj": null,
       "ch": null,
       "rate": 29.3,
-      "cutoff": null,
-      "special": []
+      "cutoff": 51,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "아크로 리버스카이",
@@ -439,8 +616,14 @@
       "gj": null,
       "ch": null,
       "rate": 27.3,
-      "cutoff": null,
-      "special": []
+      "cutoff": 53,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "라클라체자이드파인",
@@ -449,8 +632,14 @@
       "gj": null,
       "ch": null,
       "rate": 25.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 56,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "안양역 센트럴 아이파크 수자인",
@@ -459,8 +648,14 @@
       "gj": null,
       "ch": null,
       "rate": 25.6,
-      "cutoff": null,
-      "special": []
+      "cutoff": 27,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "고덕신도시 아테라 A-63블록 공공분양주택",
@@ -470,7 +665,14 @@
       "ch": null,
       "rate": 23.7,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "신생아",
+        "기관추천"
+      ]
     },
     {
       "name": "엘리프 창원",
@@ -479,8 +681,14 @@
       "gj": null,
       "ch": null,
       "rate": 23.6,
-      "cutoff": null,
-      "special": []
+      "cutoff": 53,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "남양주 별내리슈빌아파트 분양전환 후 잔여세대",
@@ -500,7 +708,14 @@
       "ch": null,
       "rate": 21.5,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "신생아",
+        "기관추천"
+      ]
     },
     {
       "name": "두산위브더제니스 구미(조합원취소분)",
@@ -509,8 +724,14 @@
       "gj": null,
       "ch": null,
       "rate": 19.9,
-      "cutoff": null,
-      "special": []
+      "cutoff": 33,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "두산위브 더센트럴 수원",
@@ -519,8 +740,14 @@
       "gj": null,
       "ch": null,
       "rate": 19.9,
-      "cutoff": null,
-      "special": []
+      "cutoff": 40,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "힐스테이트 사직 아시아드",
@@ -529,8 +756,14 @@
       "gj": null,
       "ch": null,
       "rate": 19.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 37,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "메트로시티 자산 데시앙",
@@ -539,8 +772,14 @@
       "gj": null,
       "ch": null,
       "rate": 19.3,
-      "cutoff": null,
-      "special": []
+      "cutoff": 37,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "한화포레나 부산대연",
@@ -549,8 +788,14 @@
       "gj": null,
       "ch": null,
       "rate": 18.8,
-      "cutoff": null,
-      "special": []
+      "cutoff": 54,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "문수데시앙2단지 공가세대 일반공급",
@@ -579,8 +824,13 @@
       "gj": null,
       "ch": null,
       "rate": 15.3,
-      "cutoff": null,
-      "special": []
+      "cutoff": 48,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "기관추천"
+      ]
     },
     {
       "name": "도룡자이 라피크",
@@ -589,8 +839,14 @@
       "gj": null,
       "ch": null,
       "rate": 15.2,
-      "cutoff": null,
-      "special": []
+      "cutoff": 46,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "송천 아르티엠 더 숲",
@@ -599,8 +855,14 @@
       "gj": null,
       "ch": null,
       "rate": 14.9,
-      "cutoff": null,
-      "special": []
+      "cutoff": 45,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "울산 호수공원 에일린의 뜰 2단지",
@@ -609,8 +871,14 @@
       "gj": null,
       "ch": null,
       "rate": 14.3,
-      "cutoff": null,
-      "special": []
+      "cutoff": 27,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "천안 아이파크 시티 5단지",
@@ -619,8 +887,14 @@
       "gj": null,
       "ch": null,
       "rate": 14.2,
-      "cutoff": null,
-      "special": []
+      "cutoff": 36,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "전주·완주 혁신도시 에코르 2단지 공가세대 일반공급",
@@ -639,8 +913,14 @@
       "gj": null,
       "ch": null,
       "rate": 13.8,
-      "cutoff": null,
-      "special": []
+      "cutoff": 46,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "아산탕정자이 메트로시티(A3BL)",
@@ -649,8 +929,14 @@
       "gj": null,
       "ch": null,
       "rate": 13.1,
-      "cutoff": null,
-      "special": []
+      "cutoff": 24,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "망포역 푸르지오 르마크",
@@ -659,8 +945,14 @@
       "gj": null,
       "ch": null,
       "rate": 13.1,
-      "cutoff": null,
-      "special": []
+      "cutoff": 37,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "송도 한내들 센트럴리버",
@@ -669,8 +961,14 @@
       "gj": null,
       "ch": null,
       "rate": 12.8,
-      "cutoff": null,
-      "special": []
+      "cutoff": 42,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "e편한세상 내포 에듀플라츠(민영주택)",
@@ -680,7 +978,10 @@
       "ch": null,
       "rate": 12.5,
       "cutoff": null,
-      "special": []
+      "special": [
+        "다자녀",
+        "노부모"
+      ]
     },
     {
       "name": "더샵 송도그란테르 G5-4블록",
@@ -689,8 +990,14 @@
       "gj": null,
       "ch": null,
       "rate": 11.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 40,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "철산역자이",
@@ -699,8 +1006,14 @@
       "gj": null,
       "ch": null,
       "rate": 11.6,
-      "cutoff": null,
-      "special": []
+      "cutoff": 37,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "수지자이 에디시온",
@@ -710,7 +1023,13 @@
       "ch": null,
       "rate": 11.4,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "힐스테이트 광명 11",
@@ -719,8 +1038,14 @@
       "gj": null,
       "ch": null,
       "rate": 10.9,
-      "cutoff": null,
-      "special": []
+      "cutoff": 37,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "동탄 그웬 160 (동탄2 B11BL)",
@@ -730,7 +1055,10 @@
       "ch": null,
       "rate": 10.0,
       "cutoff": null,
-      "special": []
+      "special": [
+        "다자녀",
+        "노부모"
+      ]
     },
     {
       "name": "풍무역 푸르지오 더 마크",
@@ -739,8 +1067,14 @@
       "gj": null,
       "ch": null,
       "rate": 10.0,
-      "cutoff": null,
-      "special": []
+      "cutoff": 33,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "한화포레나 울산무거",
@@ -749,8 +1083,14 @@
       "gj": null,
       "ch": null,
       "rate": 9.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 35,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "도안자이 센텀리체 2단지",
@@ -760,7 +1100,13 @@
       "ch": null,
       "rate": 9.6,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "상봉 센트럴 아이파크",
@@ -769,8 +1115,14 @@
       "gj": null,
       "ch": null,
       "rate": 9.4,
-      "cutoff": null,
-      "special": []
+      "cutoff": 54,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "안양 에버포레 자연앤 e편한세상(A1BL)",
@@ -779,8 +1131,11 @@
       "gj": null,
       "ch": null,
       "rate": 9.3,
-      "cutoff": null,
-      "special": []
+      "cutoff": 53,
+      "special": [
+        "다자녀",
+        "노부모"
+      ]
     },
     {
       "name": "두산위브더제니스 구미",
@@ -789,8 +1144,14 @@
       "gj": null,
       "ch": null,
       "rate": 9.1,
-      "cutoff": null,
-      "special": []
+      "cutoff": 29,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "e편한세상 부천 어반스퀘어",
@@ -799,8 +1160,14 @@
       "gj": null,
       "ch": null,
       "rate": 8.9,
-      "cutoff": null,
-      "special": []
+      "cutoff": 29,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "울산 호수공원 에일린의 뜰 1단지",
@@ -809,8 +1176,14 @@
       "gj": null,
       "ch": null,
       "rate": 8.8,
-      "cutoff": null,
-      "special": []
+      "cutoff": 34,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "천안 아이파크 시티 6단지",
@@ -819,8 +1192,14 @@
       "gj": null,
       "ch": null,
       "rate": 8.6,
-      "cutoff": null,
-      "special": []
+      "cutoff": 31,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "만안역 중앙하이츠 포레",
@@ -829,8 +1208,13 @@
       "gj": null,
       "ch": null,
       "rate": 8.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 23,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모"
+      ]
     },
     {
       "name": "힐스테이트 오산 더퍼스트(조합원 자격상실 및 제명세대)(2회차)",
@@ -839,7 +1223,7 @@
       "gj": null,
       "ch": null,
       "rate": 8.0,
-      "cutoff": null,
+      "cutoff": 27,
       "special": []
     },
     {
@@ -849,8 +1233,14 @@
       "gj": null,
       "ch": null,
       "rate": 7.9,
-      "cutoff": null,
-      "special": []
+      "cutoff": 32,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "대방역 여의도 더로드캐슬",
@@ -859,8 +1249,14 @@
       "gj": null,
       "ch": null,
       "rate": 7.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 47,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "부천역 에피트 어바닉",
@@ -869,8 +1265,14 @@
       "gj": null,
       "ch": null,
       "rate": 7.6,
-      "cutoff": null,
-      "special": []
+      "cutoff": 42,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더샵 관저아르테",
@@ -879,8 +1281,14 @@
       "gj": null,
       "ch": null,
       "rate": 7.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 44,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더샵 안동더퍼스트",
@@ -889,8 +1297,14 @@
       "gj": null,
       "ch": null,
       "rate": 7.4,
-      "cutoff": null,
-      "special": []
+      "cutoff": 35,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "의왕시청역 SK VIEW IPARK",
@@ -899,8 +1313,14 @@
       "gj": null,
       "ch": null,
       "rate": 6.8,
-      "cutoff": null,
-      "special": []
+      "cutoff": 22,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "업성 푸르지오 레이크시티",
@@ -909,8 +1329,14 @@
       "gj": null,
       "ch": null,
       "rate": 6.6,
-      "cutoff": null,
-      "special": []
+      "cutoff": 39,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "청주 롯데캐슬 시그니처",
@@ -919,8 +1345,14 @@
       "gj": null,
       "ch": null,
       "rate": 6.6,
-      "cutoff": null,
-      "special": []
+      "cutoff": 27,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "오룡2지구 지엔하임 37블록",
@@ -929,8 +1361,14 @@
       "gj": null,
       "ch": null,
       "rate": 6.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 32,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "힐스테이트 안양펠루스",
@@ -939,8 +1377,13 @@
       "gj": null,
       "ch": null,
       "rate": 6.4,
-      "cutoff": null,
-      "special": []
+      "cutoff": 48,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모"
+      ]
     },
     {
       "name": "아산모종 서한이다음 노블리스(A1BL)",
@@ -949,8 +1392,14 @@
       "gj": null,
       "ch": null,
       "rate": 6.4,
-      "cutoff": null,
-      "special": []
+      "cutoff": 34,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "힐스테이트 오산 더퍼스트(조합원 자격상실 및 제명세대)",
@@ -959,7 +1408,7 @@
       "gj": null,
       "ch": null,
       "rate": 6.3,
-      "cutoff": null,
+      "cutoff": 41,
       "special": []
     },
     {
@@ -969,8 +1418,14 @@
       "gj": null,
       "ch": null,
       "rate": 6.0,
-      "cutoff": null,
-      "special": []
+      "cutoff": 53,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "식사 푸르지오 파크센트",
@@ -979,8 +1434,14 @@
       "gj": null,
       "ch": null,
       "rate": 5.9,
-      "cutoff": null,
-      "special": []
+      "cutoff": 32,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "중흥S-클래스 힐더포레",
@@ -990,7 +1451,13 @@
       "ch": null,
       "rate": 5.9,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더샵 신문그리니티 2차",
@@ -1000,7 +1467,13 @@
       "ch": null,
       "rate": 5.7,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "시흥거모 엘가 로제비앙",
@@ -1009,8 +1482,14 @@
       "gj": null,
       "ch": null,
       "rate": 5.6,
-      "cutoff": null,
-      "special": []
+      "cutoff": 54,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "해링턴플레이스 노원 센트럴",
@@ -1019,8 +1498,14 @@
       "gj": null,
       "ch": null,
       "rate": 5.4,
-      "cutoff": null,
-      "special": []
+      "cutoff": 51,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "서면 어반센트 데시앙",
@@ -1029,8 +1514,14 @@
       "gj": null,
       "ch": null,
       "rate": 5.2,
-      "cutoff": null,
-      "special": []
+      "cutoff": 29,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "오남역 서희스타힐스 여의재 3단지",
@@ -1039,8 +1530,14 @@
       "gj": null,
       "ch": null,
       "rate": 5.1,
-      "cutoff": null,
-      "special": []
+      "cutoff": 57,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "청주 푸르지오 씨엘리체",
@@ -1049,8 +1546,14 @@
       "gj": null,
       "ch": null,
       "rate": 5.0,
-      "cutoff": null,
-      "special": []
+      "cutoff": 35,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "쌍용 더 플래티넘 온수역",
@@ -1059,8 +1562,14 @@
       "gj": null,
       "ch": null,
       "rate": 5.0,
-      "cutoff": null,
-      "special": []
+      "cutoff": 37,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "회천중앙역 파라곤",
@@ -1070,7 +1579,13 @@
       "ch": null,
       "rate": 4.9,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "김포 풍무역세권 B5블록 호반써밋",
@@ -1079,8 +1594,14 @@
       "gj": null,
       "ch": null,
       "rate": 4.8,
-      "cutoff": null,
-      "special": []
+      "cutoff": 37,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "창원자이 더 스카이",
@@ -1089,8 +1610,14 @@
       "gj": null,
       "ch": null,
       "rate": 4.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 36,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "풍무역세권 수자인 그라센트 1차",
@@ -1099,8 +1626,14 @@
       "gj": null,
       "ch": null,
       "rate": 4.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 35,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "트리븐 서산",
@@ -1109,8 +1642,14 @@
       "gj": null,
       "ch": null,
       "rate": 4.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 42,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "두산위브 더센트럴 부평(조합원 취소분)",
@@ -1119,8 +1658,14 @@
       "gj": null,
       "ch": null,
       "rate": 4.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 31,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "중앙하이츠 갈산역 센트럴",
@@ -1130,7 +1675,13 @@
       "ch": null,
       "rate": 4.4,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "두산위브앤수자인 부평 더퍼스트",
@@ -1139,8 +1690,14 @@
       "gj": null,
       "ch": null,
       "rate": 4.4,
-      "cutoff": null,
-      "special": []
+      "cutoff": 32,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "용인 플랫폼시티 라온프라이빗 아르디에",
@@ -1150,7 +1707,13 @@
       "ch": null,
       "rate": 4.3,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "강릉 우미 린 더 프리미어",
@@ -1160,7 +1723,13 @@
       "ch": null,
       "rate": 4.2,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "호반써밋 풍무Ⅱ",
@@ -1169,8 +1738,14 @@
       "gj": null,
       "ch": null,
       "rate": 4.1,
-      "cutoff": null,
-      "special": []
+      "cutoff": 32,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "엘리프 성성호수공원 2BL",
@@ -1179,8 +1754,14 @@
       "gj": null,
       "ch": null,
       "rate": 4.0,
-      "cutoff": null,
-      "special": []
+      "cutoff": 27,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "효성해링턴 플레이스 영주 더리버",
@@ -1190,7 +1771,13 @@
       "ch": null,
       "rate": 4.0,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "검암역자이르네",
@@ -1199,8 +1786,14 @@
       "gj": null,
       "ch": null,
       "rate": 3.8,
-      "cutoff": null,
-      "special": []
+      "cutoff": 19,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "엘리프 역곡",
@@ -1210,7 +1803,13 @@
       "ch": null,
       "rate": 3.8,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "르네오션 고성 퍼스트뷰",
@@ -1220,7 +1819,13 @@
       "ch": null,
       "rate": 3.8,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "시티오씨엘 8단지",
@@ -1229,8 +1834,14 @@
       "gj": null,
       "ch": null,
       "rate": 3.8,
-      "cutoff": null,
-      "special": []
+      "cutoff": 30,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "시흥거모지구 대방 엘리움 더 루체Ⅰ(S-2BL)",
@@ -1240,7 +1851,13 @@
       "ch": null,
       "rate": 3.8,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "한화포레나 부산당리",
@@ -1250,7 +1867,13 @@
       "ch": null,
       "rate": 3.7,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "두산위브더제니스 청주 센트럴파크",
@@ -1259,8 +1882,14 @@
       "gj": null,
       "ch": null,
       "rate": 3.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 26,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "경기광주역 롯데캐슬 시그니처 1단지",
@@ -1269,8 +1898,14 @@
       "gj": null,
       "ch": null,
       "rate": 3.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 37,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "경성대부경대역 비스타동원 더 프리미엄",
@@ -1279,8 +1914,14 @@
       "gj": null,
       "ch": null,
       "rate": 3.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 57,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "금정산 하늘채 루미엘",
@@ -1289,8 +1930,14 @@
       "gj": null,
       "ch": null,
       "rate": 3.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 58,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "효성해링턴 플레이스 여수",
@@ -1300,7 +1947,13 @@
       "ch": null,
       "rate": 3.5,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "전주 에코시티 더 클래스",
@@ -1310,7 +1963,10 @@
       "ch": null,
       "rate": 3.4,
       "cutoff": null,
-      "special": []
+      "special": [
+        "다자녀",
+        "노부모"
+      ]
     },
     {
       "name": "탑석 푸르지오 파크7",
@@ -1320,7 +1976,13 @@
       "ch": null,
       "rate": 3.4,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "상주자이르네",
@@ -1330,7 +1992,13 @@
       "ch": null,
       "rate": 3.3,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "엘리프 원종",
@@ -1339,8 +2007,14 @@
       "gj": null,
       "ch": null,
       "rate": 3.3,
-      "cutoff": null,
-      "special": []
+      "cutoff": 69,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "오룡2지구 지엔하임 38블록",
@@ -1349,8 +2023,14 @@
       "gj": null,
       "ch": null,
       "rate": 3.2,
-      "cutoff": null,
-      "special": []
+      "cutoff": 27,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "상주북천 하늘채 파크원",
@@ -1359,8 +2039,14 @@
       "gj": null,
       "ch": null,
       "rate": 3.1,
-      "cutoff": null,
-      "special": []
+      "cutoff": 37,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "태화강 센트럴 아이파크",
@@ -1369,8 +2055,14 @@
       "gj": null,
       "ch": null,
       "rate": 3.1,
-      "cutoff": null,
-      "special": []
+      "cutoff": 32,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "안양자이 헤리티온",
@@ -1379,8 +2071,14 @@
       "gj": null,
       "ch": null,
       "rate": 3.1,
-      "cutoff": null,
-      "special": []
+      "cutoff": 24,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "두류센트레빌 더 파크(조합원 취소분)(2회차)",
@@ -1389,7 +2087,7 @@
       "gj": null,
       "ch": null,
       "rate": 3.0,
-      "cutoff": null,
+      "cutoff": 39,
       "special": []
     },
     {
@@ -1409,8 +2107,14 @@
       "gj": null,
       "ch": null,
       "rate": 3.0,
-      "cutoff": null,
-      "special": []
+      "cutoff": 37,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "서수원 에피트 센트럴마크(M1BL)",
@@ -1420,7 +2124,13 @@
       "ch": null,
       "rate": 2.9,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "북오산자이 리버블시티",
@@ -1430,7 +2140,13 @@
       "ch": null,
       "rate": 2.8,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "옥정중앙역 대방 디에트르(중상1, 복합1BL)",
@@ -1439,8 +2155,14 @@
       "gj": null,
       "ch": null,
       "rate": 2.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 37,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "평택화양 서희스타힐스 센트럴파크(조합원 취소분)",
@@ -1449,8 +2171,14 @@
       "gj": null,
       "ch": null,
       "rate": 2.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 49,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "에코델타시티 푸르지오 트레파크(11BL)",
@@ -1460,7 +2188,14 @@
       "ch": null,
       "rate": 2.7,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "신생아",
+        "기관추천"
+      ]
     },
     {
       "name": "용인 고림 동문 디 이스트",
@@ -1470,7 +2205,13 @@
       "ch": null,
       "rate": 2.6,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "김해율하 더스카이시티 제니스앤프라우(조합원취소분)",
@@ -1479,7 +2220,7 @@
       "gj": null,
       "ch": null,
       "rate": 2.6,
-      "cutoff": null,
+      "cutoff": 43,
       "special": []
     },
     {
@@ -1489,8 +2230,14 @@
       "gj": null,
       "ch": null,
       "rate": 2.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 35,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "포레나더샵 인천시청역",
@@ -1499,8 +2246,14 @@
       "gj": null,
       "ch": null,
       "rate": 2.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 30,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "검단 센트레빌 에듀시티(AB8BL)",
@@ -1509,8 +2262,14 @@
       "gj": null,
       "ch": null,
       "rate": 2.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 32,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "고덕국제신도시 수자인풍경채 1단지",
@@ -1520,7 +2279,13 @@
       "ch": null,
       "rate": 2.4,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "풍무역세권 수자인 그라센트 2차",
@@ -1530,7 +2295,13 @@
       "ch": null,
       "rate": 2.4,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "서수원 에피트 센트럴마크(M2BL)",
@@ -1540,7 +2311,13 @@
       "ch": null,
       "rate": 2.4,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "인천 힐스테이트 숭의역",
@@ -1549,8 +2326,14 @@
       "gj": null,
       "ch": null,
       "rate": 2.4,
-      "cutoff": null,
-      "special": []
+      "cutoff": 32,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "식사 푸르지오 파크센트(조합원 취소분)",
@@ -1559,8 +2342,13 @@
       "gj": null,
       "ch": null,
       "rate": 2.3,
-      "cutoff": null,
-      "special": []
+      "cutoff": 46,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "기관추천"
+      ]
     },
     {
       "name": "울산 우정혁신도시 B1블록(골드클래스) 분양전환 후 잔여세대",
@@ -1580,7 +2368,12 @@
       "ch": null,
       "rate": 2.3,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모"
+      ]
     },
     {
       "name": "선운지구다사로움 공가세대 일반공급",
@@ -1599,8 +2392,14 @@
       "gj": null,
       "ch": null,
       "rate": 2.2,
-      "cutoff": null,
-      "special": []
+      "cutoff": 56,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "서귀포시 서홍동 형남아파트6차",
@@ -1609,8 +2408,13 @@
       "gj": null,
       "ch": null,
       "rate": 2.2,
-      "cutoff": null,
-      "special": []
+      "cutoff": 37,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모"
+      ]
     },
     {
       "name": "소제지구 A3BL 중흥S-클래스 우미린",
@@ -1619,8 +2423,14 @@
       "gj": null,
       "ch": null,
       "rate": 2.1,
-      "cutoff": null,
-      "special": []
+      "cutoff": 44,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "야목역 서희스타힐스 그랜드힐",
@@ -1630,7 +2440,13 @@
       "ch": null,
       "rate": 2.1,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "온천장 하늘채 엘리시움",
@@ -1640,7 +2456,13 @@
       "ch": null,
       "rate": 2.0,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "대전 하늘채 루시에르(2회차)",
@@ -1650,7 +2472,10 @@
       "ch": null,
       "rate": 2.0,
       "cutoff": null,
-      "special": []
+      "special": [
+        "다자녀",
+        "노부모"
+      ]
     },
     {
       "name": "남울산 노르웨이숲(조합원 취소분)",
@@ -1660,7 +2485,13 @@
       "ch": null,
       "rate": 2.0,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "성산 더리브 포레스트",
@@ -1669,8 +2500,14 @@
       "gj": null,
       "ch": null,
       "rate": 2.0,
-      "cutoff": null,
-      "special": []
+      "cutoff": 31,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "해링턴플레이스 명륜역",
@@ -1680,7 +2517,13 @@
       "ch": null,
       "rate": 2.0,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "엠타워 디루체",
@@ -1700,7 +2543,13 @@
       "ch": null,
       "rate": 1.9,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "도안자이 센텀리체 1단지",
@@ -1709,8 +2558,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.9,
-      "cutoff": null,
-      "special": []
+      "cutoff": 35,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "용인 푸르지오 원클러스터파크",
@@ -1720,7 +2575,13 @@
       "ch": null,
       "rate": 1.9,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "인하대역 수자인 로이센트",
@@ -1729,8 +2590,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.9,
-      "cutoff": null,
-      "special": []
+      "cutoff": 28,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "파주금촌 금호어울림(조합원 취소분)",
@@ -1740,7 +2607,13 @@
       "ch": null,
       "rate": 1.8,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "구리역 하이니티 리버파크",
@@ -1749,8 +2622,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.8,
-      "cutoff": null,
-      "special": []
+      "cutoff": 29,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "동래 푸르지오 에듀포레",
@@ -1759,8 +2638,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.8,
-      "cutoff": null,
-      "special": []
+      "cutoff": 33,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "김해 안동 에피트",
@@ -1769,8 +2654,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.8,
-      "cutoff": null,
-      "special": []
+      "cutoff": 37,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "운정 아이파크 시티",
@@ -1780,7 +2671,13 @@
       "ch": null,
       "rate": 1.8,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "수원역 아너스빌 타임원",
@@ -1789,8 +2686,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.7,
-      "cutoff": null,
-      "special": []
+      "cutoff": 35,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "오산 세교 우미 린 레이크시티",
@@ -1800,7 +2703,13 @@
       "ch": null,
       "rate": 1.7,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "두산위브 트리니뷰 구명역",
@@ -1809,8 +2718,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.6,
-      "cutoff": null,
-      "special": []
+      "cutoff": 32,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "고덕국제신도시 수자인풍경채 2단지",
@@ -1820,7 +2735,13 @@
       "ch": null,
       "rate": 1.6,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "화성 남양뉴타운 우미 린 에듀하이",
@@ -1830,7 +2751,13 @@
       "ch": null,
       "rate": 1.6,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "시흥거모지구 대방 엘리움 더 루체Ⅱ(B-2BL)",
@@ -1840,7 +2767,13 @@
       "ch": null,
       "rate": 1.6,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "동래사적공원 오네뜨",
@@ -1849,8 +2782,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.5,
-      "cutoff": null,
-      "special": []
+      "cutoff": 53,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "문수로 라티에르 673",
@@ -1860,7 +2799,13 @@
       "ch": null,
       "rate": 1.5,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "힐스테이트 지석(조합원취소분)",
@@ -1880,7 +2825,13 @@
       "ch": null,
       "rate": 1.5,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "영종국제도시 신일 비아프 크레스트(2단지)",
@@ -1890,7 +2841,13 @@
       "ch": null,
       "rate": 1.5,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "더 리치먼드 리버센트 소양",
@@ -1899,8 +2856,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.4,
-      "cutoff": null,
-      "special": []
+      "cutoff": 26,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "소제지구 A4BL 중흥S-클래스 우미린",
@@ -1910,7 +2873,13 @@
       "ch": null,
       "rate": 1.4,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "힐스테이트 물금센트럴",
@@ -1919,8 +2888,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.4,
-      "cutoff": null,
-      "special": []
+      "cutoff": 31,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "영종국제도시 신일 비아프 크레스트(1단지)",
@@ -1930,7 +2905,13 @@
       "ch": null,
       "rate": 1.4,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "힐스테이트 선암호수공원 2단지",
@@ -1939,8 +2920,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.4,
-      "cutoff": null,
-      "special": []
+      "cutoff": 27,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "인천영종국제도시 디에트르 라 메르Ⅰ(RC4-1,2BL)(본청약)",
@@ -1950,7 +2937,13 @@
       "ch": null,
       "rate": 1.4,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "중앙하이츠 원종역",
@@ -1960,7 +2953,13 @@
       "ch": null,
       "rate": 1.3,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "북전주 광신프로그레스",
@@ -1970,7 +2969,13 @@
       "ch": null,
       "rate": 1.2,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "대전 롯데캐슬 더퍼스트(조합원 취소분)",
@@ -1980,7 +2985,13 @@
       "ch": null,
       "rate": 1.2,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "강릉역 경남아너스빌 더 센트로(조합원 취소분)",
@@ -1989,7 +3000,7 @@
       "gj": null,
       "ch": null,
       "rate": 1.2,
-      "cutoff": null,
+      "cutoff": 24,
       "special": []
     },
     {
@@ -1999,8 +3010,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.2,
-      "cutoff": null,
-      "special": []
+      "cutoff": 32,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "효성해링턴 플레이스 양평",
@@ -2010,7 +3027,13 @@
       "ch": null,
       "rate": 1.2,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "힐스테이트 시흥더클래스",
@@ -2020,7 +3043,13 @@
       "ch": null,
       "rate": 1.1,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "의정부역 센트럴 아이파크",
@@ -2029,8 +3058,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.1,
-      "cutoff": null,
-      "special": []
+      "cutoff": 32,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "e편한세상 여수 글렌츠",
@@ -2039,8 +3074,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.1,
-      "cutoff": null,
-      "special": []
+      "cutoff": 27,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "e편한세상 센텀 하이베뉴",
@@ -2050,7 +3091,13 @@
       "ch": null,
       "rate": 1.1,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "힐스테이트 선암호수공원 1단지",
@@ -2060,7 +3107,13 @@
       "ch": null,
       "rate": 1.1,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "여월 중앙하이츠 아르비채",
@@ -2070,7 +3123,12 @@
       "ch": null,
       "rate": 1.1,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모"
+      ]
     },
     {
       "name": "더파크 비스타동원",
@@ -2079,8 +3137,14 @@
       "gj": null,
       "ch": null,
       "rate": 1.1,
-      "cutoff": null,
-      "special": []
+      "cutoff": 27,
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "힐스테이트 가야 2단지",
@@ -2090,7 +3154,13 @@
       "ch": null,
       "rate": 1.1,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "공주월송 진아레히",
@@ -2100,7 +3170,13 @@
       "ch": null,
       "rate": 1.0,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "울산신복역 비스타 메트로",
@@ -2110,7 +3186,13 @@
       "ch": null,
       "rate": 1.0,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "용인 푸르지오 클루센트",
@@ -2120,7 +3202,13 @@
       "ch": null,
       "rate": 1.0,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "김포북변 칸타빌 디 에디션",
@@ -2130,7 +3218,13 @@
       "ch": null,
       "rate": 1.0,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     },
     {
       "name": "천안 용곡 두산위브",
@@ -2140,7 +3234,13 @@
       "ch": null,
       "rate": 1.0,
       "cutoff": null,
-      "special": []
+      "special": [
+        "신혼부부",
+        "생애최초",
+        "다자녀",
+        "노부모",
+        "기관추천"
+      ]
     }
   ]
 }

@@ -34,11 +34,14 @@
 
 ## 수집 구조 (실제 API 확인 기준)
 
-[scripts/collector.py](scripts/collector.py) 가 세 API를 호출해 조립합니다.
+[scripts/collector.py](scripts/collector.py) 가 네 API를 모두 `HOUSE_MANAGE_NO`(주택관리번호)로 조인합니다.
 
-1. **분양정보**(`ApplyhomeInfoDetailSvc/getAPTLttotPblancDetail`) — 주택관리번호·단지명·지역
-2. **경쟁률**(`ApplyhomeInfoCmpetRtSvc/getAPTLttotPblancCmpet`) — 단지명/지역이 없어 주택관리번호로 1을 조인
-3. **가점 통계**(`ApplyhomeStatSvc/getAPTApsPrzwnerStat`) — 서울 당첨 가점 컷(지역 최신월 최저가점)
+1. **분양정보**(`ApplyhomeInfoDetailSvc/getAPTLttotPblancDetail`) — 단지명·지역
+2. **경쟁률**(`ApplyhomeInfoCmpetRtSvc/getAPTLttotPblancCmpet`) — 단지 평균 경쟁률(단지명/지역 없어 1과 조인)
+3. **당첨 가점**(`ApplyhomeInfoCmpetRtSvc/getAptLttotPblancScore`) — 단지별 당첨 최저가점(`cutoff`)
+4. **특별공급**(`ApplyhomeInfoCmpetRtSvc/getAPTSpsplyReqstStus`) — 특별공급 유형(`special`)
+
+가점·특공 API가 실패하면 그 항목만 비고 나머지는 정상 생성됩니다.
 
 ## 한계 (정직하게)
 
@@ -46,9 +49,8 @@
   기준을 정확히 보여줍니다.
 - 브라우저에 API 키를 둘 수 없는 구조라 **맞춤 안내문은 규칙 기반**으로 유지됩니다
   (Claude API 연결은 FastAPI 백엔드, 또는 키를 숨길 무료 서버리스 함수 추가 시에만).
-- **단지별 당첨 가점 컷**은 공공데이터에 없습니다(가점은 "지역 × 월" 통계로만 제공). 그래서 단지
-  카드의 `cutoff` 는 `null` 이고, 헤더의 **"서울 당첨 가점 컷"** 카드만 지역 통계로 채웁니다.
-- **가점제/추첨제 비율(gj/ch)** 도 공공데이터 미제공이라 `null` 입니다.
+- **가점제/추첨제 비율(gj/ch)** 만 공공데이터 미제공이라 `null` 입니다. (단지별 가점 컷·특별공급
+  유형은 실데이터로 채워집니다 — 추첨제 단지 등 가점이 없는 곳만 `cutoff`가 `null`.)
 
 ## 실데이터 출처
 
