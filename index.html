@@ -143,6 +143,27 @@ input[type=number]:focus,select:focus{border-color:var(--cold);outline:none;box-
 .seal::after{content:"";position:absolute;inset:5px;border:1px solid currentColor;border-radius:50%;opacity:.65}
 
 .mystats{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+
+/* 지역 비교 */
+.region-compass{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-top:14px}
+.rc-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.rc-head strong{font-size:15px}
+.rc-head select{font:inherit;font-size:14px;padding:7px 12px;border:1px solid var(--line2);border-radius:8px;background:var(--paper);color:var(--ink)}
+.rc-scale{position:relative;height:46px;margin:18px 2px 8px}
+.rc-band{position:absolute;top:16px;height:12px;border-radius:6px;background:var(--cold-soft);border:1px solid var(--cold)}
+.rc-band .lo,.rc-band .hi{position:absolute;top:14px;font-family:var(--mono);font-size:11px;color:var(--sub);white-space:nowrap}
+.rc-band .lo{left:0;transform:translateX(-50%)}
+.rc-band .hi{right:0;transform:translateX(50%)}
+.rc-avg{position:absolute;top:8px;width:2px;height:28px;background:var(--cold)}
+.rc-avg span{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:700;color:var(--cold);white-space:nowrap}
+.rc-me{position:absolute;top:2px;width:3px;height:40px;background:var(--hot);border-radius:2px}
+.rc-me span{position:absolute;top:-19px;left:50%;transform:translateX(-50%);font-size:11.5px;font-weight:800;color:var(--hot);white-space:nowrap}
+.rc-say{font-size:14.5px;line-height:1.6;color:var(--ink)}
+.rc-say b{font-weight:800}
+.rc-say .gap-up{color:var(--hot)}
+.rc-say .gap-dn{color:var(--ok)}
+.rc-foot{font-size:12px;color:var(--sub);margin-top:8px}
+.more{font-size:12.5px;color:var(--sub);padding:10px 2px 2px;text-align:center}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font-size:12.5px;color:var(--sub)}
 .stat b{display:block;font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 
@@ -343,6 +364,14 @@ footer .f-col b{color:var(--ink)}
         <div class="seal" id="seal"></div>
       </div>
 
+      <div class="region-compass" id="regionCompass" hidden>
+        <div class="rc-head">
+          <strong>지역을 바꿔 견줘보기</strong>
+          <select id="cmpRegion" aria-label="비교할 지역 선택"></select>
+        </div>
+        <div class="rc-body" id="cmpBody"></div>
+      </div>
+
       <div class="mystats" id="myStats"></div>
 
       <div class="strategies">
@@ -397,6 +426,15 @@ const SAMPLE = {
   asOf: "샘플 기준일: 2026-05 (가상)",
   metrics: { seoulAvg: 89.2, nationAvg: 7.4, shortfall: 14, seoulCut: 63 },
   refs: { lotteryCase: 42, seoulCut: 63, gangnamMin: 72 },
+  regionScores: {
+    "서울": { month: "2026.04", avg: 63.2, low: 34, top: 74 },
+    "경기": { month: "2026.04", avg: 48.5, low: 26, top: 69 },
+    "인천": { month: "2026.03", avg: 55.0, low: 40, top: 69 },
+    "부산": { month: "2026.03", avg: 44.0, low: 32, top: 58 },
+    "대전": { month: "2026.04", avg: 47.0, low: 30, top: 66 },
+    "대구": { month: "2026.03", avg: 52.0, low: 40, top: 64 },
+    "충북": { month: "2026.02", avg: 21.0, low: 12, top: 40 }
+  },
   regions: [
     { label: "서울", rate: 89.2 },
     { label: "경기", rate: 13.5 },
@@ -429,7 +467,8 @@ const SAMPLE = {
 };
 
 let DATA = SAMPLE;
-let LIVE = false;
+let LIVE = false;       /* 실데이터(실시간 또는 자동갱신) — 화면의 '샘플' 태그 숨김용 */
+let BACKEND = false;    /* FastAPI 백엔드 연결 여부 — /api/match · /api/explain 호출 가능 */
 
 const $ = (id) => document.getElementById(id);
 const TIER_COLOR = { cold: "#2563B0", calm: "#93A9C7", warm: "#D2762A", hot: "#D6532F", fire: "#C8372D" };
@@ -548,7 +587,7 @@ function classify(u) {
     if (c.rate !== null && c.rate < 1) {
       X.push(c);                                  /* 미달: 당첨은 쉬우나 수요 미검증 → 추천 제외 */
     } else {
-      if (c.gj > 0 && c.cutoff !== null) {
+      if (c.cutoff !== null) {                       /* 당첨 가점선이 있으면 가점제 물량 단지 */
         const d = u.score - c.cutoff;
         let st, note;
         if (d >= 5) { st = { t: "여유", k: "ok" }; note = `예상 컷 ${c.cutoff}점 · 내 가점 +${d}점`; }
@@ -557,10 +596,11 @@ function classify(u) {
         else { st = { t: "어려움", k: "hot" }; note = `예상 컷 ${c.cutoff}점 · ${Math.abs(d)}점 부족 — 가점으로는 어려움, 추첨 물량 확인`; }
         A.push({ c, stamp: st, note, d });
       }
-      if (c.ch >= 50 || (c.rate !== null && c.rate < 10)) {
+      if ((c.ch !== null && c.ch >= 50) || (c.rate !== null && c.rate < 10)) {
         const p = 100 / c.rate;
         const pTxt = p >= 1 ? Math.round(p) + "%" : "1% 미만";
-        B.push({ c, stamp: { t: "전략 구간", k: "cold" }, p, note: `추첨 ${c.ch}% · 최근 ${c.rate} : 1 → 신청 1건당 당첨 확률 약 ${pTxt} (단순 환산)` });
+        const chTxt = c.ch !== null ? `추첨 ${c.ch}% · ` : "";
+        B.push({ c, stamp: { t: "전략 구간", k: "cold" }, p, note: `${chTxt}최근 ${c.rate} : 1 → 신청 1건당 당첨 확률 약 ${pTxt} (단순 환산)` });
       }
     }
     const mine = c.special.filter(s => u.specials.includes(s));
@@ -573,12 +613,20 @@ function classify(u) {
 }
 
 function rowHTML(x) {
-  return `<div class="cx"><div class="cx-top"><div><div class="nm">${x.c.name}</div><div class="meta">${x.c.region} · ${x.c.area} · 가점 ${x.c.gj}% / 추첨 ${x.c.ch}%</div></div><span class="stamp k-${x.stamp.k}">${x.stamp.t}</span></div><div class="why">${x.note}</div></div>`;
+  const ratio = (x.c.gj != null && x.c.ch != null) ? ` · 가점 ${x.c.gj}% / 추첨 ${x.c.ch}%` : "";
+  const sp = (x.c.special && x.c.special.length) ? ` · 특공 ${x.c.special.join("·")}` : "";
+  return `<div class="cx"><div class="cx-top"><div><div class="nm">${x.c.name}</div><div class="meta">${x.c.region} · ${x.c.area}${ratio}${sp}</div></div><span class="stamp k-${x.stamp.k}">${x.stamp.t}</span></div><div class="why">${x.note}</div></div>`;
 }
 
-function renderList(elId, cntId, arr, emptyMsg) {
+function renderList(elId, cntId, arr, emptyMsg, limit) {
   $(cntId).textContent = arr.length;
-  $(elId).innerHTML = arr.length ? arr.map(rowHTML).join("") : `<div class="empty">${emptyMsg}</div>`;
+  if (!arr.length) { $(elId).innerHTML = `<div class="empty">${emptyMsg}</div>`; return; }
+  const show = limit ? arr.slice(0, limit) : arr;
+  let html = show.map(rowHTML).join("");
+  if (limit && arr.length > limit) {
+    html += `<div class="more">그 외 ${arr.length - limit}곳 — 위 ‘내 조건’에서 관심 지역을 좁히면 더 정밀해져요</div>`;
+  }
+  $(elId).innerHTML = html;
 }
 
 /* ---------- 03: 가점 자(ruler)와 판정 도장 ---------- */
@@ -605,6 +653,50 @@ function renderRuler(u) {
   const sealEl = $("seal");
   sealEl.className = "seal k-" + seal.k;
   sealEl.innerHTML = seal.t;
+}
+
+/* ---------- 03: 지역별 당첨 가점과 내 가점 견주기 ---------- */
+let CMP_SCORE = 0;
+function renderRegionCompass(u) {
+  const rs = DATA.regionScores || {};
+  const keys = Object.keys(rs);
+  const wrap = $("regionCompass");
+  if (!keys.length) { wrap.hidden = true; return; }
+  wrap.hidden = false;
+  CMP_SCORE = u.score;
+
+  const sel = $("cmpRegion");
+  if (sel.dataset.filled !== "1") {
+    const ordered = keys.slice().sort((a, b) => rs[b].avg - rs[a].avg);
+    sel.innerHTML = ordered.map(k => `<option value="${k}">${k}</option>`).join("");
+    sel.dataset.filled = "1";
+    sel.addEventListener("change", paintCompass);
+  }
+  const pref = { seoul: "서울", busan: "부산" }[u.region];   /* 관심 지역과 맞으면 기본 선택 */
+  if (pref && rs[pref]) sel.value = pref;
+  paintCompass();
+}
+
+function paintCompass() {
+  const rs = DATA.regionScores || {};
+  const s = rs[$("cmpRegion").value];
+  if (!s) return;
+  const score = CMP_SCORE;
+  const pct = (v) => (Math.max(0, Math.min(84, v)) / 84 * 100).toFixed(1) + "%";
+  const lo = s.low ?? s.avg, hi = s.top ?? s.avg;
+  const diff = +(score - s.avg).toFixed(1);
+  const gapTxt = diff < 0
+    ? `평균보다 <b class="gap-up">${Math.abs(diff)}점 아래</b>에 있어요`
+    : `평균을 <b class="gap-dn">${diff}점</b> 웃돌아요`;
+
+  $("cmpBody").innerHTML =
+    `<div class="rc-scale">
+       <div class="rc-band" style="left:${pct(lo)};width:calc(${pct(hi)} - ${pct(lo)})"><span class="lo">${lo}</span><span class="hi">${hi}</span></div>
+       <div class="rc-avg" style="left:${pct(s.avg)}"><span>당첨 평균 ${s.avg}</span></div>
+       <div class="rc-me" style="left:${pct(score)}"><span>내 ${score}점</span></div>
+     </div>
+     <p class="rc-say"><b>${$("cmpRegion").value}</b>의 최근 당첨 가점은 평균 <b>${s.avg}점</b>(대체로 ${lo}~${hi}점), 내 가점 <b>${score}점</b>은 ${gapTxt}.</p>
+     <p class="rc-foot">${s.month} 기준 · 해당지역 1순위 당첨 가점 통계 · 단지·주택형에 따라 달라집니다</p>`;
 }
 
 /* ---------- 03: 내 조건 기준 요약 지표 ---------- */
@@ -660,8 +752,8 @@ async function analyze() {
   const u = readUser();
   let buckets = null;
 
-  if (LIVE) {
-    /* 실시간 모드: FastAPI matching.py 결과 사용, 실패 시 로컬 폴백 */
+  if (BACKEND) {
+    /* FastAPI 백엔드: matching.py 결과 사용, 실패 시 로컬 폴백 */
     try {
       const r = await fetch("/api/match", {
         method: "POST",
@@ -675,9 +767,10 @@ async function analyze() {
 
   $("result").hidden = false;
   renderRuler(u);
+  renderRegionCompass(u);
   renderStats(buckets);
-  renderList("listA", "cntA", buckets.A, "이 지역에는 가점제 물량이 있는 단지가 없습니다 — 추첨제 카드를 확인해 보세요.");
-  renderList("listB", "cntB", buckets.B, "조건에 맞는 추첨제 단지가 없습니다. 지역 범위를 넓혀 보세요.");
+  renderList("listA", "cntA", buckets.A, "이 지역에는 가점제 물량이 있는 단지가 없습니다 — 추첨제 카드를 확인해 보세요.", 6);
+  renderList("listB", "cntB", buckets.B, "조건에 맞는 추첨제 단지가 없습니다. 지역 범위를 넓혀 보세요.", 6);
   if (buckets.X && buckets.X.length) {
     $("listB").insertAdjacentHTML("beforeend",
       `<div class="empty">미달 제외: ${buckets.X.map(c => c.name).join(" · ")} — 당첨은 쉽지만 수요가 검증되지 않아 추천하지 않습니다</div>`);
@@ -685,9 +778,9 @@ async function analyze() {
   const cEmpty = u.noHouse
     ? "특별공급 요건을 체크하면 검토 후보 단지가 여기에 표시됩니다."
     : "특별공급은 무주택 세대구성원 요건이 우선입니다 — 현재 유주택으로 입력되어 검토 목록을 표시하지 않습니다.";
-  renderList("listC", "cntC", buckets.C, cEmpty);
+  renderList("listC", "cntC", buckets.C, cEmpty, 6);
   let guideHTML = null;
-  if (LIVE) {
+  if (BACKEND) {
     try {
       const g = await fetch("/api/explain", {
         method: "POST",
@@ -716,6 +809,7 @@ function fmtTs(iso) {
 function applyData(d, mode) {
   if (!(d && d.metrics && d.complexes)) return false;
   DATA = d;
+  BACKEND = (mode === "api" || mode === "backend-sample");   /* FastAPI일 때만 /api/* 호출 */
   const note = document.querySelector(".hero .note");
   const b = $("badge");
   if (mode === "api") {

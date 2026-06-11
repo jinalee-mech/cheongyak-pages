@@ -38,6 +38,8 @@ DETAIL_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotP
 RATE_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoCmpetRtSvc/v1/getAPTLttotPblancCmpet"
 SCORE_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoCmpetRtSvc/v1/getAptLttotPblancScore"
 SPSPLY_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoCmpetRtSvc/v1/getAPTSpsplyReqstStus"
+# 지역 × 월 당첨 가점 통계(지역별 평균/최저/최고) — 지역 비교용
+REGION_STAT_BASE = "https://api.odcloud.kr/api/ApplyhomeStatSvc/v1/getAPTApsPrzwnerStat"
 
 # 특별공급 유형 매핑(세대수 필드 → 표시명). 한국부동산원 표준 약어 기준.
 SPECIAL_MAP = [
@@ -153,6 +155,36 @@ def fetch_specials() -> dict:
     return {k: [l for l in SPECIAL_ORDER if l in v] for k, v in sp.items()}
 
 
+def fetch_region_scores() -> dict:
+    """지역명 → {month, avg, low, top} 최신월 '해당지역' 당첨 가점 통계. 실패 시 {}."""
+    try:
+        rows = fetch_pages(REGION_STAT_BASE, 1, 1000)   # 약 900여 건, 한 페이지로 충분
+    except Exception as e:  # noqa: BLE001
+        log(f"지역 가점 통계 실패: {e} — regionScores 비움.")
+        return {}
+    best = {}   # region -> (month, avg, low, top)
+    for r in rows:
+        if str(r.get("RESIDE_SECD", "")) != "01":
+            continue
+        region = (r.get("SUBSCRPT_AREA_CODE_NM") or "").strip()
+        de = str(r.get("STAT_DE", ""))
+        avg = to_float(r.get("AVRG_SCORE"))
+        if not region or avg is None or avg <= 0:
+            continue
+        if region not in best or de > best[region][0]:
+            best[region] = (de, avg, to_float(r.get("LWET_SCORE")), to_float(r.get("TOP_SCORE")))
+    out = {}
+    for k, (de, avg, low, top) in best.items():
+        out[k] = {
+            "month": f"{de[:4]}.{de[4:6]}" if len(de) >= 6 else de,
+            "avg": round(avg, 1),
+            "low": round(low) if low else None,
+            "top": round(top) if top else None,
+        }
+    log(f"지역 가점 통계 {len(out)}개 지역")
+    return out
+
+
 def collect() -> list:
     # 1) 분양정보 → 공고 메타
     details = fetch_pages(DETAIL_BASE, DETAIL_PAGES, DETAIL_PER)
@@ -212,9 +244,10 @@ def collect() -> list:
     return complexes
 
 
-def build_payload(complexes: list) -> dict:
+def build_payload(complexes: list, region_scores: dict) -> dict:
     if not complexes:
         return {}
+    region_scores = region_scores or {}
 
     by_region = defaultdict(list)
     for c in complexes:
@@ -255,8 +288,10 @@ def build_payload(complexes: list) -> dict:
         "collectedAt": datetime.now(KST).isoformat(timespec="seconds"),
         "asOf": "",
         "metrics": metrics,
-        "refs": {"lotteryCase": shortfall, "seoulCut": seoul_cut, "gangnamMin": None},
+        # ruler 눈금: 실데이터에선 서울 가점 컷만 의미가 있어 나머지는 비움(데모 SAMPLE만 사용)
+        "refs": {"lotteryCase": None, "seoulCut": seoul_cut, "gangnamMin": None},
         "regions": regions,
+        "regionScores": region_scores,
         "dist": dist,
         "complexes": complexes,
     }
@@ -268,10 +303,11 @@ def main() -> int:
         return 0
     try:
         complexes = collect()
+        region_scores = fetch_region_scores()   # 실패해도 {} → 지역 비교만 비고 나머지 정상
     except Exception as e:  # noqa: BLE001
         log(f"수집 실패: {e} — data.json 유지하고 종료.")
         return 0
-    payload = build_payload(complexes)
+    payload = build_payload(complexes, region_scores)
     if not payload:
         log("가공 결과가 비어 있음 — data.json 유지하고 종료.")
         return 0
