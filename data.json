@@ -1,0 +1,2146 @@
+{
+  "source": "github-actions",
+  "live": true,
+  "collectedAt": "2026-06-11T14:09:03+09:00",
+  "asOf": "",
+  "metrics": {
+    "seoulAvg": 163.1,
+    "nationAvg": 33.5,
+    "shortfall": 0,
+    "seoulCut": 32
+  },
+  "refs": {
+    "lotteryCase": 0,
+    "seoulCut": 32,
+    "gangnamMin": null
+  },
+  "regions": [
+    {
+      "label": "서울",
+      "rate": 163.1
+    },
+    {
+      "label": "대전",
+      "rate": 144.6
+    },
+    {
+      "label": "대구",
+      "rate": 78.2
+    },
+    {
+      "label": "경남",
+      "rate": 73.8
+    },
+    {
+      "label": "인천",
+      "rate": 22.9
+    },
+    {
+      "label": "울산",
+      "rate": 17.6
+    },
+    {
+      "label": "세종",
+      "rate": 13.8
+    },
+    {
+      "label": "전북",
+      "rate": 13.4
+    },
+    {
+      "label": "충남",
+      "rate": 10.4
+    },
+    {
+      "label": "부산",
+      "rate": 7.5
+    },
+    {
+      "label": "경기",
+      "rate": 7.0
+    },
+    {
+      "label": "경북",
+      "rate": 7.0
+    },
+    {
+      "label": "충북",
+      "rate": 5.1
+    },
+    {
+      "label": "전남",
+      "rate": 3.0
+    },
+    {
+      "label": "강원",
+      "rate": 2.6
+    },
+    {
+      "label": "광주",
+      "rate": 2.2
+    },
+    {
+      "label": "제주",
+      "rate": 2.2
+    }
+  ],
+  "dist": [
+    {
+      "label": "미달",
+      "tier": "cold",
+      "n": 0
+    },
+    {
+      "label": "1~10 : 1",
+      "tier": "calm",
+      "n": 140
+    },
+    {
+      "label": "10~50 : 1",
+      "tier": "warm",
+      "n": 43
+    },
+    {
+      "label": "50~100 : 1",
+      "tier": "hot",
+      "n": 7
+    },
+    {
+      "label": "100 : 1 이상",
+      "tier": "fire",
+      "n": 13
+    }
+  ],
+  "complexes": [
+    {
+      "name": "아크로 드 서초",
+      "region": "서울",
+      "area": "전용 59㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 951.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "둔산 자이 아이파크",
+      "region": "대전",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 940.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "창원 센트럴 아이파크",
+      "region": "경남",
+      "area": "전용 59㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 643.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "역삼센트럴자이",
+      "region": "서울",
+      "area": "전용 59~122㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 446.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "오티에르 반포",
+      "region": "서울",
+      "area": "전용 44~115㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 441.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "힐스테이트 이수역센트럴",
+      "region": "서울",
+      "area": "전용 44~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 317.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "반포 래미안 트리니원",
+      "region": "서울",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 305.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 프리엘라",
+      "region": "서울",
+      "area": "전용 44~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 184.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "둔산 자이 아이파크(보류지)",
+      "region": "대전",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 178.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "범어역 파크드림 디아르",
+      "region": "대구",
+      "area": "전용 73~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 153.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 시에르네(조합원 취소분)",
+      "region": "울산",
+      "area": "전용 74~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 147.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 송도그란테르 G5-6블록",
+      "region": "인천",
+      "area": "전용 84~198㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 123.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "이촌 르엘",
+      "region": "서울",
+      "area": "전용 100~122㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 118.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "공덕역자이르네",
+      "region": "서울",
+      "area": "전용 48~59㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 81.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 송도그란테르 G5-11블록",
+      "region": "인천",
+      "area": "전용 84~198㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 71.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "인천 검단신도시 AB13블록 호반써밋Ⅲ(본청약)",
+      "region": "인천",
+      "area": "전용 84~97㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 71.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "베뉴브 해운대",
+      "region": "부산",
+      "area": "전용 59~99㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 57.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "래미안 엘라비네",
+      "region": "서울",
+      "area": "전용 44~115㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 53.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 송도그란테르 G5-1블록",
+      "region": "인천",
+      "area": "전용 84~198㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 52.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "검단호수공원역 파라곤(AA36BL)",
+      "region": "인천",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 50.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 분당티에르원",
+      "region": "경기",
+      "area": "전용 66~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 45.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "써밋 더힐",
+      "region": "서울",
+      "area": "전용 39~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 39.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 송도그란테르 G5-5블록",
+      "region": "인천",
+      "area": "전용 84~198㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 39.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 송도그란테르 G5-3블록",
+      "region": "인천",
+      "area": "전용 84~198㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 33.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "힐스테이트 평거 센트럴",
+      "region": "경남",
+      "area": "전용 84~105㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 33.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "성남복정1지구 B1블록 복정역 에피트",
+      "region": "경기",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 31.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 분당센트로",
+      "region": "경기",
+      "area": "전용 60~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 31.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "엘리프 성성호수공원 1BL",
+      "region": "충남",
+      "area": "전용 84~111㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 31.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 신길센트럴시티",
+      "region": "서울",
+      "area": "전용 51~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 30.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "골드클래스 시그니처",
+      "region": "전북",
+      "area": "전용 39~121㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 30.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "드파인 연희",
+      "region": "서울",
+      "area": "전용 59~115㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 29.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "아산탕정 동일하이빌 파크레인",
+      "region": "충남",
+      "area": "전용 84~152㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 29.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "아크로 리버스카이",
+      "region": "서울",
+      "area": "전용 36~140㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 27.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "라클라체자이드파인",
+      "region": "서울",
+      "area": "전용 59~106㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 25.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "안양역 센트럴 아이파크 수자인",
+      "region": "경기",
+      "area": "전용 39~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 25.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "고덕신도시 아테라 A-63블록 공공분양주택",
+      "region": "경기",
+      "area": "전용 74~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 23.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "엘리프 창원",
+      "region": "경남",
+      "area": "전용 76~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 23.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "남양주 별내리슈빌아파트 분양전환 후 잔여세대",
+      "region": "경기",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 22.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "안양 에버포레 자연앤 e편한세상(A2BL)",
+      "region": "경기",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 21.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "두산위브더제니스 구미(조합원취소분)",
+      "region": "경북",
+      "area": "전용 74~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 19.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "두산위브 더센트럴 수원",
+      "region": "경기",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 19.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "힐스테이트 사직 아시아드",
+      "region": "부산",
+      "area": "전용 50~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 19.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "메트로시티 자산 데시앙",
+      "region": "경남",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 19.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "한화포레나 부산대연",
+      "region": "부산",
+      "area": "전용 59㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 18.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "문수데시앙2단지 공가세대 일반공급",
+      "region": "울산",
+      "area": "전용 59~74㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 18.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "전주·완주 혁신도시 에코르 2단지 공가세대 일반공급",
+      "region": "전북",
+      "area": "전용 50~59㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 16.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "홍대입구역 센트럴 아르떼 해모로",
+      "region": "서울",
+      "area": "전용 32~52㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 15.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "도룡자이 라피크",
+      "region": "대전",
+      "area": "전용 84~175㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 15.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "송천 아르티엠 더 숲",
+      "region": "전북",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 14.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "울산 호수공원 에일린의 뜰 2단지",
+      "region": "울산",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 14.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "천안 아이파크 시티 5단지",
+      "region": "충남",
+      "area": "전용 84~197㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 14.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "전주·완주 혁신도시 에코르 2단지 공가세대 일반공급",
+      "region": "전북",
+      "area": "전용 50~59㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 14.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "엘리프 세종 스마트시티",
+      "region": "세종",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 13.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "아산탕정자이 메트로시티(A3BL)",
+      "region": "충남",
+      "area": "전용 59~125㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 13.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "망포역 푸르지오 르마크",
+      "region": "경기",
+      "area": "전용 62~100㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 13.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "송도 한내들 센트럴리버",
+      "region": "인천",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 12.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "e편한세상 내포 에듀플라츠(민영주택)",
+      "region": "충남",
+      "area": "전용 119㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 12.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 송도그란테르 G5-4블록",
+      "region": "인천",
+      "area": "전용 84~198㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 11.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "철산역자이",
+      "region": "경기",
+      "area": "전용 39~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 11.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "수지자이 에디시온",
+      "region": "경기",
+      "area": "전용 84~155㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 11.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "힐스테이트 광명 11",
+      "region": "경기",
+      "area": "전용 39~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 10.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "동탄 그웬 160 (동탄2 B11BL)",
+      "region": "경기",
+      "area": "전용 102~118㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 10.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "풍무역 푸르지오 더 마크",
+      "region": "경기",
+      "area": "전용 74~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 10.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "한화포레나 울산무거",
+      "region": "울산",
+      "area": "전용 84~166㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 9.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "도안자이 센텀리체 2단지",
+      "region": "대전",
+      "area": "전용 84~134㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 9.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "상봉 센트럴 아이파크",
+      "region": "서울",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 9.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "안양 에버포레 자연앤 e편한세상(A1BL)",
+      "region": "경기",
+      "area": "전용 95㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 9.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "두산위브더제니스 구미",
+      "region": "경북",
+      "area": "전용 59~152㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 9.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "e편한세상 부천 어반스퀘어",
+      "region": "경기",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 8.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "울산 호수공원 에일린의 뜰 1단지",
+      "region": "울산",
+      "area": "전용 84~102㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 8.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "천안 아이파크 시티 6단지",
+      "region": "충남",
+      "area": "전용 84~197㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 8.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "만안역 중앙하이츠 포레",
+      "region": "경기",
+      "area": "전용 59~75㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 8.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "힐스테이트 오산 더퍼스트(조합원 자격상실 및 제명세대)(2회차)",
+      "region": "경기",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 8.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더 리치먼드 미아",
+      "region": "서울",
+      "area": "전용 49~59㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 7.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "대방역 여의도 더로드캐슬",
+      "region": "서울",
+      "area": "전용 24~27㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 7.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "부천역 에피트 어바닉",
+      "region": "경기",
+      "area": "전용 52~67㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 7.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 관저아르테",
+      "region": "대전",
+      "area": "전용 59~119㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 7.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 안동더퍼스트",
+      "region": "경북",
+      "area": "전용 70~141㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 7.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "의왕시청역 SK VIEW IPARK",
+      "region": "경기",
+      "area": "전용 46~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 6.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "업성 푸르지오 레이크시티",
+      "region": "충남",
+      "area": "전용 72~95㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 6.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "청주 롯데캐슬 시그니처",
+      "region": "충북",
+      "area": "전용 67~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 6.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "오룡2지구 지엔하임 37블록",
+      "region": "전남",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 6.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "힐스테이트 안양펠루스",
+      "region": "경기",
+      "area": "전용 40~68㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 6.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "아산모종 서한이다음 노블리스(A1BL)",
+      "region": "충남",
+      "area": "전용 84~154㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 6.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "힐스테이트 오산 더퍼스트(조합원 자격상실 및 제명세대)",
+      "region": "경기",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 6.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "해운대 마티안 디 에디션",
+      "region": "부산",
+      "area": "전용 76~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 6.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "식사 푸르지오 파크센트",
+      "region": "경기",
+      "area": "전용 74~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 5.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "중흥S-클래스 힐더포레",
+      "region": "경기",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 5.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더샵 신문그리니티 2차",
+      "region": "경남",
+      "area": "전용 84~93㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 5.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "시흥거모 엘가 로제비앙",
+      "region": "경기",
+      "area": "전용 61~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 5.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "해링턴플레이스 노원 센트럴",
+      "region": "서울",
+      "area": "전용 59㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 5.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "서면 어반센트 데시앙",
+      "region": "부산",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 5.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "오남역 서희스타힐스 여의재 3단지",
+      "region": "경기",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 5.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "청주 푸르지오 씨엘리체",
+      "region": "충북",
+      "area": "전용 84~114㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 5.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "쌍용 더 플래티넘 온수역",
+      "region": "경기",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 5.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "회천중앙역 파라곤",
+      "region": "경기",
+      "area": "전용 72~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 4.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "김포 풍무역세권 B5블록 호반써밋",
+      "region": "경기",
+      "area": "전용 84~186㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 4.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "창원자이 더 스카이",
+      "region": "경남",
+      "area": "전용 84~106㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 4.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "풍무역세권 수자인 그라센트 1차",
+      "region": "경기",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 4.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "트리븐 서산",
+      "region": "충남",
+      "area": "전용 84~128㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 4.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "두산위브 더센트럴 부평(조합원 취소분)",
+      "region": "인천",
+      "area": "전용 52~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 4.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "중앙하이츠 갈산역 센트럴",
+      "region": "인천",
+      "area": "전용 59㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 4.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "두산위브앤수자인 부평 더퍼스트",
+      "region": "인천",
+      "area": "전용 46~74㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 4.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "용인 플랫폼시티 라온프라이빗 아르디에",
+      "region": "경기",
+      "area": "전용 84~119㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 4.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "강릉 우미 린 더 프리미어",
+      "region": "강원",
+      "area": "전용 84~125㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 4.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "호반써밋 풍무Ⅱ",
+      "region": "경기",
+      "area": "전용 59~182㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 4.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "엘리프 성성호수공원 2BL",
+      "region": "충남",
+      "area": "전용 84~111㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 4.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "효성해링턴 플레이스 영주 더리버",
+      "region": "경북",
+      "area": "전용 84~99㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 4.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "검암역자이르네",
+      "region": "인천",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "엘리프 역곡",
+      "region": "경기",
+      "area": "전용 46~74㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "르네오션 고성 퍼스트뷰",
+      "region": "강원",
+      "area": "전용 74~183㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "시티오씨엘 8단지",
+      "region": "인천",
+      "area": "전용 59~136㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "시흥거모지구 대방 엘리움 더 루체Ⅰ(S-2BL)",
+      "region": "경기",
+      "area": "전용 84~122㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "한화포레나 부산당리",
+      "region": "부산",
+      "area": "전용 59~115㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "두산위브더제니스 청주 센트럴파크",
+      "region": "충북",
+      "area": "전용 59~114㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "경기광주역 롯데캐슬 시그니처 1단지",
+      "region": "경기",
+      "area": "전용 59~260㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "경성대부경대역 비스타동원 더 프리미엄",
+      "region": "부산",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "금정산 하늘채 루미엘",
+      "region": "부산",
+      "area": "전용 59~128㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "효성해링턴 플레이스 여수",
+      "region": "전남",
+      "area": "전용 84~114㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "전주 에코시티 더 클래스",
+      "region": "전북",
+      "area": "전용 127~158㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "탑석 푸르지오 파크7",
+      "region": "경기",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "상주자이르네",
+      "region": "경북",
+      "area": "전용 84~135㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "엘리프 원종",
+      "region": "경기",
+      "area": "전용 59~74㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "오룡2지구 지엔하임 38블록",
+      "region": "전남",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "상주북천 하늘채 파크원",
+      "region": "경북",
+      "area": "전용 66~117㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "태화강 센트럴 아이파크",
+      "region": "울산",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "안양자이 헤리티온",
+      "region": "경기",
+      "area": "전용 49~101㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "두류센트레빌 더 파크(조합원 취소분)(2회차)",
+      "region": "대구",
+      "area": "전용 78㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "송정공원역 대라수 우선 분양전환 후 잔여세대",
+      "region": "광주",
+      "area": "전용 59㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "천안 아이파크 시티 2단지",
+      "region": "충남",
+      "area": "전용 84~118㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 3.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "서수원 에피트 센트럴마크(M1BL)",
+      "region": "경기",
+      "area": "전용 74~103㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "북오산자이 리버블시티",
+      "region": "경기",
+      "area": "전용 59~127㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "옥정중앙역 대방 디에트르(중상1, 복합1BL)",
+      "region": "경기",
+      "area": "전용 84~128㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "평택화양 서희스타힐스 센트럴파크(조합원 취소분)",
+      "region": "경기",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "에코델타시티 푸르지오 트레파크(11BL)",
+      "region": "부산",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "용인 고림 동문 디 이스트",
+      "region": "경기",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "김해율하 더스카이시티 제니스앤프라우(조합원취소분)",
+      "region": "경남",
+      "area": "전용 64~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "엄궁역 트라비스 하늘채",
+      "region": "부산",
+      "area": "전용 59~155㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "포레나더샵 인천시청역",
+      "region": "인천",
+      "area": "전용 49~59㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "검단 센트레빌 에듀시티(AB8BL)",
+      "region": "인천",
+      "area": "전용 74~120㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "고덕국제신도시 수자인풍경채 1단지",
+      "region": "경기",
+      "area": "전용 84~101㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "풍무역세권 수자인 그라센트 2차",
+      "region": "경기",
+      "area": "전용 84~105㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "서수원 에피트 센트럴마크(M2BL)",
+      "region": "경기",
+      "area": "전용 74~117㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "인천 힐스테이트 숭의역",
+      "region": "인천",
+      "area": "전용 59~74㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "식사 푸르지오 파크센트(조합원 취소분)",
+      "region": "경기",
+      "area": "전용 74~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "울산 우정혁신도시 B1블록(골드클래스) 분양전환 후 잔여세대",
+      "region": "울산",
+      "area": "전용 76~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "안동리첼스카이파크",
+      "region": "경북",
+      "area": "전용 74~158㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "선운지구다사로움 공가세대 일반공급",
+      "region": "광주",
+      "area": "전용 49~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "오션포레베네스트하우스(미단시티 공동8BL)",
+      "region": "인천",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "서귀포시 서홍동 형남아파트6차",
+      "region": "제주",
+      "area": "전용 84~133㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "소제지구 A3BL 중흥S-클래스 우미린",
+      "region": "전남",
+      "area": "전용 84~135㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "야목역 서희스타힐스 그랜드힐",
+      "region": "경기",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "온천장 하늘채 엘리시움",
+      "region": "부산",
+      "area": "전용 73~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "대전 하늘채 루시에르(2회차)",
+      "region": "대전",
+      "area": "전용 105~119㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "남울산 노르웨이숲(조합원 취소분)",
+      "region": "울산",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "성산 더리브 포레스트",
+      "region": "경남",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "해링턴플레이스 명륜역",
+      "region": "부산",
+      "area": "전용 74~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "엠타워 디루체",
+      "region": "경기",
+      "area": "전용 46~69㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 2.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "오정 해모로 스마트시티(조합원 취소분)",
+      "region": "경기",
+      "area": "전용 42~71㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "도안자이 센텀리체 1단지",
+      "region": "대전",
+      "area": "전용 84~99㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "용인 푸르지오 원클러스터파크",
+      "region": "경기",
+      "area": "전용 80~134㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "인하대역 수자인 로이센트",
+      "region": "인천",
+      "area": "전용 84~101㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.9,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "파주금촌 금호어울림(조합원 취소분)",
+      "region": "경기",
+      "area": "전용 26~74㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "구리역 하이니티 리버파크",
+      "region": "경기",
+      "area": "전용 29~110㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "동래 푸르지오 에듀포레",
+      "region": "부산",
+      "area": "전용 74~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "김해 안동 에피트",
+      "region": "경남",
+      "area": "전용 59~135㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "운정 아이파크 시티",
+      "region": "경기",
+      "area": "전용 63~197㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.8,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "수원역 아너스빌 타임원",
+      "region": "경기",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "오산 세교 우미 린 레이크시티",
+      "region": "경기",
+      "area": "전용 84~101㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.7,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "두산위브 트리니뷰 구명역",
+      "region": "부산",
+      "area": "전용 74~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "고덕국제신도시 수자인풍경채 2단지",
+      "region": "경기",
+      "area": "전용 84~101㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "화성 남양뉴타운 우미 린 에듀하이",
+      "region": "경기",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "시흥거모지구 대방 엘리움 더 루체Ⅱ(B-2BL)",
+      "region": "경기",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.6,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "동래사적공원 오네뜨",
+      "region": "부산",
+      "area": "전용 72~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "문수로 라티에르 673",
+      "region": "울산",
+      "area": "전용 84~104㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "힐스테이트 지석(조합원취소분)",
+      "region": "광주",
+      "area": "전용 84~115㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "사우역 지엔하임",
+      "region": "경기",
+      "area": "전용 84~151㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "영종국제도시 신일 비아프 크레스트(2단지)",
+      "region": "인천",
+      "area": "전용 84~114㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.5,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더 리치먼드 리버센트 소양",
+      "region": "강원",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "소제지구 A4BL 중흥S-클래스 우미린",
+      "region": "전남",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "힐스테이트 물금센트럴",
+      "region": "경남",
+      "area": "전용 76~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "영종국제도시 신일 비아프 크레스트(1단지)",
+      "region": "인천",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "힐스테이트 선암호수공원 2단지",
+      "region": "울산",
+      "area": "전용 84~168㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "인천영종국제도시 디에트르 라 메르Ⅰ(RC4-1,2BL)(본청약)",
+      "region": "인천",
+      "area": "전용 84~112㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.4,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "중앙하이츠 원종역",
+      "region": "경기",
+      "area": "전용 59~69㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.3,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "북전주 광신프로그레스",
+      "region": "전북",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "대전 롯데캐슬 더퍼스트(조합원 취소분)",
+      "region": "대전",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "강릉역 경남아너스빌 더 센트로(조합원 취소분)",
+      "region": "강원",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "이천 중리지구 B3블록 금성백조 예미지",
+      "region": "경기",
+      "area": "전용 59~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "효성해링턴 플레이스 양평",
+      "region": "경기",
+      "area": "전용 72~117㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.2,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "힐스테이트 시흥더클래스",
+      "region": "경기",
+      "area": "전용 74~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "의정부역 센트럴 아이파크",
+      "region": "경기",
+      "area": "전용 74~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "e편한세상 여수 글렌츠",
+      "region": "전남",
+      "area": "전용 59~129㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "e편한세상 센텀 하이베뉴",
+      "region": "부산",
+      "area": "전용 59㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "힐스테이트 선암호수공원 1단지",
+      "region": "울산",
+      "area": "전용 84~176㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "여월 중앙하이츠 아르비채",
+      "region": "경기",
+      "area": "전용 59~108㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "더파크 비스타동원",
+      "region": "부산",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "힐스테이트 가야 2단지",
+      "region": "부산",
+      "area": "전용 76~84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.1,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "공주월송 진아레히",
+      "region": "충남",
+      "area": "전용 84~132㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "울산신복역 비스타 메트로",
+      "region": "울산",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "용인 푸르지오 클루센트",
+      "region": "경기",
+      "area": "전용 84㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "김포북변 칸타빌 디 에디션",
+      "region": "경기",
+      "area": "전용 66~127㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.0,
+      "cutoff": null,
+      "special": []
+    },
+    {
+      "name": "천안 용곡 두산위브",
+      "region": "충남",
+      "area": "전용 84~114㎡",
+      "gj": null,
+      "ch": null,
+      "rate": 1.0,
+      "cutoff": null,
+      "special": []
+    }
+  ]
+}

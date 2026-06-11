@@ -32,17 +32,23 @@
 주기를 바꾸려면 [.github/workflows/update-data.yml](.github/workflows/update-data.yml) 의 `cron` 한 줄만
 수정하세요. (6시간: `"0 */6 * * *"` · 하루 1회 06:00 KST: `"0 21 * * *"`)
 
+## 수집 구조 (실제 API 확인 기준)
+
+[scripts/collector.py](scripts/collector.py) 가 세 API를 호출해 조립합니다.
+
+1. **분양정보**(`ApplyhomeInfoDetailSvc/getAPTLttotPblancDetail`) — 주택관리번호·단지명·지역
+2. **경쟁률**(`ApplyhomeInfoCmpetRtSvc/getAPTLttotPblancCmpet`) — 단지명/지역이 없어 주택관리번호로 1을 조인
+3. **가점 통계**(`ApplyhomeStatSvc/getAPTApsPrzwnerStat`) — 서울 당첨 가점 컷(지역 최신월 최저가점)
+
 ## 한계 (정직하게)
 
 - "실시간"이 아니라 **주기 갱신**이지만, 매시 갱신이라 실질 차이는 거의 없고 헤더의 **수집 시각**이
   기준을 정확히 보여줍니다.
 - 브라우저에 API 키를 둘 수 없는 구조라 **맞춤 안내문은 규칙 기반**으로 유지됩니다
   (Claude API 연결은 FastAPI 백엔드, 또는 키를 숨길 무료 서버리스 함수 추가 시에만).
-- **당첨 가점 컷**은 가점 API(15110812)를 연동해 채웁니다 — 단, 오퍼레이션/필드명이 추정값이라
-  Swagger 확인 후 [scripts/collector.py](scripts/collector.py) 의 `CUTOFF_BASE`·`FC_*` 상수를 맞춰야
-  실제 값이 들어옵니다. 맞기 전까지는 자동으로 `null`(나머지 데이터는 정상).
-- 키 등록 전 **Swagger로 오퍼레이션·필드명을 확인**하고, 다르면
-  [scripts/collector.py](scripts/collector.py) 상단 `===== 설정 =====` 상수만 고치면 됩니다.
+- **단지별 당첨 가점 컷**은 공공데이터에 없습니다(가점은 "지역 × 월" 통계로만 제공). 그래서 단지
+  카드의 `cutoff` 는 `null` 이고, 헤더의 **"서울 당첨 가점 컷"** 카드만 지역 통계로 채웁니다.
+- **가점제/추첨제 비율(gj/ch)** 도 공공데이터 미제공이라 `null` 입니다.
 
 ## 실데이터 출처
 
