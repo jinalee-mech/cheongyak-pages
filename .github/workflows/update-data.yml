@@ -1,0 +1,48 @@
+name: update-data
+
+# 청약홈 Open API를 주기적으로 호출해 data.json을 자동 갱신합니다.
+# 서버가 필요 없으며, 갱신된 data.json은 GitHub Pages가 그대로 서빙합니다.
+
+on:
+  schedule:
+    # 매시 정각마다 갱신(준실시간). 변경이 있을 때만 커밋하므로 부담 없음.
+    # 더 느슨하게: "0 */6 * * *"(6시간) / 하루 1회: "0 21 * * *"(=KST 06:00)
+    - cron: "0 * * * *"
+  workflow_dispatch: {}   # Actions 탭에서 'Run workflow'로 수동 실행
+
+permissions:
+  contents: write          # data.json 커밋·푸시 권한
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+
+      - name: 파이썬 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 데이터 수집 (collector.py)
+        env:
+          SERVICE_KEY: ${{ secrets.SERVICE_KEY }}
+        run: python scripts/collector.py
+
+      - name: 변경 시에만 data.json 커밋
+        run: |
+          if [ -n "$(git status --porcelain data.json)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add data.json
+            git commit -m "chore: update data.json [skip ci]"
+            git push
+            echo "data.json 갱신 커밋 완료"
+          else
+            echo "변경 없음 — 커밋 건너뜀(서비스키 미설정이거나 데이터 동일)"
+          fi

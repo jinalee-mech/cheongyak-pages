@@ -713,29 +713,54 @@ function fmtTs(iso) {
   if (isNaN(d)) return "수집 시각 확인 불가";
   return d.getFullYear() + "년 " + (d.getMonth() + 1) + "월 " + d.getDate() + "일 " + d.getHours() + "시 기준";
 }
+function applyData(d, mode) {
+  if (!(d && d.metrics && d.complexes)) return false;
+  DATA = d;
+  const note = document.querySelector(".hero .note");
+  const b = $("badge");
+  if (mode === "api") {
+    /* FastAPI 백엔드 + 서비스키 → 실시간 */
+    LIVE = true;
+    DATA.asOf = fmtTs(d.fetchedAt) + " · 청약홈 Open API 수집";
+    b.classList.remove("demo"); b.classList.add("live");
+    $("badgeText").textContent = "실시간 · 청약홈 Open API";
+    if (note) note.textContent = "청약홈 Open API 실데이터 — 헤더의 수집 시각 기준, FastAPI 백엔드 캐시 주기로 갱신";
+  } else if (mode === "backend-sample") {
+    /* FastAPI 백엔드는 떠 있으나 서비스키 미설정 */
+    $("badgeText").textContent = "백엔드 연결됨 · 샘플 데이터 (서비스키 대기)";
+    if (note) note.textContent = "백엔드는 동작 중 — 공공데이터포털 서비스키를 .env에 넣으면 실데이터로 전환됩니다";
+  } else if (mode === "file") {
+    /* 서버 없이 저장소 data.json (GitHub Actions 자동 갱신) → 실데이터 */
+    LIVE = true;
+    DATA.asOf = fmtTs(d.collectedAt || d.fetchedAt) + " · 청약홈 Open API 수집";
+    b.classList.remove("demo"); b.classList.add("live");
+    $("badgeText").textContent = "실데이터 · 자동 갱신";
+    if (note) note.textContent = "청약홈 Open API 실데이터 — GitHub Actions가 주기적으로 수집해 data.json을 갱신합니다. 헤더의 수집 시각이 기준입니다.";
+  }
+  renderMarket();
+  return true;
+}
+
 async function tryLive() {
+  /* 1순위: FastAPI 백엔드(실시간) */
   try {
     const r = await fetch("/api/market", { cache: "no-store" });
     if (r.ok) {
       const d = await r.json();
-      if (d && d.metrics && d.complexes) {
-        DATA = d;
-        const note = document.querySelector(".hero .note");
-        if (d.source === "api") {
-          LIVE = true;
-          DATA.asOf = fmtTs(d.fetchedAt) + " · 청약홈 Open API 수집";
-          const b = $("badge");
-          b.classList.remove("demo"); b.classList.add("live");
-          $("badgeText").textContent = "실시간 · 청약홈 Open API";
-          if (note) note.textContent = "청약홈 Open API 실데이터 — 헤더의 수집 시각 기준, FastAPI 백엔드 캐시 주기로 갱신";
-        } else {
-          $("badgeText").textContent = "백엔드 연결됨 · 샘플 데이터 (서비스키 대기)";
-          if (note) note.textContent = "백엔드는 동작 중 — 공공데이터포털 서비스키를 .env에 넣으면 실데이터로 전환됩니다";
-        }
-        renderMarket();
-      }
+      if (applyData(d, d && d.source === "api" ? "api" : "backend-sample")) return;
     }
-  } catch (e) { /* 파일로 직접 열었거나 서버 없음 → 데모 모드 유지 */ }
+  } catch (e) { /* 백엔드 없음 → 다음 단계 */ }
+
+  /* 2순위: 저장소 data.json (GitHub Actions 자동 갱신, 서버 불필요) */
+  try {
+    const r = await fetch("./data.json", { cache: "no-store" });
+    if (r.ok) {
+      const d = await r.json();
+      if (applyData(d, "file")) return;
+    }
+  } catch (e) { /* data.json 없음 → 데모 모드 유지 */ }
+
+  /* 3순위: 데모 모드 유지 (별도 처리 불필요 — 초기값이 SAMPLE) */
 }
 
 /* ---------- 초기화 ---------- */
