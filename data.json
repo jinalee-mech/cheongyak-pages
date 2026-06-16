@@ -1,7 +1,7 @@
 {
   "source": "github-actions",
   "live": true,
-  "collectedAt": "2026-06-16T14:47:06+09:00",
+  "collectedAt": "2026-06-16T14:59:31+09:00",
   "notices": [
     {
       "name": "인천계양 A9블록 신혼희망타운(공공분양)(본청약)",
@@ -14,7 +14,9 @@
         "notice": "2026-04-30",
         "special": "",
         "rank1": "2026-05-18",
-        "result": "2026-06-18"
+        "result": "2026-06-18",
+        "open": "2026-05-18",
+        "close": "2026-05-28"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026820003&pblancNo=2026820003"
     },
@@ -29,7 +31,9 @@
         "notice": "2026-05-29",
         "special": "",
         "rank1": "2026-06-09",
-        "result": "2026-06-25"
+        "result": "2026-06-25",
+        "open": "2026-06-09",
+        "close": "2026-06-12"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000230&pblancNo=2026000230"
     },
@@ -44,7 +48,9 @@
         "notice": "2026-05-29",
         "special": "2026-06-08",
         "rank1": "2026-06-09",
-        "result": "2026-06-16"
+        "result": "2026-06-16",
+        "open": "2026-06-08",
+        "close": "2026-06-10"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000184&pblancNo=2026000184"
     },
@@ -59,7 +65,9 @@
         "notice": "2026-05-27",
         "special": "2026-06-08",
         "rank1": "2026-06-09",
-        "result": "2026-06-16"
+        "result": "2026-06-16",
+        "open": "2026-06-08",
+        "close": "2026-06-10"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000097&pblancNo=2026000097"
     },
@@ -74,7 +82,9 @@
         "notice": "2026-06-08",
         "special": "",
         "rank1": "2026-06-11",
-        "result": "2026-06-17"
+        "result": "2026-06-17",
+        "open": "2026-06-11",
+        "close": "2026-06-12"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950056&pblancNo=2026950056&houseSecd=02"
     },
@@ -89,7 +99,9 @@
         "notice": "2026-06-05",
         "special": "2026-06-15",
         "rank1": "2026-06-16",
-        "result": "2026-06-23"
+        "result": "2026-06-23",
+        "open": "2026-06-15",
+        "close": "2026-06-17"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000259&pblancNo=2026000259"
     },
@@ -104,7 +116,9 @@
         "notice": "2026-06-05",
         "special": "2026-06-15",
         "rank1": "2026-06-16",
-        "result": "2026-06-23"
+        "result": "2026-06-23",
+        "open": "2026-06-15",
+        "close": "2026-06-17"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000237&pblancNo=2026000237"
     },
@@ -119,7 +133,9 @@
         "notice": "2026-06-05",
         "special": "2026-06-15",
         "rank1": "2026-06-16",
-        "result": "2026-06-24"
+        "result": "2026-06-24",
+        "open": "2026-06-15",
+        "close": "2026-06-17"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000226&pblancNo=2026000226"
     },
@@ -134,7 +150,9 @@
         "notice": "2026-06-05",
         "special": "2026-06-15",
         "rank1": "2026-06-16",
-        "result": "2026-06-23"
+        "result": "2026-06-23",
+        "open": "2026-06-15",
+        "close": "2026-06-17"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000225&pblancNo=2026000225"
     },
@@ -149,7 +167,9 @@
         "notice": "2026-06-05",
         "special": "2026-06-15",
         "rank1": "2026-06-16",
-        "result": "2026-06-23"
+        "result": "2026-06-23",
+        "open": "2026-06-15",
+        "close": "2026-06-17"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000148&pblancNo=2026000148"
     },
@@ -164,7 +184,9 @@
         "notice": "2026-06-05",
         "special": "2026-06-15",
         "rank1": "2026-06-17",
-        "result": "2026-06-24"
+        "result": "2026-06-24",
+        "open": "2026-06-15",
+        "close": "2026-06-18"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000243&pblancNo=2026000243"
     },
@@ -179,7 +201,9 @@
         "notice": "2026-06-05",
         "special": "2026-06-16",
         "rank1": "2026-06-17",
-        "result": "2026-06-25"
+        "result": "2026-06-25",
+        "open": "2026-06-16",
+        "close": "2026-06-18"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000242&pblancNo=2026000242"
     },
@@ -194,7 +218,9 @@
         "notice": "2026-06-12",
         "special": "",
         "rank1": "2026-06-17",
-        "result": "2026-06-26"
+        "result": "2026-06-26",
+        "open": "2026-06-17",
+        "close": "2026-06-19"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950058&pblancNo=2026950058&houseSecd=02"
     },
@@ -209,7 +235,9 @@
         "notice": "2026-06-12",
         "special": "",
         "rank1": "2026-06-17",
-        "result": "2026-06-26"
+        "result": "2026-06-26",
+        "open": "2026-06-17",
+        "close": "2026-06-23"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950055&pblancNo=2026950055&houseSecd=02"
     },
@@ -224,7 +252,9 @@
         "notice": "2026-06-12",
         "special": "",
         "rank1": "2026-06-22",
-        "result": "2026-06-30"
+        "result": "2026-06-30",
+        "open": "2026-06-22",
+        "close": "2026-06-24"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000235&pblancNo=2026000235"
     },
@@ -239,7 +269,9 @@
         "notice": "2026-06-15",
         "special": "",
         "rank1": "2026-06-22",
-        "result": "2026-06-25"
+        "result": "2026-06-25",
+        "open": "2026-06-22",
+        "close": "2026-06-22"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950057&pblancNo=2026950057&houseSecd=02"
     },
@@ -254,7 +286,9 @@
         "notice": "2026-06-12",
         "special": "",
         "rank1": "2026-06-22",
-        "result": "2026-06-26"
+        "result": "2026-06-26",
+        "open": "2026-06-22",
+        "close": "2026-06-23"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950060&pblancNo=2026950060&houseSecd=02"
     },
@@ -269,7 +303,9 @@
         "notice": "2026-06-12",
         "special": "2026-06-22",
         "rank1": "2026-06-23",
-        "result": "2026-06-30"
+        "result": "2026-06-30",
+        "open": "2026-06-22",
+        "close": "2026-06-24"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000248&pblancNo=2026000248"
     },
@@ -284,7 +320,9 @@
         "notice": "2026-06-12",
         "special": "2026-06-22",
         "rank1": "2026-06-23",
-        "result": "2026-07-01"
+        "result": "2026-07-01",
+        "open": "2026-06-22",
+        "close": "2026-06-24"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000224&pblancNo=2026000224"
     },
@@ -299,7 +337,9 @@
         "notice": "2026-06-12",
         "special": "2026-06-22",
         "rank1": "2026-06-23",
-        "result": "2026-06-30"
+        "result": "2026-06-30",
+        "open": "2026-06-22",
+        "close": "2026-06-24"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000223&pblancNo=2026000223"
     },
@@ -314,7 +354,9 @@
         "notice": "2026-06-11",
         "special": "2026-06-22",
         "rank1": "2026-06-23",
-        "result": "2026-06-30"
+        "result": "2026-06-30",
+        "open": "2026-06-22",
+        "close": "2026-06-24"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000258&pblancNo=2026000258"
     },
@@ -329,7 +371,9 @@
         "notice": "2026-06-12",
         "special": "2026-06-24",
         "rank1": "2026-06-25",
-        "result": "2026-07-03"
+        "result": "2026-07-03",
+        "open": "2026-06-24",
+        "close": "2026-06-26"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000195&pblancNo=2026000195"
     },
@@ -344,7 +388,9 @@
         "notice": "2026-06-12",
         "special": "2026-06-24",
         "rank1": "2026-06-25",
-        "result": "2026-07-02"
+        "result": "2026-07-02",
+        "open": "2026-06-24",
+        "close": "2026-06-26"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000194&pblancNo=2026000194"
     },
@@ -359,7 +405,9 @@
         "notice": "2026-05-29",
         "special": "",
         "rank1": "2026-07-13",
-        "result": "2026-07-31"
+        "result": "2026-07-31",
+        "open": "2026-07-13",
+        "close": "2026-07-21"
       },
       "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026820004&pblancNo=2026820004"
     }

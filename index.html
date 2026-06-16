@@ -58,6 +58,12 @@
   .card.elig-weak{border-left-color:var(--bad)}
   .card.elig-na{border-left-color:var(--accent)}
   .card.open{border-color:var(--accent)}
+  .card.closed{opacity:.6;background:#f3f4f6 !important;border-left-color:#cfd4dc !important}
+  /* 상태 배지 */
+  .st{font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;letter-spacing:-.2px}
+  .st.ongoing{color:#0e7a4f;background:#e7f6ef;border:1px solid #bfe6d4}
+  .st.upcoming{color:#1d4ed8;background:#eef3ff;border:1px solid #bcd0fb}
+  .st.closed{color:var(--muted);background:#eceef1;border:1px solid var(--line)}
   .card .row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .card .name{font-weight:600;font-size:15px}
   .tag{font-size:11.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
@@ -182,6 +188,18 @@ function eligibility(n){
   return {cls:'weak', label:'열세', kind:'weak'};
 }
 
+// ---- 모집 상태 (오늘 날짜 기준) ------------------------------------------
+function todayStr(){ const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function statusOf(n){
+  const s=n.schedule||{}, t=todayStr();
+  const open=s.open||s.rank1||'', close=s.close||'';
+  if(close && t>close) return {key:'closed', label:'접수 마감'};
+  if(open && t<open)   return {key:'upcoming', label:'모집 예정'};
+  return {key:'ongoing', label:'모집 중'};
+}
+const ST_ORDER={ongoing:0, upcoming:1, closed:2};
+
 // ---- 렌더 ----------------------------------------------------------------
 function esc(s){ return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 function fmtDate(s){ return (s&&/\d{4}-\d{2}-\d{2}/.test(s)) ? s.slice(5).replace('-','/') : '—'; }
@@ -221,23 +239,27 @@ function bandHTML(n){
 function renderList(){
   const list=$('#list');
   const r=$('#fRegion').value, t=$('#fType').value, onlyElig=$('#fElig').checked;
-  let items=DATA.notices.map((n,i)=>({n,i})).filter(({n})=>{
+  let items=DATA.notices.map((n,i)=>({n,i,st:statusOf(n)})).filter(({n,st})=>{
     if(r && n.region!==r) return false;
     if(t==='gj' && !n.gajeom) return false;
     if(t==='no' && n.gajeom) return false;
-    if(onlyElig && eligibility(n).kind!=='ok') return false;
+    if(onlyElig && (st.key==='closed' || eligibility(n).kind!=='ok')) return false;
     return true;
   });
-  if(!items.length){ list.innerHTML=`<div class="empty">조건에 맞는 모집 중 공고가 없습니다.</div>`; return; }
-  list.innerHTML=items.map(({n,i})=>{
+  // 모집중 → 예정 → 마감 순, 같은 상태면 접수일 빠른 순
+  items.sort((a,b)=> (ST_ORDER[a.st.key]-ST_ORDER[b.st.key])
+    || ((a.n.schedule.open||a.n.schedule.rank1||'').localeCompare(b.n.schedule.open||b.n.schedule.rank1||'')));
+  if(!items.length){ list.innerHTML=`<div class="empty">조건에 맞는 공고가 없습니다.</div>`; return; }
+  list.innerHTML=items.map(({n,i,st})=>{
     const e=eligibility(n);
     const gtag=n.gajeom?`<span class="tag gj">가점 적용</span>`:`<span class="tag no">가점 외 기준</span>`;
     const sp=n.hasSpecial?`<span class="tag sp">특별공급</span>`:'';
-    const eb=`<span class="eb ${e.cls}">${e.label}</span>`;
+    const eb=st.key==='closed'?'':`<span class="eb ${e.cls}">${e.label}</span>`;
+    const stb=`<span class="st ${st.key}">${st.label}</span>`;
     const s=n.schedule||{};
     const open=OPEN===i;
-    return `<div class="card elig-${e.cls} ${open?'open':''}" data-i="${i}">
-      <div class="row1"><span class="name">${esc(n.name)}</span>
+    return `<div class="card elig-${e.cls} ${st.key==='closed'?'closed':''} ${open?'open':''}" data-i="${i}">
+      <div class="row1"><span class="name">${esc(n.name)}</span>${stb}
         <span class="tag">${esc(n.type)}</span>${gtag}${sp}${eb}</div>
       <div class="meta">${esc(n.region)} · ${esc(n.area||'—')}</div>
       <div class="sched">
@@ -255,10 +277,11 @@ function renderList(){
 
 function renderSummary(){
   const box=$('#summary'); const my=myScore();
+  const live=DATA.notices.filter(n=>statusOf(n).key!=='closed').length;   // 모집중+예정
   const gj=DATA.notices.filter(n=>n.gajeom).length;
-  if(my==null){ box.innerHTML=`현재 모집 중 <b>${DATA.notices.length}곳</b> (가점제 ${gj}곳). 위에서 조건을 입력하면 가능성이 색으로 표시됩니다.`; return; }
-  const ok=DATA.notices.filter(n=>eligibility(n).kind==='ok').length;
-  box.innerHTML=`내 <b>${my}점</b> 기준 · 모집 중 <b>${DATA.notices.length}곳</b> 중 <b style="color:var(--good)">도전 가능 ${ok}곳</b> <span style="color:var(--muted)">(초록 카드)</span>`;
+  if(my==null){ box.innerHTML=`모집 중·예정 <b>${live}곳</b> (가점제 ${gj}곳). 위에서 조건을 입력하면 가능성이 색으로 표시됩니다.`; return; }
+  const ok=DATA.notices.filter(n=>statusOf(n).key!=='closed' && eligibility(n).kind==='ok').length;
+  box.innerHTML=`내 <b>${my}점</b> 기준 · 모집 중·예정 <b>${live}곳</b> 중 <b style="color:var(--good)">도전 가능 ${ok}곳</b> <span style="color:var(--muted)">(초록 카드, 마감 제외)</span>`;
 }
 
 function refresh(){ renderMyScore(); renderSummary(); renderList(); }

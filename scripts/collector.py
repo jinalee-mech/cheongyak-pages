@@ -126,6 +126,11 @@ def classify_apt(d: dict):
     return secd or dtl or "아파트", False
 
 
+def _dates(d: dict, *keys) -> list:
+    vals = [pick(d, k) for k in keys]
+    return [v for v in vals if re.match(r"\d{4}-\d{2}-\d{2}", v)]
+
+
 def schedule_of(d: dict, is_apt: bool) -> dict:
     notice = pick(d, "RCRIT_PBLANC_DE")
     special = pick(d, "SPSPLY_RCEPT_BGNDE")
@@ -134,7 +139,16 @@ def schedule_of(d: dict, is_apt: bool) -> dict:
         rank1 = pick(d, "GNRL_RNK1_CRSPAREA_RCPTDE", "RCEPT_BGNDE", "SUBSCRPT_RCEPT_BGNDE")
     else:
         rank1 = pick(d, "RCEPT_BGNDE", "SUBSCRPT_RCEPT_BGNDE")
-    return {"notice": notice, "special": special, "rank1": rank1, "result": result}
+    # 접수 시작/종료(상태 판정용) — 특공·일반 접수 전체를 감싸는 구간
+    opens = _dates(d, "SPSPLY_RCEPT_BGNDE", "RCEPT_BGNDE", "SUBSCRPT_RCEPT_BGNDE",
+                   "GNRL_RNK1_CRSPAREA_RCPTDE", "GNRL_RNK1_ETC_AREA_RCPTDE")
+    closes = _dates(d, "RCEPT_ENDDE", "SUBSCRPT_RCEPT_ENDDE", "SPSPLY_RCEPT_ENDDE",
+                    "GNRL_RNK1_CRSPAREA_ENDDE", "GNRL_RNK1_ETC_AREA_ENDDE",
+                    "GNRL_RNK2_CRSPAREA_ENDDE", "GNRL_RNK2_ETC_AREA_ENDDE")
+    return {
+        "notice": notice, "special": special, "rank1": rank1, "result": result,
+        "open": min(opens) if opens else "", "close": max(closes) if closes else "",
+    }
 
 
 def is_open(d: dict) -> bool:
