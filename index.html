@@ -23,7 +23,8 @@
   .profile{border:1px solid var(--line);background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:12px;font-size:13.5px;display:none}
   .profile.show{display:block}
   .profile .pline{color:var(--dim)} .profile .pline b{color:var(--ink)}
-  .profile .pchips{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+  .pchips{display:flex;flex-wrap:wrap;gap:6px}
+  .profile .pchips{margin-top:8px}
   .pchip{font-size:12px;padding:3px 9px;border-radius:999px;background:#eef3ff;color:#1d4ed8;border:1px solid #bcd0fb}
   .pchip.warn{background:#fdf4e3;color:#9a5b08;border-color:#f0dcb4}
 
@@ -159,11 +160,13 @@
     <div class="frow"><label>자녀 수 <span class="q">(명)</span></label>
       <input id="iChildren" type="number" min="0" max="10" step="1" placeholder="예: 1" /></div>
 
-    <div id="preview" class="preview">통장 가입기간·예치금·부양가족을 입력하면 순위와 가점이 계산됩니다.</div>
+    <div id="preview" class="preview">통장 가입기간·예치금·부양가족을 입력하면 자격·가점을 계산합니다.</div>
+    <div id="mResult" class="pchips" style="display:none;margin-top:12px;border-top:1px solid var(--line);padding-top:12px"></div>
     <div class="modal-foot">
-      <button id="applyBtn" class="btn primary" disabled>적용하고 가능한 곳 찾기</button>
+      <button id="checkBtn" class="btn primary" disabled>확인</button>
       <button id="closeModal" class="btn ghost">닫기</button>
     </div>
+    <button id="applyBtn" class="btn primary" style="display:none;width:100%;margin-top:10px">내 정보 적용하고 가능한 곳 찾기</button>
   </div>
 </div>
 
@@ -343,18 +346,20 @@ function renderList(){
   });
 }
 
+function profileChips(p){
+  const g=gajeomOf(p), sp=specialsFor(p);
+  let h=`<span class="pchip">가점 ${g}점</span>`
+    +`<span class="pchip">통장 ${p.tongjang}년·예치금 ${p.deposit}만</span>`
+    +`<span class="pchip">${p.homeless?`무주택 ${p.homelessY}년`:'유주택'}${p.householder?'·세대주':''}</span>`;
+  if(sp.length) h+=`<span class="pchip warn">특공 대상 가능: ${sp.join('·')}</span>`;
+  return h;
+}
 function renderProfileBar(){
   const box=$('#profile');
   if(!PROFILE){ box.className='profile'; box.innerHTML=''; return; }
-  const p=PROFILE, g=gajeomOf(p), sp=specialsFor(p);
-  const chips=[];
-  chips.push(`<span class="pchip">가점 ${g}점</span>`);
-  chips.push(`<span class="pchip">통장 ${p.tongjang}년·예치금 ${p.deposit}만</span>`);
-  chips.push(`<span class="pchip">${p.homeless?`무주택 ${p.homelessY}년`:'유주택'}${p.householder?'·세대주':''}</span>`);
-  if(sp.length) chips.push(`<span class="pchip warn">특공 대상 가능: ${sp.join('·')}</span>`);
   box.className='profile show';
-  box.innerHTML=`<div class="pline">입력하신 조건으로 <b>1순위 요건은 단지(지역·면적·규제)마다 달라</b> 카드별로 표시됩니다. 가점은 <b>${g}점</b>입니다.</div>
-    <div class="pchips">${chips.join('')}</div>`;
+  box.innerHTML=`<div class="pline">입력하신 조건으로 <b>1순위 요건은 단지(지역·면적·규제)마다 달라</b> 카드별로 표시됩니다.</div>
+    <div class="pchips">${profileChips(PROFILE)}</div>`;
 }
 
 function renderSummary(){
@@ -368,18 +373,22 @@ function renderSummary(){
 function refresh(){ renderProfileBar(); renderSummary(); renderList(); }
 
 // ---- 모달 ----------------------------------------------------------------
-function modalPreview(){
-  const p=readInputs(), pv=$('#preview'), btn=$('#applyBtn');
-  if(!profileReady(p)){ pv.innerHTML='통장 가입기간·예치금·부양가족을 입력하면 순위와 가점이 계산됩니다.'; btn.disabled=true; return; }
-  btn.disabled=false;
-  const g=gajeomOf(p), sp=specialsFor(p);
-  pv.innerHTML=`가점 <b>${g}점</b> · 통장 ${p.tongjang}년·예치금 ${p.deposit}만원`
-    +`${sp.length?` · 특공 대상 가능: <b>${sp.join('·')}</b>`:''}`
-    +`<br><span style="color:var(--muted);font-size:12px">1순위 여부는 단지의 지역·면적·규제에 따라 카드별로 달라집니다.</span>`;
+function modalPreview(){   // 입력이 바뀌면 결과/적용버튼 숨기고 확인을 다시 누르게
+  const p=readInputs(), pv=$('#preview');
+  $('#mResult').style.display='none'; $('#applyBtn').style.display='none';
+  pv.style.display='block';
+  if(!profileReady(p)){ pv.innerHTML='통장 가입기간·예치금·부양가족을 입력하면 자격·가점을 계산합니다.'; $('#checkBtn').disabled=true; }
+  else { pv.innerHTML='입력 완료 — <b>확인</b>을 누르면 내 자격·가점이 표시됩니다.'; $('#checkBtn').disabled=false; }
+}
+function checkInfo(){   // 확인 → 팝업 안에서 결과 표시(닫지 않음)
+  const p=readInputs(); if(!profileReady(p)) return;
+  $('#preview').style.display='none';
+  const r=$('#mResult'); r.innerHTML=profileChips(p); r.style.display='flex';
+  $('#applyBtn').style.display='block';
 }
 function openModal(){ $('#modal').classList.add('show'); modalPreview(); setTimeout(()=>$('#iTongjang').focus(),50); }
 function closeModal(){ $('#modal').classList.remove('show'); }
-function applyInfo(){
+function applyInfo(){   // 적용 → 닫고 목록 필터링
   const p=readInputs(); if(!profileReady(p)) return;
   PROFILE=p;
   const btn=$('#openModal'); btn.classList.add('set'); btn.textContent=`내 자격 적용됨 · 수정`;
@@ -407,7 +416,8 @@ async function boot(){
   if(!DATA.notices) DATA.notices=[];
   setBadge(); fillFilters(); refresh();
   $('#fRegion').onchange=$('#fCat').onchange=renderList;
-  $('#openModal').onclick=openModal; $('#closeModal').onclick=closeModal; $('#applyBtn').onclick=applyInfo;
+  $('#openModal').onclick=openModal; $('#closeModal').onclick=closeModal;
+  $('#checkBtn').onclick=checkInfo; $('#applyBtn').onclick=applyInfo;
   $('#modal').onclick=e=>{ if(e.target===$('#modal')) closeModal(); };
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
   ['#iTongjang','#iDeposit','#iHomeless','#iHomelessY','#iHouseholder','#iFamily','#iMarried','#iMarriedY','#iChildren']
