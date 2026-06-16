@@ -1,25 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-청약홈 Open API 수집기
-=====================
+청약홈 Open API 수집기 (3단계 도구용)
+====================================
 GitHub Actions(.github/workflows/update-data.yml)에서 주기적으로 실행되어
 청약홈 공공데이터를 호출하고, 프런트(index.html)가 기대하는 구조로 가공해
 저장소 루트의 data.json 으로 저장합니다. 서버가 필요 없습니다.
 
-조립 구조(실제 API 확인 기준) — 모두 HOUSE_MANAGE_NO(주택관리번호)로 조인
-  1) 분양정보  getAPTLttotPblancDetail  : 단지명·지역
-  2) 경쟁률    getAPTLttotPblancCmpet   : 단지 평균 경쟁률(단지명/지역 없음 → 1과 조인)
-  3) 당첨가점  getAptLttotPblancScore   : 단지별 당첨 최저가점(cutoff)
-  4) 특별공급  getAPTSpsplyReqstStus    : 특별공급 유형(special)
+이 도구가 쓰는 데이터(딱 두 갈래)
+  1) 분양정보  getAPTLttotPblancDetail        : 현재 모집 중인 '아파트' 공고
+     + getAPTLttotPblancMdl                   : 공고별 전용면적(주택형)
+     + getUrbtyOfctlLttotPblancDetail         : 오피스텔/도시형/생숙/민간임대 공고
+     → "이번 주 분양 목록" + 유형 태그(가점 적용 여부)
+  2) 당첨 통계 getAPTApsPrzwnerStat            : 지역×월 당첨 가점 통계(평균/최저/최고)
+     → "이 지역은 최근 보통 ○○점대에서 당첨됐다" 밴드 (3단계 비교용)
 
 안전장치
-  - SERVICE_KEY 가 없거나 호출/가공이 실패하면 data.json 을 건드리지 않고 정상 종료
-    (= 마지막 정상 데이터/데모 유지). 보조 API(가점·특공)가 실패해도 그 항목만 비고
-    나머지는 정상 생성합니다.
-
-남는 한계
-  - 가점제/추첨제 비율(gj/ch)은 공공데이터 미제공 → null.
+  - SERVICE_KEY 가 없으면 data.json 을 건드리지 않고 종료(= 마지막 데모 유지).
+  - 보조 호출(면적/오피스텔/통계)이 실패해도 그 항목만 비고 나머지는 정상 생성.
 """
 
 import json
@@ -35,31 +33,18 @@ from datetime import datetime, timezone, timedelta
 SERVICE_KEY = os.environ.get("SERVICE_KEY", "").strip()
 
 DETAIL_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail"
-RATE_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoCmpetRtSvc/v1/getAPTLttotPblancCmpet"
-SCORE_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoCmpetRtSvc/v1/getAptLttotPblancScore"
-SPSPLY_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoCmpetRtSvc/v1/getAPTSpsplyReqstStus"
-# 지역 × 월 당첨 가점 통계(지역별 평균/최저/최고) — 지역 비교용
+MODEL_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancMdl"
+OFTL_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getUrbtyOfctlLttotPblancDetail"
+# 지역×월 당첨 가점 통계(지역별 평균/최저/최고)
 REGION_STAT_BASE = "https://api.odcloud.kr/api/ApplyhomeStatSvc/v1/getAPTApsPrzwnerStat"
 
-# 특별공급 유형 매핑(세대수 필드 → 표시명). 한국부동산원 표준 약어 기준.
-SPECIAL_MAP = [
-    ("NWWDS_NMTW_HSHLDCO", "신혼부부"),
-    ("LFE_FRST_HSHLDCO", "생애최초"),
-    ("MNYCH_HSHLDCO", "다자녀"),
-    ("OLD_PARNTS_SUPORT_HSHLDCO", "노부모"),
-    ("NWBB_NWBBSHR_HSHLDCO", "신생아"),
-    ("INSTT_RECOMEND_HSHLDCO", "기관추천"),
-]
-SPECIAL_ORDER = [label for _, label in SPECIAL_MAP]
-
-# 수집 범위(최신 위주) — 변경 시에만 커밋되므로 넉넉히 둬도 부담 없음
 DETAIL_PAGES, DETAIL_PER = 3, 100     # 분양정보 최신 ~300 공고
-RATE_PAGES, RATE_PER = 6, 1000        # 경쟁률 최신 ~6000 행
-SCORE_PAGES, SCORE_PER = 6, 1000      # 가점 최신 ~6000 행
-SPSPLY_PAGES, SPSPLY_PER = 3, 1000    # 특공 최신 ~3000 행
+MODEL_PAGES, MODEL_PER = 6, 1000      # 주택형(면적) 최신 ~6000 행
+OFTL_PAGES, OFTL_PER = 2, 100         # 오피스텔 등 최신 ~200 공고
 # ===========================================================================
 
 KST = timezone(timedelta(hours=9))
+TODAY = datetime.now(KST).date().isoformat()
 
 
 def log(msg: str) -> None:
@@ -93,20 +78,13 @@ def to_float(v):
         return None
 
 
-def parse_rate(v) -> float:
-    """'9.88', '312.5:1', '-', '미달' 등을 float로. 파싱 불가면 -1."""
-    if v is None:
-        return -1.0
-    if isinstance(v, (int, float)):
-        return float(v)
-    s = str(v).strip()
-    if s in ("", "-", "△", "미달", "접수없음"):
-        return 0.0
-    s = s.replace(":1", "").replace(":", "").replace(",", "").strip()
-    try:
-        return float(s)
-    except ValueError:
-        return -1.0
+def pick(d: dict, *keys) -> str:
+    """후보 키들 중 처음으로 값이 있는 것을 문자열로. 없으면 ''."""
+    for k in keys:
+        v = d.get(k)
+        if v not in (None, "", " "):
+            return str(v).strip()
+    return ""
 
 
 def area_of(house_ty):
@@ -115,59 +93,140 @@ def area_of(house_ty):
     return int(m.group(1)) if m else None
 
 
-def fetch_house_cutoffs() -> dict:
-    """주택관리번호 → 해당지역 당첨 '최저가점'(단지 진입선). 실패 시 {}."""
-    try:
-        rows = fetch_pages(SCORE_BASE, SCORE_PAGES, SCORE_PER)
-    except Exception as e:  # noqa: BLE001
-        log(f"가점 API 실패: {e} — cutoff 비움(나머지 정상).")
-        return {}
-    cuts = {}
-    for r in rows:
-        if str(r.get("RESIDE_SECD", "")) != "01":   # 해당지역(실거주권) 기준
-            continue
-        no = str(r.get("HOUSE_MANAGE_NO", "")).strip()
-        lw = to_float(r.get("LWET_SCORE"))
-        if not no or lw is None or lw <= 0:
-            continue
-        cuts[no] = min(cuts.get(no, lw), lw)        # 단지 내 가장 낮은 당첨가점 = 진입선
-    log(f"가점 컷 {len(cuts)}개 공고")
-    return {k: round(v) for k, v in cuts.items()}
+def area_str(areas: set) -> str:
+    a = sorted(x for x in areas if x)
+    if len(a) >= 2:
+        return f"전용 {a[0]}~{a[-1]}㎡"
+    if a:
+        return f"전용 {a[0]}㎡"
+    return "—"
 
 
-def fetch_specials() -> dict:
-    """주택관리번호 → 특별공급 유형 리스트. 실패 시 {}."""
+# ===== 1) 분양 목록 ========================================================
+
+def classify_apt(d: dict):
+    """(유형 라벨, gajeom 여부) — 가점제는 민영 APT 일반공급에만 적용."""
+    secd = pick(d, "HOUSE_SECD_NM")
+    dtl = pick(d, "HOUSE_DTL_SECD_NM")
+    rent = pick(d, "RENT_SECD_NM")
+    if "임대" in rent or "임대" in dtl:
+        return "임대주택", False
+    if "민영" in secd or "민영" in dtl:
+        return "민영 일반공급 (가점제)", True
+    if "국민" in secd or "공공" in dtl or "국민" in dtl or "신혼희망" in dtl:
+        return "국민·공공 분양", False
+    return dtl or "아파트", False
+
+
+def schedule_of(d: dict, is_apt: bool) -> dict:
+    notice = pick(d, "RCRIT_PBLANC_DE")
+    special = pick(d, "SPSPLY_RCEPT_BGNDE")
+    result = pick(d, "PRZWNER_PRESNATN_DE")
+    if is_apt:
+        rank1 = pick(d, "GNRL_RNK1_CRSPAREA_RCPTDE", "SUBSCRPT_RCEPT_BGNDE")
+    else:
+        rank1 = pick(d, "SUBSCRPT_RCEPT_BGNDE")
+    return {"notice": notice, "special": special, "rank1": rank1, "result": result}
+
+
+def latest_date(d: dict) -> str:
+    """공고의 모든 일정 필드 중 가장 늦은 날짜(진행 여부 판정용)."""
+    keys = [
+        "SUBSCRPT_RCEPT_ENDDE", "SPSPLY_RCEPT_ENDDE", "PRZWNER_PRESNATN_DE",
+        "GNRL_RNK1_CRSPAREA_ENDDE", "GNRL_RNK1_ETC_AREA_ENDDE",
+        "GNRL_RNK2_CRSPAREA_ENDDE", "GNRL_RNK2_ETC_AREA_ENDDE",
+        "CNTRCT_CNCLS_ENDDE",
+    ]
+    vals = [pick(d, k) for k in keys]
+    vals = [v for v in vals if re.match(r"\d{4}-\d{2}-\d{2}", v)]
+    return max(vals) if vals else ""
+
+
+def fetch_model_areas() -> dict:
+    """주택관리번호 → 전용면적 집합. 실패 시 {}."""
     try:
-        rows = fetch_pages(SPSPLY_BASE, SPSPLY_PAGES, SPSPLY_PER)
+        rows = fetch_pages(MODEL_BASE, MODEL_PAGES, MODEL_PER)
     except Exception as e:  # noqa: BLE001
-        log(f"특공 API 실패: {e} — special 비움(나머지 정상).")
+        log(f"주택형(면적) API 실패: {e} — 면적 비움.")
         return {}
-    sp = defaultdict(set)
+    areas = defaultdict(set)
     for r in rows:
-        no = str(r.get("HOUSE_MANAGE_NO", "")).strip()
+        no = pick(r, "HOUSE_MANAGE_NO")
+        a = area_of(pick(r, "HOUSE_TY"))
+        if no and a:
+            areas[no].add(a)
+    log(f"면적 {len(areas)}개 공고")
+    return areas
+
+
+def collect_notices() -> list:
+    notices = []
+    areas = fetch_model_areas()
+
+    # 1) 아파트 분양정보
+    details = fetch_pages(DETAIL_BASE, DETAIL_PAGES, DETAIL_PER)
+    log(f"아파트 분양정보 {len(details)}건 수신")
+    for d in details:
+        no = pick(d, "HOUSE_MANAGE_NO")
         if not no:
             continue
-        for field, label in SPECIAL_MAP:
-            n = to_float(r.get(field)) or 0
-            if n > 0:
-                sp[no].add(label)
-    log(f"특별공급 {len(sp)}개 공고")
-    return {k: [l for l in SPECIAL_ORDER if l in v] for k, v in sp.items()}
+        if latest_date(d) and latest_date(d) < TODAY:   # 이미 끝난 공고 제외
+            continue
+        label, gajeom = classify_apt(d)
+        notices.append({
+            "name": pick(d, "HOUSE_NM") or "이름 미상",
+            "region": pick(d, "SUBSCRPT_AREA_CODE_NM") or "기타",
+            "area": area_str(areas.get(no, set())),
+            "type": label,
+            "gajeom": gajeom,
+            "hasSpecial": bool(pick(d, "SPSPLY_RCEPT_BGNDE")),
+            "schedule": schedule_of(d, is_apt=True),
+            "url": pick(d, "PBLANC_URL", "HMPG_ADRES"),
+        })
 
+    # 2) 오피스텔/도시형/생숙/민간임대 (가점제 아님)
+    try:
+        ofts = fetch_pages(OFTL_BASE, OFTL_PAGES, OFTL_PER)
+        log(f"오피스텔 등 {len(ofts)}건 수신")
+        for d in ofts:
+            no = pick(d, "HOUSE_MANAGE_NO")
+            if not no:
+                continue
+            if latest_date(d) and latest_date(d) < TODAY:
+                continue
+            notices.append({
+                "name": pick(d, "HOUSE_NM") or "이름 미상",
+                "region": pick(d, "SUBSCRPT_AREA_CODE_NM") or "기타",
+                "area": area_str(areas.get(no, set())),
+                "type": pick(d, "HOUSE_DTL_SECD_NM") or "오피스텔·도시형",
+                "gajeom": False,
+                "hasSpecial": bool(pick(d, "SPSPLY_RCEPT_BGNDE")),
+                "schedule": schedule_of(d, is_apt=False),
+                "url": pick(d, "PBLANC_URL", "HMPG_ADRES"),
+            })
+    except Exception as e:  # noqa: BLE001
+        log(f"오피스텔 API 실패: {e} — 아파트만 사용.")
+
+    # 빠른 일정(1순위/접수 시작) 순으로 정렬
+    notices.sort(key=lambda n: n["schedule"].get("rank1") or n["schedule"].get("notice") or "9999")
+    return notices
+
+
+# ===== 2) 지역 당첨 가점 밴드 ==============================================
 
 def fetch_region_scores() -> dict:
     """지역명 → {month, avg, low, top} 최신월 '해당지역' 당첨 가점 통계. 실패 시 {}."""
     try:
-        rows = fetch_pages(REGION_STAT_BASE, 1, 1000)   # 약 900여 건, 한 페이지로 충분
+        rows = fetch_pages(REGION_STAT_BASE, 1, 1000)
     except Exception as e:  # noqa: BLE001
-        log(f"지역 가점 통계 실패: {e} — regionScores 비움.")
+        log(f"지역 당첨 통계 실패: {e} — regionScores 비움.")
         return {}
     best = {}   # region -> (month, avg, low, top)
     for r in rows:
-        if str(r.get("RESIDE_SECD", "")) != "01":
+        if str(r.get("RESIDE_SECD", "")) not in ("01", ""):   # 해당지역(실거주권) 기준
             continue
-        region = (r.get("SUBSCRPT_AREA_CODE_NM") or "").strip()
-        de = str(r.get("STAT_DE", ""))
+        region = pick(r, "SUBSCRPT_AREA_CODE_NM")
+        de = pick(r, "STAT_DE")
         avg = to_float(r.get("AVRG_SCORE"))
         if not region or avg is None or avg <= 0:
             continue
@@ -181,141 +240,37 @@ def fetch_region_scores() -> dict:
             "low": round(low) if low else None,
             "top": round(top) if top else None,
         }
-    log(f"지역 가점 통계 {len(out)}개 지역")
+    log(f"지역 당첨 통계 {len(out)}개 지역")
     return out
 
 
-def collect() -> list:
-    # 1) 분양정보 → 공고 메타
-    details = fetch_pages(DETAIL_BASE, DETAIL_PAGES, DETAIL_PER)
-    log(f"분양정보 {len(details)}건 수신")
-    info = {}
-    for d in details:
-        no = str(d.get("HOUSE_MANAGE_NO", "")).strip()
-        if not no:
-            continue
-        info[no] = {
-            "name": (d.get("HOUSE_NM") or "이름 미상").strip(),
-            "region": (d.get("SUBSCRPT_AREA_CODE_NM") or "기타").strip(),
-        }
-
-    # 2) 경쟁률 → 공고별 집계
-    rate_rows = fetch_pages(RATE_BASE, RATE_PAGES, RATE_PER)
-    log(f"경쟁률 {len(rate_rows)}행 수신")
-    agg = defaultdict(lambda: {"rates": [], "areas": set()})
-    for r in rate_rows:
-        no = str(r.get("HOUSE_MANAGE_NO", "")).strip()
-        if no not in info:
-            continue
-        cr = parse_rate(r.get("CMPET_RATE"))
-        if cr > 0:
-            agg[no]["rates"].append(cr)
-        a = area_of(r.get("HOUSE_TY"))
-        if a:
-            agg[no]["areas"].add(a)
-
-    # 3) 가점 컷, 4) 특별공급 유형
-    cutoffs = fetch_house_cutoffs()
-    specials = fetch_specials()
-
-    # 5) 조인 → 단지 목록(경쟁률이 확정된 공고만)
-    complexes = []
-    for no, meta in info.items():
-        a = agg.get(no)
-        if not a or not a["rates"]:
-            continue
-        rate = round(sum(a["rates"]) / len(a["rates"]), 1)
-        areas = sorted(a["areas"])
-        if len(areas) >= 2:
-            area_str = f"전용 {areas[0]}~{areas[-1]}㎡"
-        elif areas:
-            area_str = f"전용 {areas[0]}㎡"
-        else:
-            area_str = "—"
-        complexes.append({
-            "name": meta["name"],
-            "region": meta["region"],
-            "area": area_str,
-            "gj": None, "ch": None,               # 가점제/추첨제 비율: 공공데이터 미제공
-            "rate": rate,
-            "cutoff": cutoffs.get(no),            # 단지별 당첨 최저가점(없으면 None)
-            "special": specials.get(no, []),
-        })
-    return complexes
-
-
-def build_payload(complexes: list, region_scores: dict) -> dict:
-    if not complexes:
-        return {}
-    region_scores = region_scores or {}
-
-    by_region = defaultdict(list)
-    for c in complexes:
-        by_region[c["region"]].append(c["rate"])
-    regions = sorted(
-        ({"label": k, "rate": round(sum(v) / len(v), 1)} for k, v in by_region.items()),
-        key=lambda x: x["rate"], reverse=True,
-    )
-
-    buckets = [
-        ("미달", "cold", lambda x: x < 1),
-        ("1~10 : 1", "calm", lambda x: 1 <= x < 10),
-        ("10~50 : 1", "warm", lambda x: 10 <= x < 50),
-        ("50~100 : 1", "hot", lambda x: 50 <= x < 100),
-        ("100 : 1 이상", "fire", lambda x: x >= 100),
-    ]
-    dist = [{"label": l, "tier": t, "n": sum(1 for c in complexes if p(c["rate"]))}
-            for l, t, p in buckets]
-
-    seoul = [c["rate"] for c in complexes if c["region"] == "서울"]
-    allr = [c["rate"] for c in complexes]
-    shortfall = sum(1 for c in complexes if c["rate"] < 1)
-    seoul_cuts = [c["cutoff"] for c in complexes if c["region"] == "서울" and c["cutoff"] is not None]
-    seoul_cut = round(sum(seoul_cuts) / len(seoul_cuts)) if seoul_cuts else None
-
-    metrics = {
-        "seoulAvg": round(sum(seoul) / len(seoul), 1) if seoul else None,
-        "nationAvg": round(sum(allr) / len(allr), 1) if allr else None,
-        "shortfall": shortfall,
-        "seoulCut": seoul_cut,
-    }
-
-    complexes.sort(key=lambda c: c["rate"], reverse=True)   # 경쟁률 내림차순
-
-    return {
-        "source": "github-actions",
-        "live": True,
-        "collectedAt": datetime.now(KST).isoformat(timespec="seconds"),
-        "asOf": "",
-        "metrics": metrics,
-        # ruler 눈금: 실데이터에선 서울 가점 컷만 의미가 있어 나머지는 비움(데모 SAMPLE만 사용)
-        "refs": {"lotteryCase": None, "seoulCut": seoul_cut, "gangnamMin": None},
-        "regions": regions,
-        "regionScores": region_scores,
-        "dist": dist,
-        "complexes": complexes,
-    }
-
+# ===== 조립 ================================================================
 
 def main() -> int:
     if not SERVICE_KEY:
-        log("SERVICE_KEY 미설정 — data.json 을 건드리지 않고 종료합니다(데모/기존 유지).")
+        log("SERVICE_KEY 미설정 — data.json 을 건드리지 않고 종료합니다(데모 유지).")
         return 0
     try:
-        complexes = collect()
-        region_scores = fetch_region_scores()   # 실패해도 {} → 지역 비교만 비고 나머지 정상
+        notices = collect_notices()
+        region_scores = fetch_region_scores()
     except Exception as e:  # noqa: BLE001
         log(f"수집 실패: {e} — data.json 유지하고 종료.")
         return 0
-    payload = build_payload(complexes, region_scores)
-    if not payload:
-        log("가공 결과가 비어 있음 — data.json 유지하고 종료.")
+    if not notices:
+        log("모집 중 공고가 비어 있음 — data.json 유지하고 종료.")
         return 0
 
+    payload = {
+        "source": "github-actions",
+        "live": True,
+        "collectedAt": datetime.now(KST).isoformat(timespec="seconds"),
+        "notices": notices,
+        "regionScores": region_scores,
+    }
     out = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data.json"))
     with open(out, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
-    log(f"data.json 작성 완료 — 단지 {len(payload['complexes'])}건, 수집시각 {payload['collectedAt']}")
+    log(f"data.json 작성 완료 — 공고 {len(notices)}건, 수집시각 {payload['collectedAt']}")
     return 0
 
 

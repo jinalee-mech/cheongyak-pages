@@ -1,887 +1,312 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>청약 나침반 — 공공데이터 기반 청약시장 분석 · 맞춤 전략</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>청약 나침반 — 이번 주 분양 · 내 가점 · 지역 당첨선</title>
 <style>
-:root{
-  --paper:#F5F8FC; --card:#FFFFFF; --ink:#15233B; --sub:#5A6B84;
-  --line:#DDE5F0; --line2:#C7D4E5;
-  --hot:#C8372D; --hot-soft:#FBEAE8;
-  --warm:#D2762A; --warm-soft:#FAF0E2;
-  --cold:#2563B0; --cold-soft:#E8F1FA;
-  --ok:#1F7A3D; --ok-soft:#E9F4ED;
-  --warn:#9C6A00; --warn-soft:#F8F1DC;
-  --calm:#93A9C7;
-  --mono:ui-monospace,"SF Mono","Cascadia Mono",Consolas,"Liberation Mono",monospace;
-  --r:12px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
-  background:var(--paper); color:var(--ink);
-  font-size:16px; line-height:1.65;
-  -webkit-font-smoothing:antialiased;
-}
-a{color:var(--cold)}
-.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  :root{
+    --bg:#0f1115; --card:#171a21; --line:#252a34; --ink:#e8ebf0; --dim:#9aa3b2;
+    --accent:#5b8cff; --good:#3ecf8e; --warn:#f0b35b; --muted:#6b7280;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent)}
+  .wrap{max-width:880px;margin:0 auto;padding:28px 18px 80px}
+  header.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;justify-content:space-between;margin-bottom:6px}
+  h1{font-size:22px;margin:0;letter-spacing:-.3px}
+  .sub{color:var(--dim);font-size:13px;margin:2px 0 0}
+  .badge{font-size:12px;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:3px 10px;white-space:nowrap}
+  .badge.live{color:var(--good);border-color:#244;}
+  section{margin-top:30px}
+  .step-h{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+  .step-h .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;
+    font-size:14px;font-weight:700;display:grid;place-items:center}
+  .step-h h2{font-size:17px;margin:0}
+  .step-h .hint{color:var(--dim);font-size:12.5px;margin-left:auto}
 
-/* ---------- header ---------- */
-header{border-bottom:1px solid var(--line);background:var(--card)}
-.hd{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:12px}
-.brand h1{font-size:20px;font-weight:800;letter-spacing:-.02em}
-.brand p{font-size:12.5px;color:var(--sub)}
-.hd-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.asof{font-family:var(--mono);font-size:12px;color:var(--sub)}
-.badge{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;font-size:12.5px;font-weight:700;border:1px solid}
-.badge .dot{width:8px;height:8px;border-radius:50%}
-.badge.demo{color:var(--warn);background:var(--warn-soft);border-color:#E5D5A8}
-.badge.demo .dot{background:var(--warn)}
-.badge.live{color:var(--ok);background:var(--ok-soft);border-color:#BFDCC9}
-.badge.live .dot{background:var(--ok)}
+  /* step 1 list */
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+  select{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:13px}
+  .list{display:grid;gap:10px}
+  .card{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:14px 16px;cursor:pointer;
+    transition:border-color .12s, background .12s}
+  .card:hover{border-color:#3a4257}
+  .card.sel{border-color:var(--accent);background:#172033}
+  .card .row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .card .name{font-weight:600;font-size:15px}
+  .tag{font-size:11.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+  .tag.gj{color:#bcd2ff;border-color:#2c3e6b;background:#141b2e}
+  .tag.no{color:var(--dim)}
+  .tag.sp{color:var(--warn);border-color:#4a3a1f}
+  .card .meta{color:var(--dim);font-size:13px;margin-top:5px}
+  .card .sched{color:var(--muted);font-size:12.5px;margin-top:6px;display:flex;flex-wrap:wrap;gap:4px 14px}
+  .card .sched b{color:var(--dim);font-weight:500}
+  .empty{color:var(--dim);font-size:14px;border:1px dashed var(--line);border-radius:12px;padding:24px;text-align:center}
 
-/* ---------- hero ---------- */
-.hero{padding:56px 0 40px}
-.hero .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--sub);margin-bottom:14px}
-.hero h2{font-size:clamp(26px,4.2vw,42px);font-weight:800;letter-spacing:-.03em;line-height:1.25;max-width:21em}
-.hero h2 .hot{color:var(--hot)} .hero h2 .cold{color:var(--cold)}
-.hero .sub{margin-top:16px;max-width:46em;color:var(--sub);font-size:16.5px}
-.hero .note{margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--sub)}
+  /* step 2 form */
+  .panel{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:16px}
+  .selbar{font-size:13px;color:var(--dim);margin-bottom:12px}
+  .selbar b{color:var(--ink)}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:560px){.grid3{grid-template-columns:1fr}}
+  .field label{display:block;font-size:12.5px;color:var(--dim);margin-bottom:4px}
+  .field .q{color:var(--muted);font-size:11.5px}
+  input[type=number]{width:100%;background:#10131a;color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:9px 10px;font-size:14px}
+  .result{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+  .score{font-size:30px;font-weight:700;letter-spacing:-.5px}
+  .score small{font-size:14px;color:var(--dim);font-weight:500}
+  .breakdown{color:var(--dim);font-size:13px;margin-top:4px}
+  .note{font-size:13.5px;border-radius:10px;padding:12px 14px;margin-top:14px}
+  .note.info{background:#15202e;border:1px solid #233244;color:#cdd9e8}
+  .note.warn{background:#241f15;border:1px solid #44391f;color:#ecdcb8}
 
-/* 시장 온도 스트립 */
-.thermo{margin-top:30px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px}
-.thermo .t-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.thermo .t-head strong{font-size:14.5px;font-weight:700}
-.thermo .t-head span{font-family:var(--mono);font-size:12px;color:var(--sub)}
-.strip{display:flex;height:30px;border-radius:7px;overflow:hidden;border:1px solid var(--line2)}
-.strip .seg{height:100%;transition:width .9s cubic-bezier(.2,.7,.2,1)}
-.t-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px}
-.t-legend .li{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--sub)}
-.t-legend .sw{width:11px;height:11px;border-radius:3px}
-.t-legend b{font-family:var(--mono);color:var(--ink);font-weight:600}
-
-/* ---------- sections ---------- */
-section{padding:44px 0}
-.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
-.sec-head .no{font-family:var(--mono);font-size:13px;color:var(--hot);letter-spacing:.1em}
-.sec-head h3{font-size:22px;font-weight:800;letter-spacing:-.02em}
-.sec-desc{color:var(--sub);font-size:15px;margin-bottom:22px;max-width:52em}
-
-/* 지표 카드 */
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.mcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px}
-.mcard .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--sub)}
-.mcard .v{font-size:32px;font-weight:800;letter-spacing:-.02em;margin-top:6px;font-variant-numeric:tabular-nums}
-.mcard .v small{font-size:15px;font-weight:600;color:var(--sub);margin-left:2px}
-.mcard .c{font-size:12.5px;color:var(--sub);margin-top:4px}
-.mcard.hot .v{color:var(--hot)} .mcard.cold .v{color:var(--cold)}
-
-/* 지역별 막대 */
-.bars{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px}
-.bars h4{font-size:14.5px;font-weight:700;margin-bottom:4px}
-.bars .h-sub{font-family:var(--mono);font-size:12px;color:var(--sub);margin-bottom:16px}
-.brow{display:grid;grid-template-columns:88px 1fr 92px;align-items:center;gap:12px;padding:7px 0}
-.brow .bl{font-size:13.5px;font-weight:600}
-.btrack{height:14px;background:#EDF2F8;border-radius:5px;overflow:hidden}
-.bfill{height:100%;border-radius:5px;width:0;transition:width .9s cubic-bezier(.2,.7,.2,1)}
-.bval{font-family:var(--mono);font-size:12.5px;text-align:right;color:var(--sub);font-variant-numeric:tabular-nums}
-.bval b{color:var(--ink);font-weight:600}
-
-/* ---------- 02 입력 폼 ---------- */
-.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 20px}
-.field label{display:block;font-size:13.5px;font-weight:700;margin-bottom:7px}
-.field .help{font-size:12px;color:var(--sub);margin-top:6px;line-height:1.5}
-input[type=number],select{
-  width:100%;height:46px;padding:0 13px;border:1px solid var(--line2);border-radius:9px;
-  font:inherit;font-size:15px;color:var(--ink);background:#FDFEFF;
-}
-input[type=number]:focus,select:focus{border-color:var(--cold);outline:none;box-shadow:0 0 0 3px var(--cold-soft)}
-.chkline{display:flex;align-items:flex-start;gap:9px;font-size:13.5px;padding:4px 0;cursor:pointer}
-.chkline input{width:17px;height:17px;margin-top:3px;accent-color:var(--ink);cursor:pointer}
-.chkline:has(input:disabled){opacity:.45}
-.fieldset-label{font-size:13.5px;font-weight:700;margin-bottom:7px}
-.divline{border:0;border-top:1px dashed var(--line2);margin:24px 0}
-
-/* 가점 미리보기 */
-.preview{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
-.pv-bars .pv-row{display:grid;grid-template-columns:120px 1fr 64px;gap:10px;align-items:center;padding:5px 0;font-size:13px}
-.pv-row .pl{color:var(--sub)}
-.pv-track{height:9px;background:#EDF2F8;border-radius:5px;overflow:hidden}
-.pv-fill{height:100%;background:var(--ink);border-radius:5px;transition:width .35s ease}
-.pv-val{font-family:var(--mono);font-size:12.5px;text-align:right;color:var(--sub)}
-.pv-total{text-align:center;min-width:150px}
-.pv-total .tt{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--sub)}
-.pv-total .tv{font-size:44px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.pv-total .tv small{font-size:16px;color:var(--sub);font-weight:600}
-.btn{
-  display:inline-block;margin-top:22px;background:var(--ink);color:#fff;border:0;border-radius:10px;
-  padding:14px 26px;font:inherit;font-size:15.5px;font-weight:700;cursor:pointer;letter-spacing:-.01em;
-}
-.btn:hover{background:#0E1830}
-.btn:focus-visible{outline:3px solid var(--cold);outline-offset:2px}
-
-/* ---------- 03 결과 ---------- */
-#result[hidden]{display:none}
-.ruler-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 26px 18px;display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
-.ruler{position:relative;height:138px}
-.r-track{position:absolute;left:0;right:0;top:78px;height:9px;background:linear-gradient(90deg,var(--cold-soft),#EDF2F8 45%,var(--hot-soft));border-radius:5px;border:1px solid var(--line)}
-.r-end{position:absolute;top:96px;font-family:var(--mono);font-size:11px;color:var(--sub)}
-.tick{position:absolute;transform:translateX(-50%);text-align:center}
-.tick .tl{position:absolute;left:50%;transform:translateX(-50%);top:64px;width:2px;height:24px}
-.tick .tx{position:relative;width:96px;font-size:11px;line-height:1.35;font-weight:600}
-.tick .tx b{display:block;font-family:var(--mono);font-weight:700}
-.me{position:absolute;transform:translateX(-50%)}
-.me .md{position:absolute;left:50%;transform:translateX(-50%);top:71px;width:21px;height:21px;border-radius:50%;background:var(--ink);border:3.5px solid #fff;box-shadow:0 0 0 1.5px var(--ink)}
-.me .mx{position:absolute;left:50%;transform:translateX(-50%);top:101px;width:110px;text-align:center;font-size:12px;font-weight:800}
-.me .mx b{font-family:var(--mono)}
-.seal{width:92px;height:92px;border-radius:50%;border:2.5px solid currentColor;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:13.5px;line-height:1.3;letter-spacing:.05em;transform:rotate(-7deg);position:relative;padding:8px}
-.seal::after{content:"";position:absolute;inset:5px;border:1px solid currentColor;border-radius:50%;opacity:.65}
-
-.mystats{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
-
-/* 지역 비교 */
-.region-compass{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-top:14px}
-.rc-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.rc-head strong{font-size:15px}
-.rc-head select{font:inherit;font-size:14px;padding:7px 12px;border:1px solid var(--line2);border-radius:8px;background:var(--paper);color:var(--ink)}
-.rc-scale{position:relative;height:46px;margin:18px 2px 8px}
-.rc-band{position:absolute;top:16px;height:12px;border-radius:6px;background:var(--cold-soft);border:1px solid var(--cold)}
-.rc-band .lo,.rc-band .hi{position:absolute;top:14px;font-family:var(--mono);font-size:11px;color:var(--sub);white-space:nowrap}
-.rc-band .lo{left:0;transform:translateX(-50%)}
-.rc-band .hi{right:0;transform:translateX(50%)}
-.rc-avg{position:absolute;top:8px;width:2px;height:28px;background:var(--cold)}
-.rc-avg span{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:700;color:var(--cold);white-space:nowrap}
-.rc-me{position:absolute;top:2px;width:3px;height:40px;background:var(--hot);border-radius:2px}
-.rc-me span{position:absolute;top:-19px;left:50%;transform:translateX(-50%);font-size:11.5px;font-weight:800;color:var(--hot);white-space:nowrap}
-.rc-say{font-size:14.5px;line-height:1.6;color:var(--ink)}
-.rc-say b{font-weight:800}
-.rc-say .gap-up{color:var(--hot)}
-.rc-say .gap-dn{color:var(--ok)}
-.rc-foot{font-size:12px;color:var(--sub);margin-top:8px}
-.more{font-size:12.5px;color:var(--sub);padding:10px 2px 2px;text-align:center}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font-size:12.5px;color:var(--sub)}
-.stat b{display:block;font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-
-.strategies{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
-.scard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;border-top:4px solid var(--calm)}
-.scard.t-hot{border-top-color:var(--hot)} .scard.t-cold{border-top-color:var(--cold)} .scard.t-ink{border-top-color:var(--ink)}
-.scard h4{font-size:16px;font-weight:800;display:flex;align-items:center;gap:9px}
-.count{font-family:var(--mono);font-size:12px;background:#EDF2F8;border-radius:999px;padding:2px 9px;color:var(--sub);font-weight:600}
-.scard .sd{font-size:12.5px;color:var(--sub);margin:6px 0 6px}
-.cx{padding:13px 0;border-top:1px solid var(--line)}
-.cx:first-of-type{border-top:0}
-.cx .cx-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.cx .nm{font-size:14.5px;font-weight:700;letter-spacing:-.01em}
-.cx .meta{font-family:var(--mono);font-size:11.5px;color:var(--sub);margin-top:3px}
-.cx .why{font-size:12.5px;color:var(--sub);margin-top:5px}
-.stamp{display:inline-block;flex:none;padding:3px 9px;border:2px solid currentColor;border-radius:6px;font-weight:800;font-size:11px;letter-spacing:.1em;transform:rotate(-2.5deg);white-space:nowrap}
-.k-ok{color:var(--ok)} .k-warn{color:var(--warn)} .k-cold{color:var(--cold)} .k-hot{color:var(--hot)} .k-ink{color:var(--ink)}
-.empty{font-size:13px;color:var(--sub);padding:14px 0;border-top:1px dashed var(--line2)}
-#listA,#listB,#listC{max-height:430px;overflow-y:auto;overscroll-behavior:contain;padding-right:2px}
-
-.guide{margin-top:18px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ink);border-radius:var(--r);padding:24px 26px}
-.guide .g-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:12px}
-.guide .g-head strong{font-size:15.5px;font-weight:800}
-.guide .g-head span{font-family:var(--mono);font-size:11.5px;color:var(--sub)}
-.guide p{font-size:15px;margin-bottom:9px}
-.caution{margin-top:14px;padding-top:13px;border-top:1px dashed var(--line2);font-size:12.5px;color:var(--sub);line-height:1.6}
-
-/* ---------- footer ---------- */
-footer{border-top:1px solid var(--line);margin-top:30px;padding:26px 0 40px;background:var(--card)}
-footer .f-grid{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-footer .f-col{font-size:12.5px;color:var(--sub);line-height:1.7;max-width:46em}
-footer .f-col b{color:var(--ink)}
-
-:focus-visible{outline:3px solid var(--cold);outline-offset:2px}
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .bfill,.strip .seg,.pv-fill{transition:none}
-}
-@media (max-width:920px){
-  .cards{grid-template-columns:repeat(2,1fr)}
-  .strategies{grid-template-columns:1fr}
-  .grid3{grid-template-columns:repeat(2,1fr)}
-}
-@media (max-width:620px){
-  .cards,.grid3{grid-template-columns:1fr}
-  .preview{grid-template-columns:1fr}
-  .pv-total{text-align:left}
-  .ruler-card{grid-template-columns:1fr}
-  .seal{margin:0 auto}
-}
+  /* step 3 band */
+  .band-wrap{margin-top:8px}
+  .band{position:relative;height:46px;border:1px solid var(--line);border-radius:10px;background:#10131a;margin:18px 0 6px;overflow:visible}
+  .band .zone{position:absolute;top:0;bottom:0;border-radius:8px;background:linear-gradient(90deg,#1d2b22,#2d4a37)}
+  .band .me{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--accent)}
+  .band .me::after{content:attr(data-label);position:absolute;top:-18px;left:50%;transform:translateX(-50%);
+    font-size:11px;color:var(--accent);white-space:nowrap}
+  .scale{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}
+  .bandinfo{font-size:13.5px;color:var(--dim);margin-top:8px}
+  .bandinfo b{color:var(--ink)}
+  footer{margin-top:48px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:16px}
+  footer code{color:var(--dim)}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="wrap hd">
-    <div class="brand">
-      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
-        <circle cx="17" cy="17" r="15" fill="none" stroke="#15233B" stroke-width="2"/>
-        <polygon points="17,5.5 20.5,17 17,14.5 13.5,17" fill="#C8372D"/>
-        <polygon points="17,28.5 13.5,17 17,19.5 20.5,17" fill="#2563B0"/>
-        <circle cx="17" cy="17" r="1.8" fill="#15233B"/>
-      </svg>
-      <div>
-        <h1>청약 나침반</h1>
-        <p>공공데이터 기반 AI 청약시장 분석 · 맞춤형 지원전략 — 기말 프로젝트 데모</p>
-      </div>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>청약 나침반</h1>
+      <p class="sub">이번 주 분양 → 내 가점 → 이 지역 당첨선. 딱 세 단계.</p>
     </div>
-    <div class="hd-right">
-      <span class="asof" id="asof"></span>
-      <span class="badge demo" id="badge"><span class="dot"></span><span id="badgeText">데모 모드 · 샘플 데이터</span></span>
+    <span id="badge" class="badge">불러오는 중…</span>
+  </header>
+
+  <!-- STEP 1 -->
+  <section id="step1">
+    <div class="step-h"><span class="n">1</span><h2>이번 주 분양 중인 청약</h2>
+      <span class="hint">카드를 누르면 2·3단계에 반영돼요</span></div>
+    <div class="filters">
+      <select id="fRegion"><option value="">지역 전체</option></select>
+      <select id="fType">
+        <option value="">유형 전체</option>
+        <option value="gj">가점 적용(민영 일반)</option>
+        <option value="no">가점 외(추첨·공공·오피스텔)</option>
+      </select>
     </div>
-  </div>
-</header>
+    <div id="list" class="list"></div>
+  </section>
 
-<main>
-  <!-- HERO -->
-  <div class="wrap hero">
-    <div class="eyebrow">2026 기말 프로젝트 · AI × 부동산 청약</div>
-    <h2>같은 분기, 같은 시장 안에<br><span class="hot">312 대 1</span>과 <span class="cold">미달</span>이 공존합니다.</h2>
-    <p class="sub">청약은 "당첨만 되면 끝"인 복권이 아니라, 내 점수와 자격으로 <b>어디가 현실적인지</b>를 찾는 문제입니다. 아래에 조건을 입력하면 진행 중인 공고를 가점제 · 추첨제 · 특별공급 세 갈래의 전략으로 정리합니다.</p>
-    <p class="note">아래 모든 단지명·수치는 데모용 가상 샘플입니다 — FastAPI 백엔드 구현 시 청약홈 Open API 데이터를 같은 화면 구조로 연결하도록 설계</p>
-
-    <div class="thermo">
-      <div class="t-head">
-        <strong>시장 온도 — 최근 3개월 분양 단지의 경쟁률 분포</strong>
-        <span id="thermoTotal"></span>
+  <!-- STEP 2 -->
+  <section id="step2">
+    <div class="step-h"><span class="n">2</span><h2>내 가점 계산 <span style="font-size:13px;color:var(--dim)">(84점 만점)</span></h2></div>
+    <div class="panel">
+      <div id="selbar" class="selbar">위에서 공고를 먼저 선택하세요.</div>
+      <div class="grid3">
+        <div class="field">
+          <label>무주택 기간 <span class="q">(년)</span></label>
+          <input id="iNoHouse" type="number" min="0" max="40" step="1" placeholder="예: 7" />
+        </div>
+        <div class="field">
+          <label>부양가족 수 <span class="q">(본인 제외, 명)</span></label>
+          <input id="iFamily" type="number" min="0" max="10" step="1" placeholder="예: 2" />
+        </div>
+        <div class="field">
+          <label>청약통장 가입기간 <span class="q">(년)</span></label>
+          <input id="iAccount" type="number" min="0" max="40" step="1" placeholder="예: 8" />
+        </div>
       </div>
-      <div class="strip" id="strip" role="img" aria-label="경쟁률 구간별 단지 수 분포"></div>
-      <div class="t-legend" id="stripLegend"></div>
-    </div>
-  </div>
-
-  <!-- 01 시장 현황 -->
-  <section id="market">
-    <div class="wrap">
-      <div class="sec-head"><span class="no">01</span><h3>시장 현황 — 양극화를 숫자로</h3></div>
-      <p class="sec-desc">"당첨 = 수익"이라는 전제는 일부 단지에만 성립합니다. 평균 아래에는 미달 단지가, 평균 위에는 점수로 닿을 수 없는 단지가 함께 있습니다. 그래서 <b>분석</b>이 필요합니다.</p>
-      <div class="cards" id="cards"></div>
-      <div class="bars">
-        <h4>지역별 평균 경쟁률</h4>
-        <p class="h-sub" id="barsSub">1순위 평균 · 단위 N : 1 · 샘플</p>
-        <div id="regionBars"></div>
-      </div>
+      <div id="result" class="result" hidden></div>
     </div>
   </section>
 
-  <!-- 02 내 조건 -->
-  <section id="me">
-    <div class="wrap">
-      <div class="sec-head"><span class="no">02</span><h3>내 조건 입력</h3></div>
-      <p class="sec-desc">무주택기간과 부양가족 수는 산정 기준이 까다로워 자동으로 추정하지 않습니다 — 아래 도움말을 참고해 직접 입력해 주세요.</p>
-
-      <div class="panel">
-        <div class="grid3">
-          <div class="field">
-            <label for="age">만 나이</label>
-            <input type="number" id="age" min="17" max="99" value="32">
-          </div>
-          <div class="field">
-            <label for="married">혼인 여부</label>
-            <select id="married">
-              <option value="n">미혼</option>
-              <option value="y">기혼</option>
-            </select>
-            <p class="help">무주택기간 산정 기준과 신혼부부 특공 검토에 사용</p>
-          </div>
-          <div class="field">
-            <label for="region">관심 지역</label>
-            <select id="region">
-              <option value="all">전국 보기</option>
-              <option value="seoul">서울</option>
-              <option value="metro">경기 · 인천</option>
-              <option value="busan">부산</option>
-              <option value="etc">그 외 지역</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="acct">청약통장 가입기간 (개월)</label>
-            <input type="number" id="acct" min="0" max="600" value="60">
-            <p class="help">예: 5년 = 60. 6개월 미만이면 그대로 입력 (1점 처리)</p>
-          </div>
-          <div class="field">
-            <label for="nh">무주택기간 (년)</label>
-            <input type="number" id="nh" min="0" max="40" value="2">
-            <p class="help">만 30세 도달일(그 전에 혼인했다면 혼인신고일)부터 산정. 1년 미만이면 0 입력</p>
-            <p class="help" id="nhNote" style="color:var(--hot);display:none">만 30세 미만 미혼은 산정 기간이 시작되지 않아 무주택기간 가점이 0점으로 계산됩니다</p>
-          </div>
-          <div class="field">
-            <label for="deps">부양가족 수 (본인 제외, 명)</label>
-            <input type="number" id="deps" min="0" max="10" value="0">
-            <p class="help">동일 주민등록표 기준 — 직계존속은 3년 이상 계속 등재 등 조건 확인 필요</p>
-          </div>
-          <div class="field">
-            <label class="chkline" style="margin-top:30px"><input type="checkbox" id="noHouse" checked> 현재 무주택 세대구성원입니다</label>
-            <p class="help">유주택이면 무주택 가점 0점, 일부 전형은 신청 제한</p>
-          </div>
-        </div>
-
-        <hr class="divline">
-
-        <div class="fieldset-label">특별공급 검토용 체크 (해당 시)</div>
-        <div class="grid3" style="gap:6px 20px">
-          <label class="chkline"><input type="checkbox" id="spNewly"> 혼인 7년 이내 (신혼부부)</label>
-          <label class="chkline"><input type="checkbox" id="spFirst"> 세대 전원 주택 소유 이력 없음 (생애최초)</label>
-          <label class="chkline"><input type="checkbox" id="spKids"> 자녀 2명 이상 (다자녀)</label>
-          <label class="chkline"><input type="checkbox" id="spParent"> 만 65세 이상 직계존속 3년 이상 부양 (노부모)</label>
-        </div>
-
-        <hr class="divline">
-
-        <div class="preview">
-          <div class="pv-bars">
-            <div class="pv-row"><span class="pl">무주택기간</span><div class="pv-track"><div class="pv-fill" id="pvNh"></div></div><span class="pv-val" id="pvNhV">0 / 32</span></div>
-            <div class="pv-row"><span class="pl">부양가족</span><div class="pv-track"><div class="pv-fill" id="pvDep"></div></div><span class="pv-val" id="pvDepV">0 / 35</span></div>
-            <div class="pv-row"><span class="pl">통장 가입기간</span><div class="pv-track"><div class="pv-fill" id="pvAcct"></div></div><span class="pv-val" id="pvAcctV">0 / 17</span></div>
-          </div>
-          <div class="pv-total">
-            <div class="tt">예상 청약 가점</div>
-            <div class="tv"><span id="pvTotal">0</span><small> / 84점</small></div>
-          </div>
-        </div>
-
-        <button class="btn" id="btnGo">전략 분석하기</button>
-        <p class="help" style="margin-top:10px">가점은 민영주택 일반공급 <b>가점제 물량</b>에 적용되는 산식(무주택 32 · 부양가족 35 · 통장 17)입니다. 오피스텔 · 무순위 등은 별도 기준이 적용됩니다.</p>
-      </div>
-    </div>
+  <!-- STEP 3 -->
+  <section id="step3">
+    <div class="step-h"><span class="n">3</span><h2>이 지역, 최근엔 몇 점에 됐나</h2>
+      <span class="hint">단지별 커트라인이 아니라 지역 참고치</span></div>
+    <div id="band" class="panel"><div class="selbar">공고를 선택하면 해당 지역의 과거 당첨 가점 밴드를 보여줍니다.</div></div>
   </section>
 
-  <!-- 03 결과 -->
-  <section id="result" hidden>
-    <div class="wrap">
-      <div class="sec-head"><span class="no">03</span><h3>맞춤 전략</h3></div>
-      <p class="sec-desc">내 가점이 시장의 기준선 어디에 있는지 보고, 현실적인 세 갈래로 나눠 봅니다. <span id="poolNote"></span></p>
-
-      <div class="ruler-card">
-        <div class="ruler" id="ruler"></div>
-        <div class="seal" id="seal"></div>
-      </div>
-
-      <div class="region-compass" id="regionCompass" hidden>
-        <div class="rc-head">
-          <strong>지역을 바꿔 견줘보기</strong>
-          <select id="cmpRegion" aria-label="비교할 지역 선택"></select>
-        </div>
-        <div class="rc-body" id="cmpBody"></div>
-      </div>
-
-      <div class="mystats" id="myStats"></div>
-
-      <div class="strategies">
-        <div class="scard t-hot">
-          <h4>가점제 도전 <span class="count" id="cntA">0</span></h4>
-          <p class="sd">단지별 예상 당첨선과 내 가점의 거리 — 점수로 승부하는 구간</p>
-          <div id="listA"></div>
-        </div>
-        <div class="scard t-cold">
-          <h4>추첨제 전략 <span class="count" id="cntB">0</span></h4>
-          <p class="sd">가점과 무관한 추첨 물량 비중이 높거나 경쟁이 낮은 단지 — 미달 단지는 제외</p>
-          <div id="listB"></div>
-        </div>
-        <div class="scard t-ink">
-          <h4>특별공급 검토 <span class="count" id="cntC">0</span></h4>
-          <p class="sd">체크한 요건 기준 <b>검토 후보</b>만 표시 — 무주택 · 소득 · 자산 기준은 공고별 확인</p>
-          <div id="listC"></div>
-        </div>
-      </div>
-
-      <div class="guide">
-        <div class="g-head">
-          <strong>맞춤 안내문</strong>
-          <span id="guideSrc">데모: 규칙 기반 문장 생성 · 최종 구조: 분석 결과를 Claude API에 전달해 작성</span>
-        </div>
-        <div id="guideBody"></div>
-        <p class="caution" id="caution">※ 가점 산정과 자격 판단은 1차 점검 목적의 참고 정보로, 실제 자격 · 일정 · 당첨 기준은 반드시 청약홈의 공식 모집공고문으로 확인해야 합니다.</p>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="wrap f-grid">
-    <div class="f-col">
-      <b>데이터 출처 (실시간 모드)</b><br>
-      한국부동산원 청약홈 — <a href="https://www.data.go.kr/data/15098547/openapi.do" target="_blank" rel="noopener">분양정보 조회 서비스</a> · <a href="https://www.data.go.kr/data/15098905/openapi.do" target="_blank" rel="noopener">청약접수 경쟁률 및 특별공급 신청현황 조회 서비스</a> · <a href="https://www.data.go.kr/data/15110812/openapi.do" target="_blank" rel="noopener">청약 신청·당첨자 정보 조회 서비스</a> (공공데이터포털 Open API)
-    </div>
-    <div class="f-col" style="text-align:right">
-      데이터는 정부 공식, 해석은 AI —<br>예측이 아닌 자격 점검과 쉬운 안내를 제공합니다.
-    </div>
-  </div>
-</footer>
+  <footer>
+    <div id="srcline">데이터: 한국부동산원 청약홈 — 공공데이터포털 Open API</div>
+    <div style="margin-top:6px">분양정보 <code>15098547</code> · 당첨 가점 통계 <code>ApplyhomeStatSvc</code>. 수집 시각 기준의 주기 갱신값이며, 신청 전 반드시 <a href="https://www.applyhome.co.kr/" target="_blank" rel="noopener">청약홈 공식 공고문</a>을 확인하세요.</div>
+  </footer>
+</div>
 
 <script>
-/* =========================================================
-   데이터 — 데모 모드에서는 SAMPLE, 실시간 모드에서는
-   FastAPI 서버의 /api/market 응답이 같은 구조로 들어옵니다.
-   ========================================================= */
-const SAMPLE = {
-  live: false,
-  asOf: "샘플 기준일: 2026-05 (가상)",
-  metrics: { seoulAvg: 89.2, nationAvg: 7.4, shortfall: 14, seoulCut: 63 },
-  refs: { lotteryCase: 42, seoulCut: 63, gangnamMin: 72 },
-  regionScores: {
-    "서울": { month: "2026.04", avg: 63.2, low: 34, top: 74 },
-    "경기": { month: "2026.04", avg: 48.5, low: 26, top: 69 },
-    "인천": { month: "2026.03", avg: 55.0, low: 40, top: 69 },
-    "부산": { month: "2026.03", avg: 44.0, low: 32, top: 58 },
-    "대전": { month: "2026.04", avg: 47.0, low: 30, top: 66 },
-    "대구": { month: "2026.03", avg: 52.0, low: 40, top: 64 },
-    "충북": { month: "2026.02", avg: 21.0, low: 12, top: 40 }
-  },
-  regions: [
-    { label: "서울", rate: 89.2 },
-    { label: "경기", rate: 13.5 },
-    { label: "인천", rate: 6.8 },
-    { label: "대전", rate: 5.2 },
-    { label: "부산", rate: 4.1 },
-    { label: "광주", rate: 2.3 },
-    { label: "기타 지방", rate: 1.6 },
-    { label: "대구", rate: 0.8 }
-  ],
-  dist: [
-    { label: "미달", n: 14, tier: "cold" },
-    { label: "1~10 : 1", n: 45, tier: "calm" },
-    { label: "10~50 : 1", n: 22, tier: "warm" },
-    { label: "50~100 : 1", n: 6, tier: "hot" },
-    { label: "100 : 1 이상", n: 8, tier: "fire" }
-  ],
-  complexes: [
-    { name: "르포레 헤리티지", region: "서울", area: "전용 60~85㎡", gj: 70, ch: 30, rate: 312.5, cutoff: 72, special: ["신혼부부", "생애최초"] },
-    { name: "한강 리버라인", region: "서울", area: "전용 60~85㎡", gj: 70, ch: 30, rate: 96.4, cutoff: 66, special: ["신혼부부", "생애최초", "다자녀"] },
-    { name: "북서울 포레스트힐", region: "서울", area: "전용 60㎡ 이하", gj: 40, ch: 60, rate: 21.7, cutoff: 58, special: ["신혼부부", "생애최초"] },
-    { name: "위례 센트럴마크", region: "경기", area: "전용 60~85㎡", gj: 50, ch: 50, rate: 12.1, cutoff: 54, special: ["신혼부부", "다자녀", "노부모"] },
-    { name: "운정 레이크어반", region: "경기", area: "전용 85㎡ 초과", gj: 20, ch: 80, rate: 4.8, cutoff: 49, special: [] },
-    { name: "검단 스카이라인", region: "인천", area: "전용 60~85㎡", gj: 40, ch: 60, rate: 2.7, cutoff: 41, special: ["신혼부부", "생애최초"] },
-    { name: "해운대 오션테라스", region: "부산", area: "전용 85㎡ 초과", gj: 0, ch: 100, rate: 3.4, cutoff: null, special: [] },
-    { name: "청주 테크노 센트럴", region: "충북", area: "전용 60~85㎡", gj: 40, ch: 60, rate: 1.8, cutoff: 36, special: ["생애최초"] },
-    { name: "수성 더파크", region: "대구", area: "전용 60~85㎡", gj: 40, ch: 60, rate: 0.6, cutoff: null, special: ["신혼부부"] },
-    { name: "내포 에코시티", region: "충남", area: "전용 60~85㎡", gj: 40, ch: 60, rate: 0.4, cutoff: null, special: ["생애최초", "다자녀"] }
-  ]
-};
+const $ = s => document.querySelector(s);
+let DATA = null, SEL = null;
 
-let DATA = SAMPLE;
-let LIVE = false;       /* 실데이터(실시간 또는 자동갱신) — 화면의 '샘플' 태그 숨김용 */
-let BACKEND = false;    /* FastAPI 백엔드 연결 여부 — /api/match · /api/explain 호출 가능 */
-
-const $ = (id) => document.getElementById(id);
-const TIER_COLOR = { cold: "#2563B0", calm: "#93A9C7", warm: "#D2762A", hot: "#D6532F", fire: "#C8372D" };
-
-/* ---------- 가점 산식 (민영 일반공급 가점제, 84점 만점) ---------- */
-function scoreNoHouse(years, isNoHouse, u30single) {
-  if (!isNoHouse) return 0;                       /* 유주택: 0점 */
-  if (u30single) return 0;                        /* 만 30세 미만 미혼: 산정 기간 미시작 → 0점 */
-  const y = Math.max(0, Math.floor(years || 0));
-  return Math.min(32, 2 + 2 * y);                 /* 1년 미만 2점 ~ 15년 이상 32점 */
+// ---- 84점 가점 산식 (한국부동산원 기준) ----------------------------------
+function noHousePts(y){            // 무주택기간: 최대 32 (1년 미만 2, 이후 1년당 +2)
+  if(y==null||isNaN(y)) return null;
+  if(y<1) return 2;
+  return Math.min(32, (Math.floor(y)+1)*2);
 }
-function scoreDeps(n) {
-  const d = Math.max(0, Math.floor(n || 0));
-  return Math.min(35, 5 + 5 * d);                 /* 0명 5점 ~ 6명 이상 35점 */
+function familyPts(n){             // 부양가족: 최대 35 (0명=5, 1명당 +5)
+  if(n==null||isNaN(n)) return null;
+  return Math.min(35, 5 + Math.max(0,Math.floor(n))*5);
 }
-function scoreAcct(months) {
-  const m = Math.max(0, Math.floor(months || 0));
-  if (m < 6) return 1;                            /* 6개월 미만 1점 */
-  if (m < 12) return 2;                           /* 6개월~1년 미만 2점 */
-  return Math.min(17, 2 + Math.floor(m / 12));    /* 이후 1년마다 1점, 15년 이상 17점 */
+function accountPts(y){            // 통장 가입기간: 최대 17
+  if(y==null||isNaN(y)) return null;
+  if(y<0.5) return 1;
+  if(y<1) return 2;
+  return Math.min(17, Math.floor(y)+2);
+}
+function numOrNull(el){ const v=el.value.trim(); return v===''?null:Number(v); }
+
+function myScore(){
+  const nh=noHousePts(numOrNull($('#iNoHouse'))),
+        fm=familyPts(numOrNull($('#iFamily'))),
+        ac=accountPts(numOrNull($('#iAccount')));
+  if(nh==null||fm==null||ac==null) return null;
+  return nh+fm+ac;
 }
 
-function readUser() {
-  const specials = [];
-  if ($("spNewly").checked) specials.push("신혼부부");
-  if ($("spFirst").checked) specials.push("생애최초");
-  if ($("spKids").checked) specials.push("다자녀");
-  if ($("spParent").checked) specials.push("노부모");
-  const noHouse = $("noHouse").checked;
-  const age = +$("age").value || null;
-  const married = $("married").value === "y";
-  const u30single = !married && age !== null && age < 30;
-  const nh = scoreNoHouse(+$("nh").value, noHouse, u30single);
-  const dep = scoreDeps(+$("deps").value);
-  const acct = scoreAcct(+$("acct").value);
-  return {
-    age, married, u30single,
-    region: $("region").value,
-    noHouse, specials,
-    nh, dep, acct,
-    score: nh + dep + acct
-  };
-}
+// ---- 렌더 ----------------------------------------------------------------
+function esc(s){ return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function fmtDate(s){ return (s&&/\d{4}-\d{2}-\d{2}/.test(s)) ? s.slice(5).replace('-','/') : '—'; }
 
-/* ---------- 02: 실시간 가점 미리보기 ---------- */
-function renderPreview() {
-  const u = readUser();
-  $("nhNote").style.display = u.u30single ? "block" : "none";
-  $("spNewly").disabled = !u.married;
-  if (!u.married) $("spNewly").checked = false;
-  $("pvNh").style.width = (u.nh / 32 * 100) + "%";
-  $("pvDep").style.width = (u.dep / 35 * 100) + "%";
-  $("pvAcct").style.width = (u.acct / 17 * 100) + "%";
-  $("pvNhV").textContent = u.nh + " / 32";
-  $("pvDepV").textContent = u.dep + " / 35";
-  $("pvAcctV").textContent = u.acct + " / 17";
-  $("pvTotal").textContent = u.score;
-}
-
-/* ---------- 01: 시장 현황 렌더 ---------- */
-function renderMarket() {
-  $("asof").textContent = DATA.asOf;
-
-  const m = DATA.metrics;
-  const tag = LIVE ? "" : " · 샘플";
-  $("cards").innerHTML = [
-    card("서울 평균 경쟁률", m.seoulAvg, ": 1", "1순위 평균" + tag, "hot"),
-    card("전국 평균 경쟁률", m.nationAvg, ": 1", "같은 기간 전국" + tag, ""),
-    card("미달 단지", m.shortfall, "곳", "경쟁률 1 미만 · 최근 3개월" + tag, "cold"),
-    card("서울 당첨 가점 컷", m.seoulCut, "점", "최저 당첨가점 평균" + tag, "hot")
-  ].join("");
-  $("barsSub").textContent = "1순위 평균 · 단위 N : 1" + tag;
-
-  const total = DATA.dist.reduce((s, d) => s + d.n, 0);
-  $("thermoTotal").textContent = "총 " + total + "개 단지" + tag;
-  $("poolNote").textContent = LIVE
-    ? "현재 분석 대상: 청약홈 수집 공고 " + DATA.complexes.length + "건"
-    : "현재 분석 대상: 가상 샘플 단지 " + DATA.complexes.length + "곳 — 실데이터 연결 시 진행 중인 전체 공고로 확장됩니다.";
-  $("strip").innerHTML = DATA.dist.map(d =>
-    `<div class="seg" data-w="${(d.n / total * 100).toFixed(1)}" style="width:0;background:${TIER_COLOR[d.tier]}" title="${d.label} ${d.n}곳"></div>`
-  ).join("");
-  $("stripLegend").innerHTML = DATA.dist.map(d =>
-    `<span class="li"><span class="sw" style="background:${TIER_COLOR[d.tier]}"></span>${d.label} <b>${d.n}</b></span>`
-  ).join("");
-
-  const max = Math.max(...DATA.regions.map(r => r.rate));
-  $("regionBars").innerHTML = DATA.regions.map(r => {
-    const color = r.rate >= 50 ? TIER_COLOR.fire : r.rate >= 10 ? TIER_COLOR.warm : r.rate >= 1 ? TIER_COLOR.calm : TIER_COLOR.cold;
-    const tag = r.rate < 1 ? " <b>(미달)</b>" : "";
-    return `<div class="brow"><span class="bl">${r.label}</span><div class="btrack"><div class="bfill" data-w="${(r.rate / max * 100).toFixed(1)}" style="width:0;background:${color}"></div></div><span class="bval"><b>${r.rate}</b> : 1${tag}</span></div>`;
-  }).join("");
-
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    document.querySelectorAll("[data-w]").forEach(el => { el.style.width = el.dataset.w + "%"; });
-  }));
-}
-
-function card(k, v, unit, c, cls) {
-  const has = v !== null && v !== undefined;
-  return `<div class="mcard ${cls}"><div class="k">${k}</div><div class="v">${has ? v : "—"}<small>${has ? unit : ""}</small></div><div class="c">${c}</div></div>`;
-}
-
-/* ---------- 03: 분류 로직 (데모 — 실시간 모드에서는 POST /api/match) ---------- */
-function inRegion(c, sel) {
-  if (sel === "all") return true;
-  if (sel === "seoul") return c.region === "서울";
-  if (sel === "metro") return c.region === "경기" || c.region === "인천";
-  if (sel === "busan") return c.region === "부산";
-  return !["서울", "경기", "인천", "부산"].includes(c.region);
-}
-
-function classify(u) {
-  const list = DATA.complexes.filter(c => inRegion(c, u.region));
-  const A = [], B = [], C = [], X = [];
-  list.forEach(c => {
-    if (c.rate !== null && c.rate < 1) {
-      X.push(c);                                  /* 미달: 당첨은 쉬우나 수요 미검증 → 추천 제외 */
-    } else {
-      if (c.cutoff !== null) {                       /* 당첨 가점선이 있으면 가점제 물량 단지 */
-        const d = u.score - c.cutoff;
-        let st, note;
-        if (d >= 5) { st = { t: "여유", k: "ok" }; note = `예상 컷 ${c.cutoff}점 · 내 가점 +${d}점`; }
-        else if (d >= 0) { st = { t: "가능권", k: "ok" }; note = `예상 컷 ${c.cutoff}점 · 내 가점 +${d}점`; }
-        else if (d >= -6) { st = { t: "빠듯", k: "warn" }; note = `예상 컷 ${c.cutoff}점 · ${Math.abs(d)}점 부족 — 비선호 타입 검토`; }
-        else { st = { t: "어려움", k: "hot" }; note = `예상 컷 ${c.cutoff}점 · ${Math.abs(d)}점 부족 — 가점으로는 어려움, 추첨 물량 확인`; }
-        A.push({ c, stamp: st, note, d });
-      }
-      if ((c.ch !== null && c.ch >= 50) || (c.rate !== null && c.rate < 10)) {
-        const p = 100 / c.rate;
-        const pTxt = p >= 1 ? Math.round(p) + "%" : "1% 미만";
-        const chTxt = c.ch !== null ? `추첨 ${c.ch}% · ` : "";
-        B.push({ c, stamp: { t: "전략 구간", k: "cold" }, p, note: `${chTxt}최근 ${c.rate} : 1 → 신청 1건당 당첨 확률 약 ${pTxt} (단순 환산)` });
-      }
-    }
-    const mine = c.special.filter(s => u.specials.includes(s));
-    const notShort = !(c.rate !== null && c.rate < 1);
-    if (mine.length && u.noHouse && notShort) C.push({ c, stamp: { t: "특공 검토", k: "ink" }, note: mine.join(" · ") + " 물량 보유 — 소득 · 자산 기준 공고 확인" });
+function renderList(){
+  const list = $('#list');
+  const r = $('#fRegion').value, t = $('#fType').value;
+  const items = DATA.notices.filter(n=>{
+    if(r && n.region!==r) return false;
+    if(t==='gj' && !n.gajeom) return false;
+    if(t==='no' && n.gajeom) return false;
+    return true;
   });
-  A.sort((a, b) => b.d - a.d);
-  B.sort((a, b) => (a.c.rate ?? 999) - (b.c.rate ?? 999));
-  return { A, B, C, X };
+  if(!items.length){ list.innerHTML = `<div class="empty">조건에 맞는 모집 중 공고가 없습니다.</div>`; return; }
+  list.innerHTML = items.map(n=>{
+    const i = DATA.notices.indexOf(n);
+    const gtag = n.gajeom ? `<span class="tag gj">가점 적용</span>` : `<span class="tag no">가점 외 기준</span>`;
+    const sp = n.hasSpecial ? `<span class="tag sp">특별공급 포함</span>` : '';
+    const s = n.schedule||{};
+    return `<div class="card ${SEL===i?'sel':''}" data-i="${i}">
+      <div class="row1"><span class="name">${esc(n.name)}</span>
+        <span class="tag">${esc(n.type)}</span>${gtag}${sp}</div>
+      <div class="meta">${esc(n.region)} · ${esc(n.area||'—')}</div>
+      <div class="sched">
+        <span><b>특공</b> ${fmtDate(s.special)}</span>
+        <span><b>1순위</b> ${fmtDate(s.rank1)}</span>
+        <span><b>발표</b> ${fmtDate(s.result)}</span>
+      </div>
+    </div>`;
+  }).join('');
+  list.querySelectorAll('.card').forEach(c=>c.onclick=()=>select(+c.dataset.i));
 }
 
-function rowHTML(x) {
-  const ratio = (x.c.gj != null && x.c.ch != null) ? ` · 가점 ${x.c.gj}% / 추첨 ${x.c.ch}%` : "";
-  const sp = (x.c.special && x.c.special.length) ? ` · 특공 ${x.c.special.join("·")}` : "";
-  return `<div class="cx"><div class="cx-top"><div><div class="nm">${x.c.name}</div><div class="meta">${x.c.region} · ${x.c.area}${ratio}${sp}</div></div><span class="stamp k-${x.stamp.k}">${x.stamp.t}</span></div><div class="why">${x.note}</div></div>`;
+function select(i){
+  SEL = i;
+  document.querySelectorAll('.card').forEach(c=>c.classList.toggle('sel', +c.dataset.i===i));
+  renderStep2(); renderStep3();
+  $('#step2').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-function renderList(elId, cntId, arr, emptyMsg, limit) {
-  $(cntId).textContent = arr.length;
-  if (!arr.length) { $(elId).innerHTML = `<div class="empty">${emptyMsg}</div>`; return; }
-  const show = limit ? arr.slice(0, limit) : arr;
-  let html = show.map(rowHTML).join("");
-  if (limit && arr.length > limit) {
-    html += `<div class="more">그 외 ${arr.length - limit}곳 — 위 ‘내 조건’에서 관심 지역을 좁히면 더 정밀해져요</div>`;
+function renderStep2(){
+  const n = DATA.notices[SEL];
+  const sel = $('#selbar'), res = $('#result');
+  if(!n){ sel.textContent='위에서 공고를 먼저 선택하세요.'; res.hidden=true; return; }
+  sel.innerHTML = `선택: <b>${esc(n.name)}</b> · ${esc(n.type)}`;
+
+  if(!n.gajeom){
+    res.hidden=false;
+    res.innerHTML = `<div class="note warn">
+      <b>여기는 가점제가 적용되지 않습니다.</b><br>
+      ‘${esc(n.type)}’ 유형은 당첨이 <b>가점 순</b>이 아니라
+      ${(n.type.includes('국민')||n.type.includes('공공'))
+        ? '<b>청약통장 납입횟수·납입금액(순차제)</b>과 무주택·소득 등 자격요건'
+        : '<b>추첨</b> 또는 별도 <b>자격요건</b>'}으로 정해집니다.
+      아래 점수는 참고용일 뿐, 이 공고의 당락 기준이 아닙니다.</div>`;
+    return;
   }
-  $(elId).innerHTML = html;
+  const nh=noHousePts(numOrNull($('#iNoHouse'))),
+        fm=familyPts(numOrNull($('#iFamily'))),
+        ac=accountPts(numOrNull($('#iAccount')));
+  if(nh==null||fm==null||ac==null){
+    res.hidden=false;
+    res.innerHTML = `<div class="note info">세 항목을 입력하면 84점 만점 가점이 계산됩니다.
+      무주택기간·부양가족은 자동 추정하지 않고 입력하신 값만 사용합니다.</div>`;
+    return;
+  }
+  const total = nh+fm+ac;
+  res.hidden=false;
+  res.innerHTML = `
+    <div class="score">${total}점 <small>/ 84점</small></div>
+    <div class="breakdown">무주택 ${nh} + 부양가족 ${fm} + 통장 ${ac}</div>
+    <div class="note info">민영 APT 일반공급은 같은 순위 안에서 <b>가점이 높은 순</b>으로 당첨됩니다.
+      아래 3단계 지역 밴드 어디쯤인지 확인해 현실성을 가늠하세요.</div>`;
 }
 
-/* ---------- 03: 가점 자(ruler)와 판정 도장 ---------- */
-function renderRuler(u) {
-  const pos = (v) => (v / 84 * 100).toFixed(2) + "%";
-  const refs = DATA.refs || {};
-  const ticks = [
-    { v: refs.lotteryCase, name: "추첨 당첨 사례", color: "var(--cold)", row: 0 },
-    { v: refs.seoulCut, name: "서울 평균 컷", color: "var(--hot)", row: 1 },
-    { v: refs.gangnamMin, name: "강남권 하한", color: "var(--hot)", row: 0 }
-  ].filter(t => typeof t.v === "number");
-  let html = `<div class="r-track"></div><span class="r-end" style="left:0">0</span><span class="r-end" style="right:0">84점</span>`;
-  ticks.forEach(t => {
-    html += `<div class="tick" style="left:${pos(t.v)}"><div class="tx" style="top:${t.row * 30}px;color:${t.color}">${t.name}<b>${t.v}점</b></div><div class="tl" style="background:${t.color}"></div></div>`;
+function renderStep3(){
+  const box = $('#band');
+  const n = DATA.notices[SEL];
+  if(!n){ box.innerHTML=`<div class="selbar">공고를 선택하면 해당 지역의 과거 당첨 가점 밴드를 보여줍니다.</div>`; return; }
+  const rs = (DATA.regionScores||{})[n.region];
+  if(!rs){
+    box.innerHTML = `<div class="selbar">‘${esc(n.region)}’ 지역의 최근 당첨 가점 통계가 아직 없습니다. (집계가 누적되면 표시됩니다.)</div>`;
+    return;
+  }
+  const lo = rs.low ?? Math.max(0, Math.round(rs.avg-8));
+  const hi = rs.top ?? Math.round(rs.avg+8);
+  const pct = v => Math.max(0, Math.min(100, v/84*100));
+  const my = n.gajeom ? myScore() : null;
+  const meMark = (my!=null) ? `<div class="me" style="left:${pct(my)}%" data-label="내 ${my}점"></div>` : '';
+  let verdict='';
+  if(my!=null){
+    if(my>=hi) verdict = `내 점수 <b>${my}점</b>은 최근 밴드 상단(${hi}점) 이상 — 이 지역에선 <b>도전 가능권</b>입니다.`;
+    else if(my>=rs.avg) verdict = `내 점수 <b>${my}점</b>은 평균(${rs.avg}점) 이상 — <b>현실적인 편</b>입니다.`;
+    else if(my>=lo) verdict = `내 점수 <b>${my}점</b>은 밴드 안(하단 ${lo}점~)이지만 평균 아래 — <b>단지·면적에 따라 갈림</b>.`;
+    else verdict = `내 점수 <b>${my}점</b>은 최근 밴드(${lo}점~) 아래 — 인기 단지는 <b>가점만으론 어려움</b>. 추첨 비중·특공을 함께 보세요.`;
+  }
+  box.innerHTML = `
+    <div class="selbar"><b>${esc(n.region)}</b> · ${esc(rs.month)} 기준 ‘해당지역’ 당첨 가점</div>
+    <div class="band-wrap">
+      <div class="band">
+        <div class="zone" style="left:${pct(lo)}%;width:${pct(hi)-pct(lo)}%"></div>
+        ${meMark}
+      </div>
+      <div class="scale"><span>0</span><span>20</span><span>40</span><span>60</span><span>84</span></div>
+    </div>
+    <div class="bandinfo">최근 보통 <b>${lo}~${hi}점</b>대에서 당첨 (평균 <b>${rs.avg}점</b>).</div>
+    ${verdict?`<div class="bandinfo" style="margin-top:6px">${verdict}</div>`:
+      (n.gajeom?`<div class="bandinfo" style="margin-top:6px">2단계에서 가점을 입력하면 내 위치가 막대에 표시됩니다.</div>`:
+        `<div class="bandinfo" style="margin-top:6px">이 공고는 가점제가 아니라, 위 밴드는 ‘참고 지역 분위기’로만 보세요.</div>`)}
+  `;
+}
+
+function fillRegionFilter(){
+  const sel=$('#fRegion');
+  [...new Set(DATA.notices.map(n=>n.region))].sort().forEach(r=>{
+    const o=document.createElement('option'); o.value=o.textContent=r; sel.appendChild(o);
   });
-  html += `<div class="me" style="left:${pos(Math.min(u.score, 84))}"><div class="md"></div><div class="mx">내 가점 <b>${u.score}점</b></div></div>`;
-  $("ruler").innerHTML = html;
-
-  let seal;
-  if (u.score >= 72) seal = { t: "최상위권", k: "hot" };
-  else if (u.score >= 63) seal = { t: "서울<br>평균권", k: "hot" };
-  else if (u.score >= 50) seal = { t: "전략<br>병행", k: "cold" };
-  else seal = { t: "추첨 · 특공<br>중심", k: "cold" };
-  const sealEl = $("seal");
-  sealEl.className = "seal k-" + seal.k;
-  sealEl.innerHTML = seal.t;
 }
 
-/* ---------- 03: 지역별 당첨 가점과 내 가점 견주기 ---------- */
-let CMP_SCORE = 0;
-function renderRegionCompass(u) {
-  const rs = DATA.regionScores || {};
-  const keys = Object.keys(rs);
-  const wrap = $("regionCompass");
-  if (!keys.length) { wrap.hidden = true; return; }
-  wrap.hidden = false;
-  CMP_SCORE = u.score;
-
-  const sel = $("cmpRegion");
-  if (sel.dataset.filled !== "1") {
-    const ordered = keys.slice().sort((a, b) => rs[b].avg - rs[a].avg);
-    sel.innerHTML = ordered.map(k => `<option value="${k}">${k}</option>`).join("");
-    sel.dataset.filled = "1";
-    sel.addEventListener("change", paintCompass);
-  }
-  const pref = { seoul: "서울", busan: "부산" }[u.region];   /* 관심 지역과 맞으면 기본 선택 */
-  if (pref && rs[pref]) sel.value = pref;
-  paintCompass();
+function setBadge(){
+  const b=$('#badge');
+  const when = DATA.collectedAt ? DATA.collectedAt.replace('T',' ').slice(0,16) : '';
+  if(DATA.live){ b.className='badge live'; b.textContent=`실데이터 · ${when} 수집`; }
+  else { b.className='badge'; b.textContent='데모 데이터 (예시 단지)'; }
 }
 
-function paintCompass() {
-  const rs = DATA.regionScores || {};
-  const s = rs[$("cmpRegion").value];
-  if (!s) return;
-  const score = CMP_SCORE;
-  const pct = (v) => (Math.max(0, Math.min(84, v)) / 84 * 100).toFixed(1) + "%";
-  const lo = s.low ?? s.avg, hi = s.top ?? s.avg;
-  const diff = +(score - s.avg).toFixed(1);
-  const gapTxt = diff < 0
-    ? `평균보다 <b class="gap-up">${Math.abs(diff)}점 아래</b>에 있어요`
-    : `평균을 <b class="gap-dn">${diff}점</b> 웃돌아요`;
-
-  $("cmpBody").innerHTML =
-    `<div class="rc-scale">
-       <div class="rc-band" style="left:${pct(lo)};width:calc(${pct(hi)} - ${pct(lo)})"><span class="lo">${lo}</span><span class="hi">${hi}</span></div>
-       <div class="rc-avg" style="left:${pct(s.avg)}"><span>당첨 평균 ${s.avg}</span></div>
-       <div class="rc-me" style="left:${pct(score)}"><span>내 ${score}점</span></div>
-     </div>
-     <p class="rc-say"><b>${$("cmpRegion").value}</b>의 최근 당첨 가점은 평균 <b>${s.avg}점</b>(대체로 ${lo}~${hi}점), 내 가점 <b>${score}점</b>은 ${gapTxt}.</p>
-     <p class="rc-foot">${s.month} 기준 · 해당지역 1순위 당첨 가점 통계 · 단지·주택형에 따라 달라집니다</p>`;
+async function boot(){
+  try{
+    const r = await fetch('data.json', {cache:'no-store'});
+    DATA = await r.json();
+  }catch(e){ DATA={notices:[],regionScores:{}}; }
+  if(!DATA.notices) DATA.notices=[];
+  setBadge();
+  fillRegionFilter();
+  renderList();
+  $('#fRegion').onchange = $('#fType').onchange = renderList;
+  ['#iNoHouse','#iFamily','#iAccount'].forEach(id=>$(id).addEventListener('input',()=>{renderStep2();renderStep3();}));
 }
-
-/* ---------- 03: 내 조건 기준 요약 지표 ---------- */
-function renderStats(b) {
-  const ok = b.A.filter(x => x.d >= 0).length;
-  const probs = b.B.filter(x => x.p !== null && x.p >= 1).map(x => x.p);
-  const bestTxt = probs.length ? "약 " + Math.round(Math.max(...probs)) + "%" : "—";
-  $("myStats").innerHTML =
-    `<div class="stat">가점제 가능권 이상<b>${ok}곳</b></div>` +
-    `<div class="stat">추첨 환산 당첨 확률 최고<b>${bestTxt}</b></div>` +
-    `<div class="stat">특별공급 검토<b>${b.C.length}곳</b></div>`;
-}
-
-/* ---------- 03: AI 안내문 (데모 — 실서비스에서는 Claude API 생성) ---------- */
-function buildGuide(u, b) {
-  const L = [];
-  const refs = DATA.refs || {};
-  const sc = refs.seoulCut;
-  const tag = LIVE ? "" : " 샘플";
-  L.push(`계산된 가점은 <b>${u.score}점</b>(84점 만점)입니다 — 무주택 ${u.nh}점 · 부양가족 ${u.dep}점 · 통장 ${u.acct}점.`);
-  if (u.u30single) {
-    L.push(`만 30세 미만 미혼은 무주택기간 산정이 시작되지 않아 무주택 가점을 0점으로 계산했습니다 — 만 30세 도달 또는 혼인신고 시점부터 기간이 쌓입니다.`);
-  }
-  if (typeof sc === "number") {
-    if (u.score >= sc + 9) {
-      L.push(`최근 서울 당첨 가점 평균(${sc}점${tag})을 크게 웃도는 최상위 점수대입니다. 가점제 일반공급을 1순위 전략으로 두고 분양가와 일정만 비교하시면 됩니다.`);
-    } else if (u.score >= sc) {
-      L.push(`최근 서울 당첨 가점 평균(${sc}점${tag}) 이상이라 서울 가점제 단지도 현실적인 선택지입니다. 다만 인기 단지는 컷이 더 높게 형성되므로 단지별 예상선을 함께 보셔야 합니다.`);
-    } else if (u.score >= sc - 13) {
-      L.push(`서울 평균 당첨선(${sc}점${tag})에는 못 미치지만 포기할 점수대는 아닙니다. 수도권 일부 가점제 단지와 추첨 비중이 높은 주택형을 병행하는 것이 합리적입니다.`);
-    } else {
-      L.push(`가점만으로는 서울 평균(${sc}점${tag})과 거리가 있는 점수대지만, 그게 곧 "청약이 안 된다"는 뜻은 아닙니다. 가점과 무관한 추첨제 물량이 실제 당첨 루트이니 아래 추첨제 전략을 함께 보세요.`);
-    }
-  } else {
-    L.push(u.score >= 60
-      ? `상위권 점수대로 가점제 일반공급을 주력으로 둘 만합니다. 인기 단지일수록 컷이 높아지니 단지별 예상선을 함께 보세요.`
-      : `가점만으로 승부하기엔 부담이 있는 점수대입니다. 추첨 비중이 높은 주택형과 특별공급을 병행하는 편이 현실적입니다.`);
-  }
-  if (b.A.length) {
-    const t = b.A[0];
-    if (t.d >= 0) L.push(`가점제에서는 <b>${t.c.name}</b>(${t.c.region})이 예상 컷 ${t.c.cutoff}점으로 내 가점이 닿는 단지입니다.`);
-    else L.push(`가점제에서는 <b>${t.c.name}</b>(${t.c.region})이 예상 컷 ${t.c.cutoff}점으로 가장 가깝지만 ${Math.abs(t.d)}점이 부족해, 점수보다는 추첨 · 특공 쪽이 현실적입니다.`);
-  }
-  if (b.B.length) {
-    const names = b.B.slice(0, 2).map(x => {
-      const tag = x.p >= 1 ? "당첨 확률 약 " + Math.round(x.p) + "%" : "당첨 확률 1% 미만";
-      return `${x.c.name}(${tag})`;
-    }).join(", ");
-    L.push(`추첨제 쪽에서는 ${names} 순으로 가능성이 큽니다. 확률은 최근 경쟁률을 단순 환산한 참고치로, 주택형 · 순위 · 지역 우선 조건에 따라 달라집니다.`);
-  }
-  if (b.C.length) {
-    L.push(`체크하신 요건 기준으로 ${b.C.length}개 단지에 특별공급 검토 여지가 있습니다. 특별공급은 유형별 소득 · 자산 기준이 공고마다 달라, 해당 모집공고문의 자격표 확인이 필수입니다.`);
-  }
-  if (!u.noHouse) {
-    L.push(`현재 유주택으로 입력되어 무주택 가점이 0점으로 계산되었고, 전형에 따라 신청 자체가 제한될 수 있습니다.`);
-  }
-  return L;
-}
-
-/* ---------- 분석 실행 ---------- */
-async function analyze() {
-  const u = readUser();
-  let buckets = null;
-
-  if (BACKEND) {
-    /* FastAPI 백엔드: matching.py 결과 사용, 실패 시 로컬 폴백 */
-    try {
-      const r = await fetch("/api/match", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(u)
-      });
-      if (r.ok) buckets = await r.json();
-    } catch (e) { /* 폴백 */ }
-  }
-  if (!buckets) buckets = classify(u);
-
-  $("result").hidden = false;
-  renderRuler(u);
-  renderRegionCompass(u);
-  renderStats(buckets);
-  renderList("listA", "cntA", buckets.A, "이 지역에는 가점제 물량이 있는 단지가 없습니다 — 추첨제 카드를 확인해 보세요.", 6);
-  renderList("listB", "cntB", buckets.B, "조건에 맞는 추첨제 단지가 없습니다. 지역 범위를 넓혀 보세요.", 6);
-  if (buckets.X && buckets.X.length) {
-    $("listB").insertAdjacentHTML("beforeend",
-      `<div class="empty">미달 제외: ${buckets.X.map(c => c.name).join(" · ")} — 당첨은 쉽지만 수요가 검증되지 않아 추천하지 않습니다</div>`);
-  }
-  const cEmpty = u.noHouse
-    ? "특별공급 요건을 체크하면 검토 후보 단지가 여기에 표시됩니다."
-    : "특별공급은 무주택 세대구성원 요건이 우선입니다 — 현재 유주택으로 입력되어 검토 목록을 표시하지 않습니다.";
-  renderList("listC", "cntC", buckets.C, cEmpty, 6);
-  let guideHTML = null;
-  if (BACKEND) {
-    try {
-      const g = await fetch("/api/explain", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user: u, buckets: { A: buckets.A.slice(0, 5), B: buckets.B.slice(0, 5), C: buckets.C.slice(0, 5) } })
-      });
-      if (g.ok) {
-        const j = await g.json();
-        if (j && j.text) {
-          guideHTML = j.text.split("\n").filter(Boolean).map(s => `<p>${s}</p>`).join("");
-          $("guideSrc").textContent = "Claude API 생성 · 공식 데이터 기반";
-        }
-      }
-    } catch (e) { /* 폴백 */ }
-  }
-  $("guideBody").innerHTML = guideHTML || buildGuide(u, buckets).map(s => `<p>${s}</p>`).join("");
-  if (!guideHTML) {   /* 규칙 기반 폴백일 때 출처 라벨 */
-    $("guideSrc").textContent = LIVE
-      ? "규칙 기반 분석 · 청약홈 공식 데이터 기준"
-      : "데모: 규칙 기반 문장 생성 · 샘플 데이터";
-  }
-  $("caution").textContent = LIVE
-    ? "※ 단지명 · 경쟁률 · 당첨 가점은 청약홈 Open API 실데이터(주기 갱신)입니다. 가점 산정·자격 판단은 1차 점검용 참고이며, 실제 자격 · 일정 · 당첨 기준은 반드시 청약홈 공식 모집공고문으로 확인하세요."
-    : "※ 본 화면은 데모이며 단지명 · 경쟁률 · 당첨선은 가상 샘플입니다. 실제 자격 · 일정 · 당첨 기준은 청약홈 공식 모집공고문으로 확인하세요.";
-  $("result").scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-/* ---------- 실시간 모드 감지: FastAPI 뒤에서 서빙되면 자동 전환 ---------- */
-function fmtTs(iso) {
-  const d = iso ? new Date(iso) : new Date();
-  if (isNaN(d)) return "수집 시각 확인 불가";
-  return d.getFullYear() + "년 " + (d.getMonth() + 1) + "월 " + d.getDate() + "일 " + d.getHours() + "시 기준";
-}
-function applyData(d, mode) {
-  if (!(d && d.metrics && d.complexes)) return false;
-  DATA = d;
-  BACKEND = (mode === "api" || mode === "backend-sample");   /* FastAPI일 때만 /api/* 호출 */
-  const note = document.querySelector(".hero .note");
-  const b = $("badge");
-  if (mode === "api") {
-    /* FastAPI 백엔드 + 서비스키 → 실시간 */
-    LIVE = true;
-    DATA.asOf = fmtTs(d.fetchedAt) + " · 청약홈 Open API 수집";
-    b.classList.remove("demo"); b.classList.add("live");
-    $("badgeText").textContent = "실시간 · 청약홈 Open API";
-    if (note) note.textContent = "청약홈 Open API 실데이터 — 헤더의 수집 시각 기준, FastAPI 백엔드 캐시 주기로 갱신";
-  } else if (mode === "backend-sample") {
-    /* FastAPI 백엔드는 떠 있으나 서비스키 미설정 */
-    $("badgeText").textContent = "백엔드 연결됨 · 샘플 데이터 (서비스키 대기)";
-    if (note) note.textContent = "백엔드는 동작 중 — 공공데이터포털 서비스키를 .env에 넣으면 실데이터로 전환됩니다";
-  } else if (mode === "file") {
-    /* 서버 없이 저장소 data.json (GitHub Actions 자동 갱신) → 실데이터 */
-    LIVE = true;
-    DATA.asOf = fmtTs(d.collectedAt || d.fetchedAt) + " · 청약홈 Open API 수집";
-    b.classList.remove("demo"); b.classList.add("live");
-    $("badgeText").textContent = "실데이터 · 자동 갱신";
-    if (note) note.textContent = "청약홈 Open API 실데이터 — GitHub Actions가 주기적으로 수집해 data.json을 갱신합니다. 헤더의 수집 시각이 기준입니다.";
-  }
-  renderMarket();
-  return true;
-}
-
-async function tryLive() {
-  /* 1순위: FastAPI 백엔드(실시간) */
-  try {
-    const r = await fetch("/api/market", { cache: "no-store" });
-    if (r.ok) {
-      const d = await r.json();
-      if (applyData(d, d && d.source === "api" ? "api" : "backend-sample")) return;
-    }
-  } catch (e) { /* 백엔드 없음 → 다음 단계 */ }
-
-  /* 2순위: 저장소 data.json (GitHub Actions 자동 갱신, 서버 불필요) */
-  try {
-    const r = await fetch("./data.json", { cache: "no-store" });
-    if (r.ok) {
-      const d = await r.json();
-      if (applyData(d, "file")) return;
-    }
-  } catch (e) { /* data.json 없음 → 데모 모드 유지 */ }
-
-  /* 3순위: 데모 모드 유지 (별도 처리 불필요 — 초기값이 SAMPLE) */
-}
-
-/* ---------- 초기화 ---------- */
-["age", "married", "region", "acct", "nh", "deps", "noHouse", "spNewly", "spFirst", "spKids", "spParent"]
-  .forEach(id => $(id).addEventListener("input", renderPreview));
-$("btnGo").addEventListener("click", analyze);
-
-renderMarket();
-renderPreview();
-tryLive();
+boot();
 </script>
 </body>
 </html>
