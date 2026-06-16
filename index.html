@@ -45,6 +45,10 @@
   .card.cantapply{opacity:.5}
   .card .row1{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
   .card .name{font-weight:600;font-size:15px}
+  a.name{color:var(--ink);text-decoration:none}
+  a.name:hover{color:var(--accent);text-decoration:underline}
+  .name .ext{font-size:11px;color:var(--muted);margin-left:3px;vertical-align:1px}
+  a.name:hover .ext{color:var(--accent)}
   .catbadge{font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;color:#fff}
   .st{font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;letter-spacing:-.2px}
   .st.ongoing{color:#0e7a4f;background:#e7f6ef;border:1px solid #bfe6d4}
@@ -117,7 +121,6 @@
     <select id="fRegion"><option value="">지역 전체</option></select>
     <select id="fCat"><option value="">유형 전체</option></select>
     <button id="openModal" class="fbtn">⚙ 내 자격 필터링</button>
-    <label id="applyWrap" class="chk disabled"><input type="checkbox" id="fApply" disabled checked /> 지원 가능한 곳만</label>
   </div>
 
   <div id="summary" class="sub" style="margin-bottom:10px"></div>
@@ -226,7 +229,8 @@ function eligOf(n){
   // returns {key, canApply, note, specials:[]}
   const p=PROFILE;
   if(n.cat==='apt'){
-    if(p==null) return {key:'apt', canApply:true, note:'', specials:[]};
+    // 적용 전 기본: 1순위(APT 분양의 대표 루트). 주택종류(민영/국민/신혼희망)는 보조 태그로 표시.
+    if(p==null) return {key:'rank1', canApply:true, note:'', specials:[]};
     if(n.aptKind==='민영'){
       const tOK=p.tongjang>=tongjangReqYears(n), dOK=p.deposit>=depositReq(n.region,n.areaMin);
       const rOK=!n.regulated || (p.homeless && p.householder);
@@ -238,11 +242,11 @@ function eligOf(n){
                       : '규제지역 무주택·세대주 요건 → 2순위'; }
       return {key:r1?'rank1':'rank2', canApply:true, note, specials:sp};
     }
-    if(n.aptKind==='국민') return {key:'gonggong', canApply:p.homeless,
-        note: p.homeless?'무주택·소득·자산 요건(공고문 확인)':'무주택 세대 아님 → 신청 불가', specials:[]};
+    if(n.aptKind==='국민') return {key:'rank1', canApply:p.homeless,
+        note: p.homeless?'국민주택 — 순차제(납입횟수·저축액)·소득·자산 요건(공고문 확인)':'무주택 세대 아님 → 신청 불가', specials:[]};
     // 신혼희망타운
     const ok=p.homeless && p.married && p.marriedY!=null && p.marriedY<=7;
-    return {key:'shinhon', canApply:ok, note: ok?'소득·자산 요건(공고문 확인)':'무주택+혼인 7년이내 대상', specials:[]};
+    return {key:'rank1', canApply:ok, note: ok?'신혼희망타운 — 소득·자산 요건(공고문 확인)':'무주택+혼인 7년이내 대상', specials:[]};
   }
   // 비APT (고정 카테고리)
   const fixed={canApply:true, specials:[]};
@@ -295,7 +299,7 @@ function catKeyFor(n, e){ return (n.cat==='apt') ? e.key : n.cat; }
 function renderList(){
   const list=$('#list');
   const r=$('#fRegion').value, c=$('#fCat').value;
-  const onlyApply = PROFILE && $('#fApply').checked && !$('#fApply').disabled;
+  const onlyApply = !!PROFILE;   // 적용하면 자동으로 지원 가능한 곳만
   let items=DATA.notices.map((n,i)=>({n,i,st:statusOf(n),e:eligOf(n)})).filter(({n,st,e})=>{
     if(r && n.region!==r) return false;
     if(c && n.cat!==c) return false;
@@ -309,8 +313,7 @@ function renderList(){
     const ck=catKeyFor(n,e), cm=CAT[ck]||CAT.apt;
     const cb=`<span class="catbadge" style="background:${cm.c}">${cm.l}</span>`;
     const stb=`<span class="st ${st.key}">${st.label}</span>`;
-    const sub=n.aptKind && n.cat==='apt' && ck!=='gonggong' && ck!=='shinhon'
-      ? `<span class="tag">${esc(n.aptKind)}</span>` : '';
+    const sub=(n.cat==='apt' && n.aptKind) ? `<span class="tag">${esc(n.aptKind)}</span>` : '';
     const spchips=(e.specials||[]).map(s=>`<span class="tag sp">특공 ${s}</span>`).join('');
     let flag='';
     if(PROFILE && st.key!=='closed') flag = e.canApply?`<span class="applyflag yes">지원 가능</span>`:`<span class="applyflag no">신청 불가</span>`;
@@ -318,9 +321,12 @@ function renderList(){
     const cant = PROFILE && !e.canApply && st.key!=='closed';
     const note = (PROFILE && e.note)?`<div class="note">${esc(e.note)}</div>`:'';
     const r2 = s.rank2?`<span><b>2순위</b> ${fmtDate(s.rank2)}</span>`:'';
+    const nameEl = n.url
+      ? `<a class="name" href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.name)}<span class="ext">↗</span></a>`
+      : `<span class="name">${esc(n.name)}</span>`;
     return `<div class="card ${st.key==='closed'?'closed':''} ${cant?'cantapply':''} ${open?'open':''}"
         data-i="${i}" style="border-left-color:${cm.c}">
-      <div class="row1"><span class="name">${esc(n.name)}</span>${cb}${stb}${sub}${spchips}${flag}</div>
+      <div class="row1">${nameEl}${cb}${stb}${sub}${spchips}${flag}</div>
       <div class="meta">${esc(n.region)} · ${esc(n.area||'—')}${n.hasSpecial?' · 특별공급 포함':''}</div>
       ${note}
       <div class="sched">
@@ -331,7 +337,10 @@ function renderList(){
       ${open?`<div class="expand">${bandHTML(n)}</div>`:`<div class="more">▾ 가점·과거 데이터 보기</div>`}
     </div>`;
   }).join('');
-  list.querySelectorAll('.card').forEach(c=>c.onclick=()=>{ const i=+c.dataset.i; OPEN=(OPEN===i?null:i); renderList(); });
+  list.querySelectorAll('.card').forEach(c=>{
+    c.onclick=()=>{ const i=+c.dataset.i; OPEN=(OPEN===i?null:i); renderList(); };
+    c.querySelectorAll('a').forEach(a=>a.onclick=e=>e.stopPropagation());   // 제목 링크는 펼치기 막고 이동만
+  });
 }
 
 function renderProfileBar(){
@@ -373,7 +382,6 @@ function closeModal(){ $('#modal').classList.remove('show'); }
 function applyInfo(){
   const p=readInputs(); if(!profileReady(p)) return;
   PROFILE=p;
-  const chk=$('#fApply'); chk.disabled=false; chk.checked=true; $('#applyWrap').classList.remove('disabled');
   const btn=$('#openModal'); btn.classList.add('set'); btn.textContent=`내 자격 적용됨 · 수정`;
   closeModal(); refresh();
 }
@@ -399,7 +407,6 @@ async function boot(){
   if(!DATA.notices) DATA.notices=[];
   setBadge(); fillFilters(); refresh();
   $('#fRegion').onchange=$('#fCat').onchange=renderList;
-  $('#fApply').onchange=renderList;
   $('#openModal').onclick=openModal; $('#closeModal').onclick=closeModal; $('#applyBtn').onclick=applyInfo;
   $('#modal').onclick=e=>{ if(e.target===$('#modal')) closeModal(); };
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
