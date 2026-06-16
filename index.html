@@ -78,6 +78,14 @@
   .scale{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}
   .bandinfo{font-size:13px;color:var(--dim);margin-top:8px}
   .bandinfo b{color:var(--ink)}
+  .pulist{margin-top:10px;display:grid;gap:6px}
+  .pu{display:flex;justify-content:space-between;gap:10px;text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:7px 10px;background:#fafbfc}
+  .pu:hover{border-color:var(--accent);background:#f3f7ff}
+  .pu-n{font-size:13px;color:var(--ink);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pu-m{font-size:12px;color:var(--dim);white-space:nowrap}
+  .bandnote{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.6}
+  .band .avg{position:absolute;top:0;bottom:0;width:2px;background:#94a3b8}
+  .band .avg::after{content:'평균';position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted)}
 
   .modal{position:fixed;inset:0;background:rgba(20,24,33,.45);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
   .modal.show{display:flex}
@@ -332,24 +340,60 @@ function fmtDate(s){ return (s&&/\d{4}-\d{2}-\d{2}/.test(s)) ? s.slice(5).replac
 function bandOf(region){ const rs=(DATA.regionScores||{})[region]; if(!rs)return null;
   return {avg:rs.avg, lo:rs.low??Math.max(0,Math.round(rs.avg-8)), hi:rs.top??Math.round(rs.avg+8), month:rs.month}; }
 
-function bandHTML(n){
-  // 가점이 의미있는 민영 APT만 밴드, 그 외엔 안내
-  if(!(n.cat==='apt'&&n.aptKind==='민영')){
-    const why = n.aptKind==='국민' ? '국민·공공분양은 가점이 아니라 <b>순차제(납입횟수·저축총액)</b>로 정해집니다.'
-      : n.cat==='shinhon'||n.aptKind==='신혼희망' ? '신혼희망타운은 가점이 아니라 <b>자격·가점항목(별도)</b>으로 정해집니다.'
-      : '이 유형은 <b>가점이 아니라 추첨/자격요건</b>으로 정해집니다.';
-    return `<div class="lbl">${why} 과거 가점 밴드 비교 대상이 아닙니다.</div>`;
+// 같은 지역·비슷한 면적(±5㎡)·비슷한 평단가의 과거 민영 단지 최대 5개
+function comparablePast(n){
+  const pool=(DATA.pastUnits||[]).filter(u=>u.region===n.region);
+  const area=n.areaMin, py=n.pyeong;
+  let cand=pool.filter(u=>Math.abs(u.area-area)<=5);
+  if(py){
+    const near=cand.filter(u=>u.pyeong && Math.abs(u.pyeong-py)/py<=0.25);
+    if(near.length>=3) cand=near;   // 가격대까지 좁힐 표본이 충분하면 좁힘
   }
+  cand.sort((a,b)=>{
+    const da=Math.abs(a.area-area)-Math.abs(b.area-area); if(da) return da;
+    if(py&&a.pyeong&&b.pyeong){ const dp=Math.abs(a.pyeong-py)-Math.abs(b.pyeong-py); if(dp) return dp; }
+    return (b.ym||'').localeCompare(a.ym||'');
+  });
+  return cand.slice(0,5);
+}
+function regionFallbackHTML(n, msg){
   const b=bandOf(n.region);
-  if(!b) return `<div class="lbl">‘${esc(n.region)}’ 지역의 최근 당첨 가점 통계가 아직 없습니다.</div>`;
   const pct=v=>Math.max(0,Math.min(100,v/84*100));
   const my=PROFILE?gajeomOf(PROFILE):null;
   const me=(my!=null)?`<div class="me" style="left:${pct(my)}%" data-label="내 ${my}점"></div>`:'';
-  return `
-    <div class="lbl"><b>${esc(n.region)}</b> · ${esc(b.month)} 기준 ‘해당지역’ 과거 당첨 가점 (참고용 지역 통계)</div>
+  if(!b) return `<div class="lbl">${msg||''} ‘${esc(n.region)}’ 비교 데이터가 아직 없습니다.</div>`;
+  return `<div class="lbl">${msg||''} 대신 <b>${esc(n.region)} 지역 전체</b> 통계(${esc(b.month)})로 표시합니다.</div>
     <div class="band"><div class="zone" style="left:${pct(b.lo)}%;width:${pct(b.hi)-pct(b.lo)}%"></div>${me}</div>
     <div class="scale"><span>0</span><span>20</span><span>40</span><span>60</span><span>84</span></div>
-    <div class="bandinfo">최근 보통 <b>${b.lo}~${b.hi}점</b>대에서 당첨 (평균 <b>${b.avg}점</b>).${my!=null?` 내 가점은 <b>${my}점</b>.`:' ‘내 자격 필터링’ 적용 시 내 위치 표시.'}</div>`;
+    <div class="bandinfo">최근 보통 <b>${b.lo}~${b.hi}점</b>대 당첨 (평균 <b>${b.avg}점</b>).${my!=null?` 내 가점 <b>${my}점</b>.`:''}</div>`;
+}
+function bandHTML(n){
+  if(!(n.cat==='apt'&&n.aptKind==='민영')){
+    const why = n.aptKind==='국민' ? '국민·공공분양은 가점이 아니라 <b>순차제(납입횟수·저축총액)</b>로 정해집니다.'
+      : n.aptKind==='신혼희망' ? '신혼희망타운은 가점이 아니라 <b>자격·별도 가점항목</b>으로 정해집니다.'
+      : '이 유형은 <b>가점이 아니라 추첨/자격요건</b>으로 정해집니다.';
+    return `<div class="lbl">${why} 과거 가점 밴드 비교 대상이 아닙니다.</div>`;
+  }
+  const cmp=comparablePast(n);
+  if(cmp.length<2) return regionFallbackHTML(n, '비슷한 면적·가격대의 과거 단지 표본이 부족합니다.');
+  const lows=cmp.map(u=>u.low), lo=Math.min(...lows), hi=Math.max(...lows);
+  const avg=Math.round(cmp.reduce((s,u)=>s+u.avg,0)/cmp.length);
+  const rates=cmp.map(u=>u.rate).filter(x=>x!=null);
+  const avgRate=rates.length?Math.round(rates.reduce((a,b)=>a+b,0)/rates.length*10)/10:null;
+  const pct=v=>Math.max(0,Math.min(100,v/84*100));
+  const my=PROFILE?gajeomOf(PROFILE):null;
+  const me=(my!=null)?`<div class="me" style="left:${pct(my)}%" data-label="내 ${my}점"></div>`:'';
+  const avgMark=`<div class="avg" style="left:${pct(avg)}%"></div>`;
+  const list=cmp.map(u=>`<a class="pu" href="${esc(u.url)}" target="_blank" rel="noopener">
+      <span class="pu-n">${esc(u.name)}</span>
+      <span class="pu-m">${u.area}㎡ · ${esc(u.ym)} · 최저 ${u.low}점${u.rate!=null?` · ${u.rate}:1`:''}</span></a>`).join('');
+  return `
+    <div class="lbl">비교 기준 — <b>${esc(n.region)} · 전용 ${n.areaMin}㎡대 · 민영 일반공급 · 최근 24개월</b>${n.pyeong?` · 평단가 ~${Math.round(n.pyeong)}만/평 유사`:''}</div>
+    <div class="band"><div class="zone" style="left:${pct(lo)}%;width:${Math.max(2,pct(hi)-pct(lo))}%"></div>${avgMark}${me}</div>
+    <div class="scale"><span>0</span><span>20</span><span>40</span><span>60</span><span>84</span></div>
+    <div class="bandinfo">비슷한 과거 단지 <b>${cmp.length}개</b> — 최저 당첨가점 <b>${lo}~${hi}점</b> · 평균 <b>${avg}점</b>${avgRate!=null?` · 평균 1순위 경쟁률 <b>${avgRate}:1</b>`:''}.${my!=null?` 내 가점 <b>${my}점</b>.`:''}</div>
+    <div class="pulist">${list}</div>
+    <div class="bandnote">※ ‘분양가/시세’ 비율은 시세(실거래가)가 청약홈 API에 없어, <b>분양가(평단가) 유사도</b>로 근사했습니다. 단지명을 누르면 청약홈 공고로 이동합니다.</div>`;
 }
 
 function catKeyFor(n, e){ return (n.cat==='apt') ? e.key : n.cat; }
