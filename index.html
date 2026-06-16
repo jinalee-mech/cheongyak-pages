@@ -96,11 +96,17 @@
   .half{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .preview{font-size:13.5px;color:var(--dim);margin:12px 0 2px;min-height:20px;border-top:1px solid var(--line);padding-top:12px}
   .preview b{color:var(--ink)}
+  .dialog select{width:100%;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 10px;font-size:14px}
   .resultbig{padding:4px 2px 2px}
-  .rb-score{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-.5px}
-  .rb-score span{font-size:15px;color:var(--dim);font-weight:500}
-  .rb-line{font-size:17px;color:var(--ink);margin-top:8px}
+  .rb-rank{font-size:26px;font-weight:800;letter-spacing:-.5px}
+  .rb-rank.r1{color:var(--good)} .rb-rank.r2{color:#b06f10}
+  .rb-sub{font-size:12.5px;color:var(--dim);margin-top:8px;line-height:1.75;border-bottom:1px solid var(--line);padding-bottom:12px}
+  .rb-score{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.5px;margin-top:12px}
+  .rb-score span{font-size:14px;color:var(--dim);font-weight:500}
+  .rb-line{font-size:16px;color:var(--ink);margin-top:6px}
   .rb-line.sp{color:#9a5b08;font-weight:700}
+  .profile .rank{font-size:18px;font-weight:800}
+  .profile .rank.r1{color:var(--good)} .profile .rank.r2{color:#b06f10}
   .modal-foot{display:flex;gap:8px;margin-top:14px}
   .btn{border:none;border-radius:9px;padding:11px 14px;font-size:14px;font-weight:700;cursor:pointer}
   .btn.primary{flex:1;background:var(--accent);color:#fff}
@@ -145,16 +151,33 @@
     <h3>내 자격 입력</h3>
     <p class="desc">순위(1·2순위)·특별공급 자격과 가점을 계산합니다. 입력값만 사용하며 자동 추정하지 않습니다.</p>
 
-    <div class="sec">청약통장 · 무주택 (순위 판정)</div>
+    <div class="sec">거주지 · 주택 보유</div>
+    <div class="frow"><label>거주지 (시·도) <span class="q">예치금·해당지역 기준</span></label>
+      <select id="iResidence"><option value="">선택</option>
+        <option>서울</option><option>부산</option><option>대구</option><option>인천</option><option>광주</option>
+        <option>대전</option><option>울산</option><option>세종</option><option>경기</option><option>강원</option>
+        <option>충북</option><option>충남</option><option>전북</option><option>전남</option><option>경북</option>
+        <option>경남</option><option>제주</option></select></div>
     <div class="half">
-      <div class="frow"><label>통장 가입기간 <span class="q">(년)</span></label>
+      <div class="frow"><label>주택 보유</label>
+        <select id="iHouses"><option value="0">무주택</option><option value="1">1주택</option><option value="2">2주택 이상</option></select></div>
+      <div class="frow"><label>무주택 기간 <span class="q">(년)</span></label>
+        <input id="iHomelessY" type="number" min="0" max="40" step="1" placeholder="예: 7" /></div>
+    </div>
+    <div class="frow inline" style="gap:18px">
+      <label class="togg"><input type="checkbox" id="iHouseholder" checked /> 세대주</label>
+      <label class="togg"><input type="checkbox" id="iWon5" /> 최근 5년 내 당첨 이력</label>
+    </div>
+
+    <div class="sec">청약통장</div>
+    <div class="half">
+      <div class="frow"><label>가입기간 <span class="q">(년)</span></label>
         <input id="iTongjang" type="number" min="0" max="40" step="1" placeholder="예: 8" /></div>
-      <div class="frow"><label>통장 예치금 <span class="q">(만원)</span></label>
+      <div class="frow"><label>예치금 <span class="q">(만원)</span></label>
         <input id="iDeposit" type="number" min="0" step="50" placeholder="예: 1000" /></div>
     </div>
-    <div class="frow inline"><label class="togg"><input type="checkbox" id="iHomeless" checked /> 무주택 세대</label>
-      <input id="iHomelessY" type="number" min="0" max="40" step="1" placeholder="무주택기간(년)" style="flex:1" /></div>
-    <div class="frow"><label class="togg"><input type="checkbox" id="iHouseholder" checked /> 세대주 <span class="q" style="margin-left:4px">(규제지역 1순위 요건)</span></label></div>
+    <div class="frow"><label>납입횟수 <span class="q">(국민·공공주택 1순위용, 선택)</span></label>
+      <input id="iPayments" type="number" min="0" step="1" placeholder="예: 24" /></div>
 
     <div class="sec">가점</div>
     <div class="frow"><label>부양가족 수 <span class="q">(본인 제외, 명)</span></label>
@@ -201,25 +224,37 @@ function familyPts(n){ if(n==null||isNaN(n))return null; return Math.min(35,5+Ma
 function accountPts(y){ if(y==null||isNaN(y))return null; if(y<0.5)return 1; if(y<1)return 2; return Math.min(17,Math.floor(y)+2); }
 function num(el){ const v=el.value.trim(); return v===''?null:Number(v); }
 
-// ---- 예치금 기준(지역×전용면적, 만원) ------------------------------------
-function depositReq(region, area){
-  let t;
-  if(region==='서울'||region==='부산') t=[300,600,1000,1500];
-  else if(['대구','인천','광주','대전','울산'].includes(region)) t=[250,400,700,1000];
-  else t=[200,300,400,500];
-  if(area==null) area=85;
+// ---- 예치금 기준(거주지×전용면적, 만원). 기준은 '본인 거주지'. ------------
+function depositTiers(residence){
+  if(residence==='서울'||residence==='부산') return [300,600,1000,1500];
+  if(['대구','인천','광주','대전','울산'].includes(residence)) return [250,400,700,1000];
+  return [200,300,400,500];
+}
+function depositReq(residence, area){
+  const t=depositTiers(residence); if(area==null) area=85;
   return area<=85?t[0] : area<=102?t[1] : area<=135?t[2] : t[3];
 }
-// 1순위 통장 가입기간 요건(년)
+function depositMaxArea(p){   // 내 예치금으로 1순위 가능한 최대 면적
+  const t=depositTiers(p.residence);
+  if(p.deposit>=t[3]) return {cap:Infinity, txt:'전 면적'};
+  if(p.deposit>=t[2]) return {cap:135, txt:'전용 135㎡ 이하'};
+  if(p.deposit>=t[1]) return {cap:102, txt:'전용 102㎡ 이하'};
+  if(p.deposit>=t[0]) return {cap:85,  txt:'전용 85㎡ 이하'};
+  return {cap:0, txt:'85㎡ 기준에도 미달'};
+}
+// 1순위 통장 가입기간 요건(년) / 국민주택 납입횟수 요건
 function tongjangReqYears(n){ return n.regulated?2 : (n.metro?1 : 0.5); }
+function paymentReq(n){ return n.regulated?24 : (n.metro?12 : 6); }
 
 // ---- 입력 → 프로필 -------------------------------------------------------
 function readInputs(){
-  const homeless=$('#iHomeless').checked, married=$('#iMarried').checked;
+  const houses=Number($('#iHouses').value||0), married=$('#iMarried').checked;
+  const homeless=houses===0;
   return {
-    tongjang:num($('#iTongjang')), deposit:num($('#iDeposit')),
-    homeless, homelessY: homeless? (num($('#iHomelessY'))??0) : 0,
-    householder:$('#iHouseholder').checked,
+    residence:$('#iResidence').value,
+    houses, homeless, homelessY: homeless? (num($('#iHomelessY'))??0) : 0,
+    householder:$('#iHouseholder').checked, won5:$('#iWon5').checked,
+    tongjang:num($('#iTongjang')), deposit:num($('#iDeposit')), payments:num($('#iPayments')),
     family:num($('#iFamily')),
     married, marriedY: married? (num($('#iMarriedY'))??0) : null,
     children:num($('#iChildren'))??0,
@@ -230,7 +265,7 @@ function gajeomOf(p){
   if(fm==null||ac==null) return null;
   return noHousePts(p.homeless?p.homelessY:0)+fm+ac;
 }
-function profileReady(p){ return p.tongjang!=null && p.deposit!=null && p.family!=null; }
+function profileReady(p){ return p.residence && p.tongjang!=null && p.deposit!=null && p.family!=null; }
 
 // ---- 공고별 자격 판정 ----------------------------------------------------
 function specialsFor(p){
@@ -247,18 +282,26 @@ function eligOf(n){
     // 적용 전 기본: 1순위(APT 분양의 대표 루트). 주택종류(민영/국민/신혼희망)는 보조 태그로 표시.
     if(p==null) return {key:'rank1', canApply:true, note:'', specials:[]};
     if(n.aptKind==='민영'){
-      const tOK=p.tongjang>=tongjangReqYears(n), dOK=p.deposit>=depositReq(n.region,n.areaMin);
-      const rOK=!n.regulated || (p.homeless && p.householder);
+      const tOK=p.tongjang>=tongjangReqYears(n), dOK=p.deposit>=depositReq(p.residence,n.areaMin);
+      const rOK=!n.regulated || (p.houses<=1 && p.householder && !p.won5);   // 규제: 무주택·1주택 + 세대주 + 5년 미당첨
       const r1=tOK&&dOK&&rOK;
       const sp=n.hasSpecial?specialsFor(p):[];
       let note='';
-      if(!r1){ note = !dOK?`예치금 ${depositReq(n.region,n.areaMin)}만원 미만 → 2순위`
+      if(!r1){ note = !dOK?`예치금 ${depositReq(p.residence,n.areaMin)}만원 미만(${p.residence} 거주·${n.areaMin}㎡) → 2순위`
                       : !tOK?`통장 ${tongjangReqYears(n)}년 미만 → 2순위`
-                      : '규제지역 무주택·세대주 요건 → 2순위'; }
+                      : '규제지역 요건(무주택·세대주·5년 미당첨) 미충족 → 2순위'; }
       return {key:r1?'rank1':'rank2', canApply:true, note, specials:sp};
     }
-    if(n.aptKind==='국민') return {key:'rank1', canApply:p.homeless,
-        note: p.homeless?'국민주택 — 순차제(납입횟수·저축액)·소득·자산 요건(공고문 확인)':'무주택 세대 아님 → 신청 불가', specials:[]};
+    if(n.aptKind==='국민'){
+      if(!p.homeless) return {key:'rank1', canApply:false, note:'무주택 세대 아님 → 신청 불가', specials:[]};
+      const tOK=p.tongjang>=tongjangReqYears(n), preq=paymentReq(n);
+      const payOK = p.payments!=null ? p.payments>=preq : null;
+      if(payOK===null) return {key:'rank1', canApply:true,
+        note:`국민주택 — 납입횟수 입력 시 순위 정확(1순위 기준 ${preq}회·가입 ${tongjangReqYears(n)}년). 소득·자산 공고문 확인`, specials:[]};
+      const r1 = tOK && payOK;
+      return {key:r1?'rank1':'rank2', canApply:true,
+        note: r1?'국민주택 1순위 — 소득·자산 요건(공고문 확인)':`국민 1순위 요건(가입 ${tongjangReqYears(n)}년·납입 ${preq}회) 미충족 → 2순위`, specials:[]};
+    }
     // 신혼희망타운
     const ok=p.homeless && p.married && p.marriedY!=null && p.marriedY<=7;
     return {key:'rank1', canApply:ok, note: ok?'신혼희망타운 — 소득·자산 요건(공고문 확인)':'무주택+혼인 7년이내 대상', specials:[]};
@@ -358,21 +401,35 @@ function renderList(){
   });
 }
 
+function rankSummary(p){
+  const ma=depositMaxArea(p), t=p.tongjang;
+  const regOK = p.houses<=1 && p.householder && !p.won5;
+  const able = t>=0.5 && ma.cap>0;            // 어느 단지에서든 1순위 가능성
+  const head = able ? '1순위 가능' : '2순위';
+  const cls = able ? 'r1' : 'r2';
+  const lines=[
+    `통장 ${t}년 — 규제 2년 ${t>=2?'✓':'✗'} · 수도권 1년 ${t>=1?'✓':'✗'} · 지방 6개월 ${t>=0.5?'✓':'✗'}`,
+    `예치금 ${p.deposit}만 (${p.residence} 거주) — ${ma.cap===Infinity?'전 면적':ma.txt} 1순위${(ma.cap>0&&ma.cap!==Infinity)?', 초과 면적은 2순위':''}`,
+    `규제지역 추가요건 — ${regOK?'무주택·세대주·5년 미당첨 충족 ✓':'미충족(무주택/1주택·세대주·5년 미당첨 필요) ✗'}`,
+  ];
+  return {head, cls, lines};
+}
 function resultBigHTML(p){
-  const g=gajeomOf(p), sp=specialsFor(p);
-  return `<div class="rb-score">가점 ${g}점 <span>/ 84점</span></div>
-    <div class="rb-line">통장 ${p.tongjang}년 · 예치금 ${p.deposit}만원</div>
+  const g=gajeomOf(p), sp=specialsFor(p), r=rankSummary(p);
+  return `<div class="rb-rank ${r.cls}">${r.head}</div>
+    <div class="rb-sub">${r.lines.join('<br>')}</div>
+    <div class="rb-score">가점 ${g}점 <span>/ 84점</span></div>
     <div class="rb-line">${p.homeless?`무주택 ${p.homelessY}년`:'유주택'}${p.householder?' · 세대주':''}</div>
     ${sp.length?`<div class="rb-line sp">특공 대상 가능: ${sp.join(' · ')}</div>`:''}`;
 }
 function renderProfileBar(){
   const box=$('#profile');
   if(!PROFILE){ box.className='profile'; box.innerHTML=''; return; }
-  const p=PROFILE, g=gajeomOf(p), sp=specialsFor(p);
+  const p=PROFILE, g=gajeomOf(p), sp=specialsFor(p), r=rankSummary(p);
   box.className='profile show';
-  box.innerHTML=`<div class="pline" style="font-size:16px;color:var(--ink);font-weight:600">가점 ${g}점`
-    +` <span style="font-weight:400;color:var(--dim);font-size:14px">· 통장 ${p.tongjang}년·예치금 ${p.deposit}만 · ${p.homeless?`무주택 ${p.homelessY}년`:'유주택'}${p.householder?'·세대주':''}${sp.length?` · 특공 대상 가능: ${sp.join('·')}`:''}</span></div>`
-    +`<div class="pline" style="margin-top:4px;font-size:12.5px">1순위 요건은 단지(지역·면적·규제)마다 달라 카드별로 표시됩니다.</div>`;
+  box.innerHTML=`<div class="pline"><span class="rank ${r.cls}">${r.head}</span>`
+    +` <span style="color:var(--dim);font-size:13.5px">· 가점 ${g}점 · 통장 ${p.tongjang}년·예치금 ${p.deposit}만(${p.residence}) · ${p.homeless?`무주택 ${p.homelessY}년`:'유주택'}${p.householder?'·세대주':''}${sp.length?` · 특공 ${sp.join('·')}`:''}</span></div>`
+    +`<div class="pline" style="margin-top:4px;font-size:12.5px">${r.lines[1]} · 단지별 1순위/2순위는 카드에 표시됩니다.</div>`;
 }
 
 function renderSummary(){
@@ -388,7 +445,7 @@ function refresh(){ renderProfileBar(); renderSummary(); renderList(); }
 // ---- 모달 ----------------------------------------------------------------
 function modalPreview(){
   const p=readInputs(), pv=$('#preview');
-  if(!profileReady(p)){ pv.innerHTML='통장 가입기간·예치금·부양가족을 입력하면 자격·가점을 계산합니다.'; $('#checkBtn').disabled=true; }
+  if(!profileReady(p)){ pv.innerHTML='거주지·통장 가입기간·예치금·부양가족을 입력하면 순위·가점을 계산합니다.'; $('#checkBtn').disabled=true; }
   else { pv.innerHTML='입력 완료 — <b>확인</b>을 누르면 내 자격·가점이 표시됩니다.'; $('#checkBtn').disabled=false; }
 }
 function showForm(){ $('#formArea').style.display='block'; $('#resultArea').style.display='none'; }
@@ -431,8 +488,8 @@ async function boot(){
   $('#checkBtn').onclick=checkInfo; $('#applyBtn').onclick=applyInfo; $('#reeditBtn').onclick=showForm;
   $('#modal').onclick=e=>{ if(e.target===$('#modal')) closeModal(); };
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
-  ['#iTongjang','#iDeposit','#iHomeless','#iHomelessY','#iHouseholder','#iFamily','#iMarried','#iMarriedY','#iChildren']
-    .forEach(id=>$(id).addEventListener('input',modalPreview));
+  ['#iResidence','#iHouses','#iHomelessY','#iHouseholder','#iWon5','#iTongjang','#iDeposit','#iPayments','#iFamily','#iMarried','#iMarriedY','#iChildren']
+    .forEach(id=>{ const el=$(id); el.addEventListener('input',modalPreview); el.addEventListener('change',modalPreview); });
 }
 boot();
 </script>
