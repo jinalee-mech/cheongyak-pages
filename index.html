@@ -7,58 +7,56 @@
 <style>
   :root{
     --bg:#f6f7f9; --card:#ffffff; --line:#e4e7ec; --ink:#1b1f27; --dim:#5b6472;
-    --accent:#2f6bff; --good:#15915f; --warn:#b06f10; --bad:#c0392b; --muted:#8b93a1;
+    --accent:#2f6bff; --good:#15915f; --muted:#8b93a1;
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
     background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
   a{color:var(--accent)}
   .wrap{max-width:880px;margin:0 auto;padding:28px 18px 80px}
-  header.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;justify-content:space-between;margin-bottom:18px}
+  header.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;justify-content:space-between;margin-bottom:16px}
   h1{font-size:22px;margin:0;letter-spacing:-.3px}
   .sub{color:var(--dim);font-size:13px;margin:2px 0 0}
   .badge{font-size:12px;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:3px 10px;white-space:nowrap}
   .badge.live{color:var(--good);border-color:#bfe6d4;background:#eef9f3;}
 
-  .summary{font-size:13.5px;color:var(--dim);margin-bottom:10px}
-  .summary b{color:var(--ink)}
+  .profile{border:1px solid var(--line);background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:12px;font-size:13.5px;display:none}
+  .profile.show{display:block}
+  .profile .pline{color:var(--dim)} .profile .pline b{color:var(--ink)}
+  .profile .pchips{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+  .pchip{font-size:12px;padding:3px 9px;border-radius:999px;background:#eef3ff;color:#1d4ed8;border:1px solid #bcd0fb}
+  .pchip.warn{background:#fdf4e3;color:#9a5b08;border-color:#f0dcb4}
+
   .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
   select{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px}
   .fbtn{border:1px solid var(--accent);color:var(--accent);background:#eef3ff;border-radius:8px;
-    padding:8px 13px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+    padding:8px 13px;font-size:13px;font-weight:700;cursor:pointer}
   .fbtn.set{background:var(--accent);color:#fff;border-color:var(--accent)}
   .chk{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--dim);border:1px solid var(--line);
     border-radius:8px;padding:8px 11px;cursor:pointer;user-select:none}
   .chk.disabled{opacity:.4;cursor:not-allowed}
-  .spacer{flex:1}
 
   .list{display:grid;gap:10px}
-  .card{border:1px solid var(--line);border-left:4px solid var(--line);background:var(--card);border-radius:12px;
-    padding:14px 16px;cursor:pointer;transition:border-color .12s, background .12s;box-shadow:0 1px 2px rgba(20,24,33,.04)}
+  .card{border:1px solid var(--line);border-left:5px solid var(--line);background:var(--card);border-radius:12px;
+    padding:14px 16px;cursor:pointer;transition:border-color .12s;box-shadow:0 1px 2px rgba(20,24,33,.04)}
   .card:hover{border-color:#b9c2d6}
-  .card.elig-strong,.card.elig-good{border-left-color:var(--good);background:#f4fbf7}
-  .card.elig-edge{border-left-color:var(--warn);background:#fffaf1}
-  .card.elig-weak{border-left-color:var(--bad)}
-  .card.elig-na{border-left-color:var(--accent)}
   .card.open{border-color:var(--accent)}
-  .card.closed{opacity:.6;background:#f3f4f6 !important;border-left-color:#cfd4dc !important}
+  .card.closed{opacity:.55;background:#f3f4f6 !important;border-left-color:#cfd4dc !important}
+  .card.cantapply{opacity:.5}
+  .card .row1{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .card .name{font-weight:600;font-size:15px}
+  .catbadge{font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;color:#fff}
   .st{font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;letter-spacing:-.2px}
   .st.ongoing{color:#0e7a4f;background:#e7f6ef;border:1px solid #bfe6d4}
   .st.upcoming{color:#1d4ed8;background:#eef3ff;border:1px solid #bcd0fb}
   .st.closed{color:var(--muted);background:#eceef1;border:1px solid var(--line)}
-  .card .row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .card .name{font-weight:600;font-size:15px}
   .tag{font-size:11.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
-  .tag.gj{color:#1d4ed8;border-color:#bcd0fb;background:#eef3ff}
-  .tag.no{color:var(--dim)}
-  .tag.sp{color:#9a5b08;border-color:#f0dcb4;background:#fdf4e3}
-  .eb{font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:999px;margin-left:auto}
-  .eb.strong{color:#0e7a4f;background:#e7f6ef;border:1px solid #bfe6d4}
-  .eb.good{color:#0e7a4f;background:#eef9f3;border:1px solid #cdeadd}
-  .eb.edge{color:#9a5b08;background:#fdf4e3;border:1px solid #f0dcb4}
-  .eb.weak{color:#a5281b;background:#fdecea;border:1px solid #f5cfc9}
-  .eb.na{color:#1d4ed8;background:#eef3ff;border:1px solid #bcd0fb}
+  .tag.sp{font-size:11.5px;padding:2px 8px;border-radius:999px;color:#6d28d9;background:#f3eefc;border:1px solid #ddc9f5}
+  .applyflag{font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:999px;margin-left:auto}
+  .applyflag.yes{color:#0e7a4f;background:#e7f6ef;border:1px solid #bfe6d4}
+  .applyflag.no{color:var(--muted);background:#f1f2f5;border:1px solid var(--line)}
   .card .meta{color:var(--dim);font-size:13px;margin-top:5px}
+  .card .note{color:#9a5b08;font-size:12px;margin-top:4px}
   .card .sched{color:var(--muted);font-size:12.5px;margin-top:6px;display:flex;flex-wrap:wrap;gap:4px 14px}
   .card .sched b{color:var(--dim);font-weight:500}
   .card .more{color:var(--accent);font-size:12px;margin-top:8px}
@@ -68,7 +66,7 @@
   .expand .lbl{font-size:12.5px;color:var(--dim);margin-bottom:8px}
   .expand .lbl b{color:var(--ink)}
   .band{position:relative;height:44px;border:1px solid var(--line);border-radius:10px;background:#f0f2f5;margin:16px 0 6px;overflow:visible}
-  .band .zone{position:absolute;top:0;bottom:0;border-radius:8px;background:linear-gradient(90deg,#bfe6d4,#7fd0a8)}
+  .band .zone{position:absolute;top:0;bottom:0;border-radius:8px;background:linear-gradient(90deg,#cdd7e6,#9fb2cc)}
   .band .me{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--accent)}
   .band .me::after{content:attr(data-label);position:absolute;top:-17px;left:50%;transform:translateX(-50%);
     font-size:11px;color:var(--accent);white-space:nowrap;font-weight:600}
@@ -76,21 +74,24 @@
   .bandinfo{font-size:13px;color:var(--dim);margin-top:8px}
   .bandinfo b{color:var(--ink)}
 
-  /* 모달 */
   .modal{position:fixed;inset:0;background:rgba(20,24,33,.45);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
   .modal.show{display:flex}
-  .dialog{background:#fff;border-radius:14px;max-width:440px;width:100%;padding:22px;box-shadow:0 16px 48px rgba(0,0,0,.22)}
+  .dialog{background:#fff;border-radius:14px;max-width:460px;width:100%;padding:22px;box-shadow:0 16px 48px rgba(0,0,0,.22);max-height:90vh;overflow:auto}
   .dialog h3{margin:0 0 4px;font-size:17px}
-  .dialog .desc{color:var(--dim);font-size:13px;margin-bottom:16px}
-  .frow{margin-bottom:12px}
+  .dialog .desc{color:var(--dim);font-size:12.5px;margin-bottom:14px}
+  .sec{font-size:12px;font-weight:700;color:var(--accent);margin:14px 0 8px;text-transform:none}
+  .frow{margin-bottom:10px}
+  .frow.inline{display:flex;align-items:center;gap:10px}
   .frow label{display:block;font-size:12.5px;color:var(--dim);margin-bottom:4px}
-  .frow .q{color:var(--muted);font-size:11.5px}
+  .frow .q{color:var(--muted);font-size:11px}
   .dialog input[type=number]{width:100%;background:#fff;color:var(--ink);border:1px solid var(--line);
     border-radius:8px;padding:9px 10px;font-size:14px}
   .dialog input[type=number]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(47,107,255,.12)}
-  .preview{font-size:13.5px;color:var(--dim);margin:4px 0 2px;min-height:22px}
-  .preview b{color:var(--ink);font-size:16px}
-  .modal-foot{display:flex;gap:8px;margin-top:16px}
+  .togg{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;color:var(--ink);cursor:pointer;user-select:none}
+  .half{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .preview{font-size:13.5px;color:var(--dim);margin:12px 0 2px;min-height:20px;border-top:1px solid var(--line);padding-top:12px}
+  .preview b{color:var(--ink)}
+  .modal-foot{display:flex;gap:8px;margin-top:14px}
   .btn{border:none;border-radius:9px;padding:11px 14px;font-size:14px;font-weight:700;cursor:pointer}
   .btn.primary{flex:1;background:var(--accent);color:#fff}
   .btn.primary:disabled{background:#bcc6d8;cursor:not-allowed}
@@ -105,29 +106,26 @@
   <header class="top">
     <div>
       <h1>이번 주 분양 중인 청약</h1>
-      <p class="sub">청약홈 실데이터로 모집 중·예정 단지를 모았습니다. <b>내 자격 필터링</b>으로 도전 가능한 곳을 추려보세요.</p>
+      <p class="sub">청약홈 실데이터. <b>내 자격 필터링</b>으로 내가 지원 가능한 곳만 추려보세요.</p>
     </div>
     <span id="badge" class="badge">불러오는 중…</span>
   </header>
 
-  <div id="summary" class="summary"></div>
+  <div id="profile" class="profile"></div>
 
   <div class="toolbar">
     <select id="fRegion"><option value="">지역 전체</option></select>
-    <select id="fType">
-      <option value="">유형 전체</option>
-      <option value="gj">가점 적용(민영 일반)</option>
-      <option value="no">가점 외(추첨·공공·오피스텔)</option>
-    </select>
+    <select id="fCat"><option value="">유형 전체</option></select>
     <button id="openModal" class="fbtn">⚙ 내 자격 필터링</button>
-    <label id="eligWrap" class="chk disabled"><input type="checkbox" id="fElig" disabled /> 도전 가능한 곳만</label>
+    <label id="applyWrap" class="chk disabled"><input type="checkbox" id="fApply" disabled checked /> 지원 가능한 곳만</label>
   </div>
 
+  <div id="summary" class="sub" style="margin-bottom:10px"></div>
   <div id="list" class="list"></div>
 
   <footer>
-    <div>데이터: 한국부동산원 청약홈 — 공공데이터포털 Open API</div>
-    <div style="margin-top:6px">분양정보 <code>15098547</code> · 당첨자 정보 <code>15110812</code>. ‘도전 가능’ 표시는 <b>내 가점 vs 그 지역 최근 당첨 가점 밴드</b> 비교한 참고치이며, 단지별 정밀 커트라인이 아닙니다. 신청 전 반드시 <a href="https://www.applyhome.co.kr/" target="_blank" rel="noopener">청약홈 공식 공고문</a> 확인.</div>
+    <div>데이터: 한국부동산원 청약홈 — 공공데이터포털 Open API (분양정보 <code>15098547</code> · 당첨자 정보 <code>15110812</code>)</div>
+    <div style="margin-top:6px">자격(순위·특공) 판정은 입력값 기반 <b>추정</b>입니다. 예치금·소득·자산·재당첨제한 등 세부 요건과 가점제/추첨제 비율은 단지마다 달라, 신청 전 반드시 <a href="https://www.applyhome.co.kr/" target="_blank" rel="noopener">청약홈 공식 공고문</a>을 확인하세요.</div>
   </footer>
 </div>
 
@@ -135,22 +133,32 @@
 <div id="modal" class="modal" role="dialog" aria-modal="true">
   <div class="dialog">
     <h3>내 자격 입력</h3>
-    <p class="desc">가점 84점 산식으로 계산합니다. 무주택기간·부양가족은 자동 추정하지 않고 입력값만 사용합니다.</p>
-    <div class="frow">
-      <label>무주택 기간 <span class="q">(년)</span></label>
-      <input id="iNoHouse" type="number" min="0" max="40" step="1" placeholder="예: 7" />
+    <p class="desc">순위(1·2순위)·특별공급 자격과 가점을 계산합니다. 입력값만 사용하며 자동 추정하지 않습니다.</p>
+
+    <div class="sec">청약통장 · 무주택 (순위 판정)</div>
+    <div class="half">
+      <div class="frow"><label>통장 가입기간 <span class="q">(년)</span></label>
+        <input id="iTongjang" type="number" min="0" max="40" step="1" placeholder="예: 8" /></div>
+      <div class="frow"><label>통장 예치금 <span class="q">(만원)</span></label>
+        <input id="iDeposit" type="number" min="0" step="50" placeholder="예: 1000" /></div>
     </div>
-    <div class="frow">
-      <label>부양가족 수 <span class="q">(본인 제외, 명)</span></label>
-      <input id="iFamily" type="number" min="0" max="10" step="1" placeholder="예: 2" />
-    </div>
-    <div class="frow">
-      <label>청약통장 가입기간 <span class="q">(년)</span></label>
-      <input id="iAccount" type="number" min="0" max="40" step="1" placeholder="예: 8" />
-    </div>
-    <div id="preview" class="preview">세 항목을 입력하면 내 가점이 계산됩니다.</div>
+    <div class="frow inline"><label class="togg"><input type="checkbox" id="iHomeless" checked /> 무주택 세대</label>
+      <input id="iHomelessY" type="number" min="0" max="40" step="1" placeholder="무주택기간(년)" style="flex:1" /></div>
+    <div class="frow"><label class="togg"><input type="checkbox" id="iHouseholder" checked /> 세대주 <span class="q" style="margin-left:4px">(규제지역 1순위 요건)</span></label></div>
+
+    <div class="sec">가점</div>
+    <div class="frow"><label>부양가족 수 <span class="q">(본인 제외, 명)</span></label>
+      <input id="iFamily" type="number" min="0" max="10" step="1" placeholder="예: 2" /></div>
+
+    <div class="sec">특별공급 자격 (선택)</div>
+    <div class="frow inline"><label class="togg"><input type="checkbox" id="iMarried" /> 기혼</label>
+      <input id="iMarriedY" type="number" min="0" max="40" step="1" placeholder="혼인기간(년)" style="flex:1" /></div>
+    <div class="frow"><label>자녀 수 <span class="q">(명)</span></label>
+      <input id="iChildren" type="number" min="0" max="10" step="1" placeholder="예: 1" /></div>
+
+    <div id="preview" class="preview">통장 가입기간·예치금·부양가족을 입력하면 순위와 가점이 계산됩니다.</div>
     <div class="modal-foot">
-      <button id="applyBtn" class="btn primary" disabled>적용하고 가능한 곳 보기</button>
+      <button id="applyBtn" class="btn primary" disabled>적용하고 가능한 곳 찾기</button>
       <button id="closeModal" class="btn ghost">닫기</button>
     </div>
   </div>
@@ -158,167 +166,245 @@
 
 <script>
 const $ = s => document.querySelector(s);
-let DATA = null, OPEN = null, APPLIED = null;   // APPLIED = 적용된 내 가점(없으면 null)
+let DATA=null, OPEN=null, PROFILE=null;
 
-// ---- 84점 가점 산식 (한국부동산원 기준) ----------------------------------
-function noHousePts(y){ if(y==null||isNaN(y))return null; return y<1?2:Math.min(32,(Math.floor(y)+1)*2); }
+// ---- 카테고리 색/라벨 ----------------------------------------------------
+const CAT={
+  rank1:{c:'#2f6bff',l:'1순위'}, rank2:{c:'#64748b',l:'2순위'},
+  gonggong:{c:'#0d9488',l:'공공분양'}, shinhon:{c:'#db2777',l:'신혼희망타운'},
+  무순위:{c:'#15915f',l:'무순위'}, 임의공급:{c:'#d97706',l:'임의공급'},
+  불법행위재공급:{c:'#c0392b',l:'불법행위 재공급'}, 오피스텔류:{c:'#6b7280',l:'오피스텔·도시형·생숙·임대'},
+  공공지원민간임대:{c:'#4f46e5',l:'공공지원민간임대'}, apt:{c:'#94a3b8',l:'APT 분양'},
+};
+
+// ---- 84점 가점 산식 ------------------------------------------------------
+function noHousePts(y){ if(y==null||isNaN(y))return 0; return y<1?2:Math.min(32,(Math.floor(y)+1)*2); }
 function familyPts(n){ if(n==null||isNaN(n))return null; return Math.min(35,5+Math.max(0,Math.floor(n))*5); }
 function accountPts(y){ if(y==null||isNaN(y))return null; if(y<0.5)return 1; if(y<1)return 2; return Math.min(17,Math.floor(y)+2); }
-function numOrNull(el){ const v=el.value.trim(); return v===''?null:Number(v); }
-function parts(){ return {nh:noHousePts(numOrNull($('#iNoHouse'))), fm:familyPts(numOrNull($('#iFamily'))), ac:accountPts(numOrNull($('#iAccount')))}; }
-function inputScore(){ const {nh,fm,ac}=parts(); return (nh==null||fm==null||ac==null)?null:nh+fm+ac; }
+function num(el){ const v=el.value.trim(); return v===''?null:Number(v); }
 
-// ---- 모집 상태 (오늘 날짜 기준) ------------------------------------------
+// ---- 예치금 기준(지역×전용면적, 만원) ------------------------------------
+function depositReq(region, area){
+  let t;
+  if(region==='서울'||region==='부산') t=[300,600,1000,1500];
+  else if(['대구','인천','광주','대전','울산'].includes(region)) t=[250,400,700,1000];
+  else t=[200,300,400,500];
+  if(area==null) area=85;
+  return area<=85?t[0] : area<=102?t[1] : area<=135?t[2] : t[3];
+}
+// 1순위 통장 가입기간 요건(년)
+function tongjangReqYears(n){ return n.regulated?2 : (n.metro?1 : 0.5); }
+
+// ---- 입력 → 프로필 -------------------------------------------------------
+function readInputs(){
+  const homeless=$('#iHomeless').checked, married=$('#iMarried').checked;
+  return {
+    tongjang:num($('#iTongjang')), deposit:num($('#iDeposit')),
+    homeless, homelessY: homeless? (num($('#iHomelessY'))??0) : 0,
+    householder:$('#iHouseholder').checked,
+    family:num($('#iFamily')),
+    married, marriedY: married? (num($('#iMarriedY'))??0) : null,
+    children:num($('#iChildren'))??0,
+  };
+}
+function gajeomOf(p){
+  const fm=familyPts(p.family), ac=accountPts(p.tongjang);
+  if(fm==null||ac==null) return null;
+  return noHousePts(p.homeless?p.homelessY:0)+fm+ac;
+}
+function profileReady(p){ return p.tongjang!=null && p.deposit!=null && p.family!=null; }
+
+// ---- 공고별 자격 판정 ----------------------------------------------------
+function specialsFor(p){
+  const s=[];
+  if(p.homeless && p.married && p.marriedY!=null && p.marriedY<=7) s.push('신혼부부');
+  if(p.homeless) s.push('생애최초');
+  if(p.homeless && p.children>=2) s.push('다자녀');
+  return s;
+}
+function eligOf(n){
+  // returns {key, canApply, note, specials:[]}
+  const p=PROFILE;
+  if(n.cat==='apt'){
+    if(p==null) return {key:'apt', canApply:true, note:'', specials:[]};
+    if(n.aptKind==='민영'){
+      const tOK=p.tongjang>=tongjangReqYears(n), dOK=p.deposit>=depositReq(n.region,n.areaMin);
+      const rOK=!n.regulated || (p.homeless && p.householder);
+      const r1=tOK&&dOK&&rOK;
+      const sp=n.hasSpecial?specialsFor(p):[];
+      let note='';
+      if(!r1){ note = !dOK?`예치금 ${depositReq(n.region,n.areaMin)}만원 미만 → 2순위`
+                      : !tOK?`통장 ${tongjangReqYears(n)}년 미만 → 2순위`
+                      : '규제지역 무주택·세대주 요건 → 2순위'; }
+      return {key:r1?'rank1':'rank2', canApply:true, note, specials:sp};
+    }
+    if(n.aptKind==='국민') return {key:'gonggong', canApply:p.homeless,
+        note: p.homeless?'무주택·소득·자산 요건(공고문 확인)':'무주택 세대 아님 → 신청 불가', specials:[]};
+    // 신혼희망타운
+    const ok=p.homeless && p.married && p.marriedY!=null && p.marriedY<=7;
+    return {key:'shinhon', canApply:ok, note: ok?'소득·자산 요건(공고문 확인)':'무주택+혼인 7년이내 대상', specials:[]};
+  }
+  // 비APT (고정 카테고리)
+  const fixed={canApply:true, specials:[]};
+  if(n.cat==='공공지원민간임대') return {key:n.cat, canApply: PROFILE? PROFILE.homeless:true,
+      note:'무주택·소득 요건(공고문 확인)', ...{specials:[]}};
+  if(n.cat==='무순위'||n.cat==='불법행위재공급') return {key:n.cat, canApply:true,
+      note:'만 19세 이상·무주택 등 요건은 공고문 확인', specials:[]};
+  return {key:n.cat, canApply:true, note:'만 19세 이상 누구나 신청 가능(통장 불필요)', specials:[]};
+}
+
+// ---- 상태(오늘 기준) -----------------------------------------------------
 function todayStr(){ const d=new Date();
   return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
 function statusOf(n){
-  const s=n.schedule||{}, t=todayStr();
-  const open=s.open||s.rank1||'', close=s.close||'';
+  const s=n.schedule||{}, t=todayStr(), open=s.open||s.rank1||'', close=s.close||'';
   if(close && t>close) return {key:'closed', label:'접수 마감'};
-  if(open && t<open)   return {key:'upcoming', label:'모집 예정'};
+  if(open && t<open) return {key:'upcoming', label:'모집 예정'};
   return {key:'ongoing', label:'모집 중'};
 }
 const ST_ORDER={ongoing:0, upcoming:1, closed:2};
 
-// ---- 자격/가능성 (적용된 점수 기준) --------------------------------------
-function bandOf(region){
-  const rs=(DATA.regionScores||{})[region]; if(!rs) return null;
-  const lo=rs.low ?? Math.max(0,Math.round(rs.avg-8)), hi=rs.top ?? Math.round(rs.avg+8);
-  return {avg:rs.avg, lo, hi, month:rs.month};
-}
-function eligibility(n){   // APPLIED 없으면 null 반환(색 미적용)
-  if(APPLIED==null) return null;
-  if(!n.gajeom) return {cls:'na', label:'가점 무관', kind:'na'};
-  const b=bandOf(n.region);
-  if(!b) return {cls:'na', label:'지역 데이터 없음', kind:'nodata'};
-  if(APPLIED>=b.hi) return {cls:'strong', label:'유력', kind:'ok'};
-  if(APPLIED>=b.avg) return {cls:'good', label:'도전 가능', kind:'ok'};
-  if(APPLIED>=b.lo) return {cls:'edge', label:'경계', kind:'edge'};
-  return {cls:'weak', label:'열세', kind:'weak'};
-}
-
 // ---- 렌더 ----------------------------------------------------------------
 function esc(s){ return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 function fmtDate(s){ return (s&&/\d{4}-\d{2}-\d{2}/.test(s)) ? s.slice(5).replace('-','/') : '—'; }
+function bandOf(region){ const rs=(DATA.regionScores||{})[region]; if(!rs)return null;
+  return {avg:rs.avg, lo:rs.low??Math.max(0,Math.round(rs.avg-8)), hi:rs.top??Math.round(rs.avg+8), month:rs.month}; }
 
 function bandHTML(n){
+  // 가점이 의미있는 민영 APT만 밴드, 그 외엔 안내
+  if(!(n.cat==='apt'&&n.aptKind==='민영')){
+    const why = n.aptKind==='국민' ? '국민·공공분양은 가점이 아니라 <b>순차제(납입횟수·저축총액)</b>로 정해집니다.'
+      : n.cat==='shinhon'||n.aptKind==='신혼희망' ? '신혼희망타운은 가점이 아니라 <b>자격·가점항목(별도)</b>으로 정해집니다.'
+      : '이 유형은 <b>가점이 아니라 추첨/자격요건</b>으로 정해집니다.';
+    return `<div class="lbl">${why} 과거 가점 밴드 비교 대상이 아닙니다.</div>`;
+  }
   const b=bandOf(n.region);
   if(!b) return `<div class="lbl">‘${esc(n.region)}’ 지역의 최근 당첨 가점 통계가 아직 없습니다.</div>`;
   const pct=v=>Math.max(0,Math.min(100,v/84*100));
-  const my=(APPLIED!=null && n.gajeom)?APPLIED:null;
+  const my=PROFILE?gajeomOf(PROFILE):null;
   const me=(my!=null)?`<div class="me" style="left:${pct(my)}%" data-label="내 ${my}점"></div>`:'';
-  let verdict='';
-  if(my!=null){
-    if(my>=b.hi) verdict=`내 <b>${my}점</b>은 최근 밴드 상단(${b.hi}점) 이상 — 이 지역에선 <b>유력</b>합니다.`;
-    else if(my>=b.avg) verdict=`내 <b>${my}점</b>은 평균(${b.avg}점) 이상 — <b>도전 가능</b>한 편입니다.`;
-    else if(my>=b.lo) verdict=`내 <b>${my}점</b>은 밴드 안이지만 평균 아래 — <b>단지·면적에 따라 갈립니다</b>.`;
-    else verdict=`내 <b>${my}점</b>은 최근 밴드(${b.lo}점~) 아래 — 인기 단지는 <b>가점만으론 어렵습니다</b>.`;
-  }
   return `
-    <div class="lbl"><b>${esc(n.region)}</b> · ${esc(b.month)} 기준 ‘해당지역’ 과거 당첨 가점</div>
-    <div class="band">
-      <div class="zone" style="left:${pct(b.lo)}%;width:${pct(b.hi)-pct(b.lo)}%"></div>${me}
-    </div>
+    <div class="lbl"><b>${esc(n.region)}</b> · ${esc(b.month)} 기준 ‘해당지역’ 과거 당첨 가점 (참고용 지역 통계)</div>
+    <div class="band"><div class="zone" style="left:${pct(b.lo)}%;width:${pct(b.hi)-pct(b.lo)}%"></div>${me}</div>
     <div class="scale"><span>0</span><span>20</span><span>40</span><span>60</span><span>84</span></div>
-    <div class="bandinfo">최근 보통 <b>${b.lo}~${b.hi}점</b>대에서 당첨 (평균 <b>${b.avg}점</b>).</div>
-    ${verdict?`<div class="bandinfo" style="margin-top:5px">${verdict}</div>`:
-      (n.gajeom?`<div class="bandinfo" style="margin-top:5px">‘내 자격 필터링’을 적용하면 내 위치가 막대에 표시됩니다.</div>`:
-        `<div class="bandinfo" style="margin-top:5px">이 공고는 가점제가 아니라, 위 밴드는 ‘참고 지역 분위기’로만 보세요.</div>`)}`;
+    <div class="bandinfo">최근 보통 <b>${b.lo}~${b.hi}점</b>대에서 당첨 (평균 <b>${b.avg}점</b>).${my!=null?` 내 가점은 <b>${my}점</b>.`:' ‘내 자격 필터링’ 적용 시 내 위치 표시.'}</div>`;
 }
+
+function catKeyFor(n, e){ return (n.cat==='apt') ? e.key : n.cat; }
 
 function renderList(){
   const list=$('#list');
-  const r=$('#fRegion').value, t=$('#fType').value, onlyElig=$('#fElig').checked && !$('#fElig').disabled;
-  let items=DATA.notices.map((n,i)=>({n,i,st:statusOf(n)})).filter(({n,st})=>{
+  const r=$('#fRegion').value, c=$('#fCat').value;
+  const onlyApply = PROFILE && $('#fApply').checked && !$('#fApply').disabled;
+  let items=DATA.notices.map((n,i)=>({n,i,st:statusOf(n),e:eligOf(n)})).filter(({n,st,e})=>{
     if(r && n.region!==r) return false;
-    if(t==='gj' && !n.gajeom) return false;
-    if(t==='no' && n.gajeom) return false;
-    if(onlyElig && (st.key==='closed' || (eligibility(n)||{}).kind!=='ok')) return false;
+    if(c && n.cat!==c) return false;
+    if(onlyApply && (st.key==='closed' || !e.canApply)) return false;
     return true;
   });
   items.sort((a,b)=> (ST_ORDER[a.st.key]-ST_ORDER[b.st.key])
     || ((a.n.schedule.open||a.n.schedule.rank1||'').localeCompare(b.n.schedule.open||b.n.schedule.rank1||'')));
   if(!items.length){ list.innerHTML=`<div class="empty">조건에 맞는 공고가 없습니다.</div>`; return; }
-  list.innerHTML=items.map(({n,i,st})=>{
-    const e=eligibility(n);   // null이면 색·배지 없음
-    const gtag=n.gajeom?`<span class="tag gj">가점 적용</span>`:`<span class="tag no">가점 외 기준</span>`;
-    const sp=n.hasSpecial?`<span class="tag sp">특별공급</span>`:'';
-    const eb=(e && st.key!=='closed')?`<span class="eb ${e.cls}">${e.label}</span>`:'';
+  list.innerHTML=items.map(({n,i,st,e})=>{
+    const ck=catKeyFor(n,e), cm=CAT[ck]||CAT.apt;
+    const cb=`<span class="catbadge" style="background:${cm.c}">${cm.l}</span>`;
     const stb=`<span class="st ${st.key}">${st.label}</span>`;
-    const s=n.schedule||{};
-    const open=OPEN===i;
-    const eligCls=(e && st.key!=='closed')?`elig-${e.cls}`:'';
-    return `<div class="card ${eligCls} ${st.key==='closed'?'closed':''} ${open?'open':''}" data-i="${i}">
-      <div class="row1"><span class="name">${esc(n.name)}</span>${stb}
-        <span class="tag">${esc(n.type)}</span>${gtag}${sp}${eb}</div>
-      <div class="meta">${esc(n.region)} · ${esc(n.area||'—')}</div>
+    const sub=n.aptKind && n.cat==='apt' && ck!=='gonggong' && ck!=='shinhon'
+      ? `<span class="tag">${esc(n.aptKind)}</span>` : '';
+    const spchips=(e.specials||[]).map(s=>`<span class="tag sp">특공 ${s}</span>`).join('');
+    let flag='';
+    if(PROFILE && st.key!=='closed') flag = e.canApply?`<span class="applyflag yes">지원 가능</span>`:`<span class="applyflag no">신청 불가</span>`;
+    const s=n.schedule||{}, open=OPEN===i;
+    const cant = PROFILE && !e.canApply && st.key!=='closed';
+    const note = (PROFILE && e.note)?`<div class="note">${esc(e.note)}</div>`:'';
+    const r2 = s.rank2?`<span><b>2순위</b> ${fmtDate(s.rank2)}</span>`:'';
+    return `<div class="card ${st.key==='closed'?'closed':''} ${cant?'cantapply':''} ${open?'open':''}"
+        data-i="${i}" style="border-left-color:${cm.c}">
+      <div class="row1"><span class="name">${esc(n.name)}</span>${cb}${stb}${sub}${spchips}${flag}</div>
+      <div class="meta">${esc(n.region)} · ${esc(n.area||'—')}${n.hasSpecial?' · 특별공급 포함':''}</div>
+      ${note}
       <div class="sched">
         <span><b>특공</b> ${fmtDate(s.special)}</span>
-        <span><b>1순위</b> ${fmtDate(s.rank1)}</span>
+        <span><b>1순위/접수</b> ${fmtDate(s.rank1)}</span>${r2}
         <span><b>발표</b> ${fmtDate(s.result)}</span>
       </div>
-      ${open?`<div class="expand">${bandHTML(n)}</div>`:`<div class="more">▾ 이 지역 과거 당첨 데이터 보기</div>`}
+      ${open?`<div class="expand">${bandHTML(n)}</div>`:`<div class="more">▾ 가점·과거 데이터 보기</div>`}
     </div>`;
   }).join('');
-  list.querySelectorAll('.card').forEach(c=>c.onclick=()=>{
-    const i=+c.dataset.i; OPEN=(OPEN===i?null:i); renderList();
-  });
+  list.querySelectorAll('.card').forEach(c=>c.onclick=()=>{ const i=+c.dataset.i; OPEN=(OPEN===i?null:i); renderList(); });
+}
+
+function renderProfileBar(){
+  const box=$('#profile');
+  if(!PROFILE){ box.className='profile'; box.innerHTML=''; return; }
+  const p=PROFILE, g=gajeomOf(p), sp=specialsFor(p);
+  const chips=[];
+  chips.push(`<span class="pchip">가점 ${g}점</span>`);
+  chips.push(`<span class="pchip">통장 ${p.tongjang}년·예치금 ${p.deposit}만</span>`);
+  chips.push(`<span class="pchip">${p.homeless?`무주택 ${p.homelessY}년`:'유주택'}${p.householder?'·세대주':''}</span>`);
+  if(sp.length) chips.push(`<span class="pchip warn">특공 대상 가능: ${sp.join('·')}</span>`);
+  box.className='profile show';
+  box.innerHTML=`<div class="pline">입력하신 조건으로 <b>1순위 요건은 단지(지역·면적·규제)마다 달라</b> 카드별로 표시됩니다. 가점은 <b>${g}점</b>입니다.</div>
+    <div class="pchips">${chips.join('')}</div>`;
 }
 
 function renderSummary(){
   const box=$('#summary');
   const live=DATA.notices.filter(n=>statusOf(n).key!=='closed').length;
-  const gj=DATA.notices.filter(n=>n.gajeom).length;
-  if(APPLIED==null){ box.innerHTML=`모집 중·예정 <b>${live}곳</b> (가점제 ${gj}곳). <b>내 자격 필터링</b>을 적용하면 도전 가능한 곳이 색으로 표시됩니다.`; return; }
-  const ok=DATA.notices.filter(n=>statusOf(n).key!=='closed' && (eligibility(n)||{}).kind==='ok').length;
-  box.innerHTML=`내 <b>${APPLIED}점</b> 기준 · 모집 중·예정 <b>${live}곳</b> 중 <b style="color:var(--good)">도전 가능 ${ok}곳</b> <span style="color:var(--muted)">(초록 카드, 마감 제외)</span>`;
+  if(!PROFILE){ box.innerHTML=`모집 중·예정 <b style="color:var(--ink)">${live}곳</b>. 카테고리별 색으로 구분됩니다 — <b style="color:var(--ink)">내 자격 필터링</b>으로 지원 가능한 곳만 볼 수 있어요.`; return; }
+  const ok=DATA.notices.filter(n=>statusOf(n).key!=='closed' && eligOf(n).canApply).length;
+  box.innerHTML=`모집 중·예정 <b style="color:var(--ink)">${live}곳</b> 중 <b style="color:var(--good)">지원 가능 ${ok}곳</b>.`;
 }
 
-function refresh(){ renderSummary(); renderList(); }
+function refresh(){ renderProfileBar(); renderSummary(); renderList(); }
 
 // ---- 모달 ----------------------------------------------------------------
 function modalPreview(){
-  const sc=inputScore(), {nh,fm,ac}=parts();
-  const pv=$('#preview'), btn=$('#applyBtn');
-  if(sc==null){ pv.innerHTML='세 항목을 모두 입력하면 내 가점이 계산됩니다.'; btn.disabled=true; }
-  else{ pv.innerHTML=`내 가점 <b>${sc}점</b> / 84점 <span style="color:var(--muted)">(무주택 ${nh} + 부양가족 ${fm} + 통장 ${ac})</span>`; btn.disabled=false; }
+  const p=readInputs(), pv=$('#preview'), btn=$('#applyBtn');
+  if(!profileReady(p)){ pv.innerHTML='통장 가입기간·예치금·부양가족을 입력하면 순위와 가점이 계산됩니다.'; btn.disabled=true; return; }
+  btn.disabled=false;
+  const g=gajeomOf(p), sp=specialsFor(p);
+  pv.innerHTML=`가점 <b>${g}점</b> · 통장 ${p.tongjang}년·예치금 ${p.deposit}만원`
+    +`${sp.length?` · 특공 대상 가능: <b>${sp.join('·')}</b>`:''}`
+    +`<br><span style="color:var(--muted);font-size:12px">1순위 여부는 단지의 지역·면적·규제에 따라 카드별로 달라집니다.</span>`;
 }
-function openModal(){ $('#modal').classList.add('show'); modalPreview(); setTimeout(()=>$('#iNoHouse').focus(),50); }
+function openModal(){ $('#modal').classList.add('show'); modalPreview(); setTimeout(()=>$('#iTongjang').focus(),50); }
 function closeModal(){ $('#modal').classList.remove('show'); }
 function applyInfo(){
-  const sc=inputScore(); if(sc==null) return;
-  APPLIED=sc;
-  const chk=$('#fElig'), wrap=$('#eligWrap'), btn=$('#openModal');
-  chk.disabled=false; wrap.classList.remove('disabled');
-  btn.classList.add('set'); btn.textContent=`내 ${sc}점 · 자격 수정`;
+  const p=readInputs(); if(!profileReady(p)) return;
+  PROFILE=p;
+  const chk=$('#fApply'); chk.disabled=false; chk.checked=true; $('#applyWrap').classList.remove('disabled');
+  const btn=$('#openModal'); btn.classList.add('set'); btn.textContent=`내 자격 적용됨 · 수정`;
   closeModal(); refresh();
 }
 
-function fillRegionFilter(){
-  const sel=$('#fRegion');
-  [...new Set(DATA.notices.map(n=>n.region))].sort().forEach(r=>{
-    const o=document.createElement('option'); o.value=o.textContent=r; sel.appendChild(o);
+function fillFilters(){
+  const reg=$('#fRegion');
+  [...new Set(DATA.notices.map(n=>n.region))].sort().forEach(r=>{ const o=document.createElement('option'); o.value=o.textContent=r; reg.appendChild(o); });
+  const cat=$('#fCat'), cats=[...new Set(DATA.notices.map(n=>n.cat))];
+  const order=['apt','무순위','임의공급','불법행위재공급','오피스텔류','공공지원민간임대'];
+  cats.sort((a,b)=>order.indexOf(a)-order.indexOf(b)).forEach(c=>{
+    const o=document.createElement('option'); o.value=c;
+    o.textContent = c==='apt'?'APT 분양(특공·1·2순위)':(CAT[c]?.l||c); cat.appendChild(o);
   });
 }
 function setBadge(){
-  const b=$('#badge'); const when=DATA.collectedAt?DATA.collectedAt.replace('T',' ').slice(0,16):'';
+  const b=$('#badge'), when=DATA.collectedAt?DATA.collectedAt.replace('T',' ').slice(0,16):'';
   if(DATA.live){ b.className='badge live'; b.textContent=`실데이터 · ${when} 수집`; }
-  else { b.className='badge'; b.textContent='데모 데이터 (예시 단지)'; }
+  else { b.className='badge'; b.textContent='데모 데이터'; }
 }
 
 async function boot(){
-  try{ DATA=await (await fetch('data.json',{cache:'no-store'})).json(); }
-  catch(e){ DATA={notices:[],regionScores:{}}; }
+  try{ DATA=await (await fetch('data.json',{cache:'no-store'})).json(); }catch(e){ DATA={notices:[],regionScores:{}}; }
   if(!DATA.notices) DATA.notices=[];
-  setBadge(); fillRegionFilter(); refresh();
-  $('#fRegion').onchange=$('#fType').onchange=renderList;
-  $('#fElig').onchange=renderList;
-  $('#openModal').onclick=openModal;
-  $('#closeModal').onclick=closeModal;
-  $('#applyBtn').onclick=applyInfo;
+  setBadge(); fillFilters(); refresh();
+  $('#fRegion').onchange=$('#fCat').onchange=renderList;
+  $('#fApply').onchange=renderList;
+  $('#openModal').onclick=openModal; $('#closeModal').onclick=closeModal; $('#applyBtn').onclick=applyInfo;
   $('#modal').onclick=e=>{ if(e.target===$('#modal')) closeModal(); };
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
-  ['#iNoHouse','#iFamily','#iAccount'].forEach(id=>$(id).addEventListener('input',modalPreview));
+  ['#iTongjang','#iDeposit','#iHomeless','#iHomelessY','#iHouseholder','#iFamily','#iMarried','#iMarriedY','#iChildren']
+    .forEach(id=>$(id).addEventListener('input',modalPreview));
 }
 boot();
 </script>
