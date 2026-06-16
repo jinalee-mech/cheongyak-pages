@@ -341,24 +341,34 @@ function bandOf(region){ const rs=(DATA.regionScores||{})[region]; if(!rs)return
   return {avg:rs.avg, lo:rs.low??Math.max(0,Math.round(rs.avg-8)), hi:rs.top??Math.round(rs.avg+8), month:rs.month}; }
 
 // 같은 지역·비슷한 면적(±5㎡)·비슷한 평단가의 과거 민영 단지 최대 5개
+// 같은 지역에서 가장 비슷한 과거 민영 단지 5개. 면적폭을 점진 확장해 표본을 채움.
 function comparablePast(n){
   const pool=(DATA.pastUnits||[]).filter(u=>u.region===n.region);
+  if(pool.length<2) return null;                 // 지역 자체 표본 없음 → 지역통계 폴백
   const area=n.areaMin, py=n.pyeong, useSise=(n.ratio!=null);
-  let cand=pool.filter(u=>Math.abs(u.area-area)<=5);
-  if(useSise){                       // 시세 있음 → 분양가/시세 비율 유사(±10%p)
+  // 면적 허용폭을 ±5 → 10 → 15 → 25 → 무제한 순으로 넓혀 최소 5개 확보
+  let cand=pool, usedW=999;
+  for(const w of [5,10,15,25]){
+    const f=pool.filter(u=>Math.abs(u.area-area)<=w);
+    if(f.length>=5){ cand=f; usedW=w; break; }
+    cand=f.length?f:cand; usedW=w;               // 5개 못 채워도 가장 가까운 폭 유지
+  }
+  if(cand.length<2) cand=pool;                   // 그래도 적으면 지역 전체
+  // 가격 유사도로 좁히되, 좁혀서 3개 미만이면 안 좁힘
+  if(useSise){
     const near=cand.filter(u=>u.ratio!=null && Math.abs(u.ratio-n.ratio)<=10);
     if(near.length>=3) cand=near;
-  }else if(py){                      // 폴백: 평단가 유사(±25%)
+  }else if(py){
     const near=cand.filter(u=>u.pyeong && Math.abs(u.pyeong-py)/py<=0.25);
     if(near.length>=3) cand=near;
   }
-  cand.sort((a,b)=>{
+  cand=cand.slice().sort((a,b)=>{
     const da=Math.abs(a.area-area)-Math.abs(b.area-area); if(da) return da;
     if(useSise && a.ratio!=null && b.ratio!=null){ const dr=Math.abs(a.ratio-n.ratio)-Math.abs(b.ratio-n.ratio); if(dr) return dr; }
     else if(py&&a.pyeong&&b.pyeong){ const dp=Math.abs(a.pyeong-py)-Math.abs(b.pyeong-py); if(dp) return dp; }
     return (b.ym||'').localeCompare(a.ym||'');
   });
-  return cand.slice(0,5);
+  return {units:cand.slice(0,5), width:usedW};
 }
 function regionFallbackHTML(n, msg){
   const b=bandOf(n.region);
@@ -378,8 +388,11 @@ function bandHTML(n){
       : '이 유형은 <b>가점이 아니라 추첨/자격요건</b>으로 정해집니다.';
     return `<div class="lbl">${why} 과거 가점 밴드 비교 대상이 아닙니다.</div>`;
   }
-  const cmp=comparablePast(n);
-  if(cmp.length<2) return regionFallbackHTML(n, '비슷한 면적·가격대의 과거 단지 표본이 부족합니다.');
+  const cmpR=comparablePast(n);
+  if(!cmpR) return regionFallbackHTML(n, `‘${esc(n.region)}’ 최근 24개월 민영 과거 단지가 거의 없습니다.`);
+  const cmp=cmpR.units;
+  const aMin=Math.min(...cmp.map(u=>u.area)), aMax=Math.max(...cmp.map(u=>u.area));
+  const aLabel = (cmpR.width<=5) ? `전용 ${n.areaMin}㎡대` : (aMin===aMax ? `전용 ${aMin}㎡` : `전용 ${aMin}~${aMax}㎡`);
   const lows=cmp.map(u=>u.low), lo=Math.min(...lows), hi=Math.max(...lows);
   const avg=Math.round(cmp.reduce((s,u)=>s+u.avg,0)/cmp.length);
   const rates=cmp.map(u=>u.rate).filter(x=>x!=null);
@@ -400,7 +413,7 @@ function bandHTML(n){
     ? '※ 인근 동일 읍·면·동의 유사 전용면적 최근 실거래가(국토부) 중앙값 기준. 단지명을 누르면 청약홈 공고로 이동합니다.'
     : '※ ‘분양가/시세’ 비율은 시세(실거래가) 연동 대기 중이라 <b>분양가(평단가) 유사도</b>로 근사했습니다. 단지명을 누르면 청약홈 공고로 이동합니다.';
   return `
-    <div class="lbl">비교 기준 — <b>${esc(n.region)} · 전용 ${n.areaMin}㎡대 · 민영 일반공급 · 최근 24개월</b>${basis?` · ${basis}`:''}</div>
+    <div class="lbl">비교 기준 — <b>${esc(n.region)} · ${aLabel} · 민영 일반공급 · 최근 24개월</b>${basis?` · ${basis}`:''}${cmpR.width>5?` <span style="color:var(--muted)">(유사 표본이 적어 면적폭 확장)</span>`:''}</div>
     ${merit}
     <div class="band"><div class="zone" style="left:${pct(lo)}%;width:${Math.max(2,pct(hi)-pct(lo))}%"></div>${avgMark}${me}</div>
     <div class="scale"><span>0</span><span>20</span><span>40</span><span>60</span><span>84</span></div>
