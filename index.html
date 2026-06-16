@@ -343,15 +343,19 @@ function bandOf(region){ const rs=(DATA.regionScores||{})[region]; if(!rs)return
 // 같은 지역·비슷한 면적(±5㎡)·비슷한 평단가의 과거 민영 단지 최대 5개
 function comparablePast(n){
   const pool=(DATA.pastUnits||[]).filter(u=>u.region===n.region);
-  const area=n.areaMin, py=n.pyeong;
+  const area=n.areaMin, py=n.pyeong, useSise=(n.ratio!=null);
   let cand=pool.filter(u=>Math.abs(u.area-area)<=5);
-  if(py){
+  if(useSise){                       // 시세 있음 → 분양가/시세 비율 유사(±10%p)
+    const near=cand.filter(u=>u.ratio!=null && Math.abs(u.ratio-n.ratio)<=10);
+    if(near.length>=3) cand=near;
+  }else if(py){                      // 폴백: 평단가 유사(±25%)
     const near=cand.filter(u=>u.pyeong && Math.abs(u.pyeong-py)/py<=0.25);
-    if(near.length>=3) cand=near;   // 가격대까지 좁힐 표본이 충분하면 좁힘
+    if(near.length>=3) cand=near;
   }
   cand.sort((a,b)=>{
     const da=Math.abs(a.area-area)-Math.abs(b.area-area); if(da) return da;
-    if(py&&a.pyeong&&b.pyeong){ const dp=Math.abs(a.pyeong-py)-Math.abs(b.pyeong-py); if(dp) return dp; }
+    if(useSise && a.ratio!=null && b.ratio!=null){ const dr=Math.abs(a.ratio-n.ratio)-Math.abs(b.ratio-n.ratio); if(dr) return dr; }
+    else if(py&&a.pyeong&&b.pyeong){ const dp=Math.abs(a.pyeong-py)-Math.abs(b.pyeong-py); if(dp) return dp; }
     return (b.ym||'').localeCompare(a.ym||'');
   });
   return cand.slice(0,5);
@@ -387,13 +391,22 @@ function bandHTML(n){
   const list=cmp.map(u=>`<a class="pu" href="${esc(u.url)}" target="_blank" rel="noopener">
       <span class="pu-n">${esc(u.name)}</span>
       <span class="pu-m">${u.area}㎡ · ${esc(u.ym)} · 최저 ${u.low}점${u.rate!=null?` · ${u.rate}:1`:''}</span></a>`).join('');
+  const hasSise=(n.ratio!=null && n.sise!=null);
+  const bunyang=hasSise?(n.sise*n.ratio/100):null;
+  const basis = hasSise ? `분양가/시세 ${n.ratio}%대` : (n.pyeong?`평단가 ~${Math.round(n.pyeong)}만/평 유사`:'');
+  const merit = hasSise
+    ? `<div class="bandinfo" style="margin-top:6px">현재 단지 — 분양가 <b>${bunyang.toFixed(1)}억</b> · 인근 유사평형 실거래가 중앙값 <b>${n.sise}억</b> → 시세 대비 <b style="color:${n.ratio<100?'var(--good)':'#b06f10'}">${Math.abs(100-n.ratio)}% ${n.ratio<100?'저렴':'높음'}</b></div>` : '';
+  const note = hasSise
+    ? '※ 인근 동일 읍·면·동의 유사 전용면적 최근 실거래가(국토부) 중앙값 기준. 단지명을 누르면 청약홈 공고로 이동합니다.'
+    : '※ ‘분양가/시세’ 비율은 시세(실거래가) 연동 대기 중이라 <b>분양가(평단가) 유사도</b>로 근사했습니다. 단지명을 누르면 청약홈 공고로 이동합니다.';
   return `
-    <div class="lbl">비교 기준 — <b>${esc(n.region)} · 전용 ${n.areaMin}㎡대 · 민영 일반공급 · 최근 24개월</b>${n.pyeong?` · 평단가 ~${Math.round(n.pyeong)}만/평 유사`:''}</div>
+    <div class="lbl">비교 기준 — <b>${esc(n.region)} · 전용 ${n.areaMin}㎡대 · 민영 일반공급 · 최근 24개월</b>${basis?` · ${basis}`:''}</div>
+    ${merit}
     <div class="band"><div class="zone" style="left:${pct(lo)}%;width:${Math.max(2,pct(hi)-pct(lo))}%"></div>${avgMark}${me}</div>
     <div class="scale"><span>0</span><span>20</span><span>40</span><span>60</span><span>84</span></div>
     <div class="bandinfo">비슷한 과거 단지 <b>${cmp.length}개</b> — 최저 당첨가점 <b>${lo}~${hi}점</b> · 평균 <b>${avg}점</b>${avgRate!=null?` · 평균 1순위 경쟁률 <b>${avgRate}:1</b>`:''}.${my!=null?` 내 가점 <b>${my}점</b>.`:''}</div>
     <div class="pulist">${list}</div>
-    <div class="bandnote">※ ‘분양가/시세’ 비율은 시세(실거래가)가 청약홈 API에 없어, <b>분양가(평단가) 유사도</b>로 근사했습니다. 단지명을 누르면 청약홈 공고로 이동합니다.</div>`;
+    <div class="bandnote">${note}</div>`;
 }
 
 function catKeyFor(n, e){ return (n.cat==='apt') ? e.key : n.cat; }
