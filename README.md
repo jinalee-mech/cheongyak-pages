@@ -36,10 +36,12 @@
 
 ## 데이터 소스 (청약홈 공식 Open API, 무료)
 
-- **분양정보** (`15098547`) — 이번 주 분양 목록
-  - `getAPTLttotPblancDetail` (아파트) · `getAPTLttotPblancMdl` (면적) · `getUrbtyOfctlLttotPblancDetail` (오피스텔 등)
-- **당첨 가점 통계** (`ApplyhomeStatSvc/getAPTApsPrzwnerStat`) — 지역별 과거 당첨 가점 밴드
-- (경쟁률 `15098905` 은 필요 시 보조)
+- **분양정보** (`15098547`, `ApplyhomeInfoDetailSvc`) — 이번 주 분양 목록
+  - `getAPTLttotPblancDetail` (아파트) · `getAPTLttotPblancMdl` (아파트 면적)
+  - `getUrbtyOfctlLttotPblancDetail` / `getUrbtyOfctlLttotPblancMdl` (오피스텔·도시형 + 면적)
+- **당첨자 정보** (`15110812`, `ApplyhomeStatSvc`) — 지역별 과거 당첨 가점 밴드
+  - `getAPTApsPrzwnerStat` (지역×월 당첨가점 평균/최저/최고, '해당지역' 기준)
+- (경쟁률·특공 `15098905`, `ApplyhomeInfoCmpetRtSvc` 는 필요 시 보조)
 
 ## 한계 (정직하게)
 

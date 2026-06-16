@@ -6,8 +6,8 @@
 <title>청약 나침반 — 이번 주 분양 · 내 가점 · 지역 당첨선</title>
 <style>
   :root{
-    --bg:#0f1115; --card:#171a21; --line:#252a34; --ink:#e8ebf0; --dim:#9aa3b2;
-    --accent:#5b8cff; --good:#3ecf8e; --warn:#f0b35b; --muted:#6b7280;
+    --bg:#f6f7f9; --card:#ffffff; --line:#e4e7ec; --ink:#1b1f27; --dim:#5b6472;
+    --accent:#2f6bff; --good:#15915f; --warn:#b06f10; --muted:#8b93a1;
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
@@ -18,7 +18,7 @@
   h1{font-size:22px;margin:0;letter-spacing:-.3px}
   .sub{color:var(--dim);font-size:13px;margin:2px 0 0}
   .badge{font-size:12px;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:3px 10px;white-space:nowrap}
-  .badge.live{color:var(--good);border-color:#244;}
+  .badge.live{color:var(--good);border-color:#bfe6d4;background:#eef9f3;}
   section{margin-top:30px}
   .step-h{display:flex;align-items:center;gap:10px;margin:0 0 12px}
   .step-h .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;
@@ -32,14 +32,15 @@
   .list{display:grid;gap:10px}
   .card{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:14px 16px;cursor:pointer;
     transition:border-color .12s, background .12s}
-  .card:hover{border-color:#3a4257}
-  .card.sel{border-color:var(--accent);background:#172033}
+  .card{box-shadow:0 1px 2px rgba(20,24,33,.04)}
+  .card:hover{border-color:#b9c2d6}
+  .card.sel{border-color:var(--accent);background:#eef3ff}
   .card .row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .card .name{font-weight:600;font-size:15px}
   .tag{font-size:11.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
-  .tag.gj{color:#bcd2ff;border-color:#2c3e6b;background:#141b2e}
+  .tag.gj{color:#1d4ed8;border-color:#bcd0fb;background:#eef3ff}
   .tag.no{color:var(--dim)}
-  .tag.sp{color:var(--warn);border-color:#4a3a1f}
+  .tag.sp{color:#9a5b08;border-color:#f0dcb4;background:#fdf4e3}
   .card .meta{color:var(--dim);font-size:13px;margin-top:5px}
   .card .sched{color:var(--muted);font-size:12.5px;margin-top:6px;display:flex;flex-wrap:wrap;gap:4px 14px}
   .card .sched b{color:var(--dim);font-weight:500}
@@ -53,20 +54,21 @@
   @media(max-width:560px){.grid3{grid-template-columns:1fr}}
   .field label{display:block;font-size:12.5px;color:var(--dim);margin-bottom:4px}
   .field .q{color:var(--muted);font-size:11.5px}
-  input[type=number]{width:100%;background:#10131a;color:var(--ink);border:1px solid var(--line);
+  input[type=number]{width:100%;background:#fff;color:var(--ink);border:1px solid var(--line);
     border-radius:8px;padding:9px 10px;font-size:14px}
+  input[type=number]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(47,107,255,.12)}
   .result{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
   .score{font-size:30px;font-weight:700;letter-spacing:-.5px}
   .score small{font-size:14px;color:var(--dim);font-weight:500}
   .breakdown{color:var(--dim);font-size:13px;margin-top:4px}
   .note{font-size:13.5px;border-radius:10px;padding:12px 14px;margin-top:14px}
-  .note.info{background:#15202e;border:1px solid #233244;color:#cdd9e8}
-  .note.warn{background:#241f15;border:1px solid #44391f;color:#ecdcb8}
+  .note.info{background:#eef3ff;border:1px solid #d4e0fb;color:#27406e}
+  .note.warn{background:#fdf4e3;border:1px solid #f0dcb4;color:#6b4a12}
 
   /* step 3 band */
   .band-wrap{margin-top:8px}
-  .band{position:relative;height:46px;border:1px solid var(--line);border-radius:10px;background:#10131a;margin:18px 0 6px;overflow:visible}
-  .band .zone{position:absolute;top:0;bottom:0;border-radius:8px;background:linear-gradient(90deg,#1d2b22,#2d4a37)}
+  .band{position:relative;height:46px;border:1px solid var(--line);border-radius:10px;background:#f0f2f5;margin:18px 0 6px;overflow:visible}
+  .band .zone{position:absolute;top:0;bottom:0;border-radius:8px;background:linear-gradient(90deg,#bfe6d4,#7fd0a8)}
   .band .me{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--accent)}
   .band .me::after{content:attr(data-label);position:absolute;top:-18px;left:50%;transform:translateX(-50%);
     font-size:11px;color:var(--accent);white-space:nowrap}

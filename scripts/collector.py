@@ -35,6 +35,7 @@ SERVICE_KEY = os.environ.get("SERVICE_KEY", "").strip()
 DETAIL_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail"
 MODEL_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancMdl"
 OFTL_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getUrbtyOfctlLttotPblancDetail"
+OFTL_MODEL_BASE = "https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getUrbtyOfctlLttotPblancMdl"
 # 지역×월 당첨 가점 통계(지역별 평균/최저/최고)
 REGION_STAT_BASE = "https://api.odcloud.kr/api/ApplyhomeStatSvc/v1/getAPTApsPrzwnerStat"
 
@@ -105,17 +106,24 @@ def area_str(areas: set) -> str:
 # ===== 1) 분양 목록 ========================================================
 
 def classify_apt(d: dict):
-    """(유형 라벨, gajeom 여부) — 가점제는 민영 APT 일반공급에만 적용."""
+    """(유형 라벨, gajeom 여부) — 가점제는 민영 APT 일반공급에만 적용.
+
+    실 API 확인: HOUSE_SECD_NM = 주택유형(APT/신혼희망타운),
+                 HOUSE_DTL_SECD_NM = 공급유형(민영/국민),
+                 RENT_SECD_NM = 분양/임대.
+    """
     secd = pick(d, "HOUSE_SECD_NM")
     dtl = pick(d, "HOUSE_DTL_SECD_NM")
     rent = pick(d, "RENT_SECD_NM")
-    if "임대" in rent or "임대" in dtl:
+    if "임대" in rent or "임대" in dtl or "임대" in secd:
         return "임대주택", False
-    if "민영" in secd or "민영" in dtl:
-        return "민영 일반공급 (가점제)", True
-    if "국민" in secd or "공공" in dtl or "국민" in dtl or "신혼희망" in dtl:
+    if "신혼희망" in secd or "신혼희망" in dtl:
+        return "신혼희망타운", False
+    if "국민" in dtl:
         return "국민·공공 분양", False
-    return dtl or "아파트", False
+    if "민영" in dtl:
+        return "민영 일반공급 (가점제)", True
+    return secd or dtl or "아파트", False
 
 
 def schedule_of(d: dict, is_apt: bool) -> dict:
@@ -123,38 +131,45 @@ def schedule_of(d: dict, is_apt: bool) -> dict:
     special = pick(d, "SPSPLY_RCEPT_BGNDE")
     result = pick(d, "PRZWNER_PRESNATN_DE")
     if is_apt:
-        rank1 = pick(d, "GNRL_RNK1_CRSPAREA_RCPTDE", "SUBSCRPT_RCEPT_BGNDE")
+        rank1 = pick(d, "GNRL_RNK1_CRSPAREA_RCPTDE", "RCEPT_BGNDE", "SUBSCRPT_RCEPT_BGNDE")
     else:
-        rank1 = pick(d, "SUBSCRPT_RCEPT_BGNDE")
+        rank1 = pick(d, "RCEPT_BGNDE", "SUBSCRPT_RCEPT_BGNDE")
     return {"notice": notice, "special": special, "rank1": rank1, "result": result}
 
 
-def latest_date(d: dict) -> str:
-    """공고의 모든 일정 필드 중 가장 늦은 날짜(진행 여부 판정용)."""
+def is_open(d: dict) -> bool:
+    """신청자 관점에서 '아직 진행 중'인 공고인지.
+    당첨자발표 전이거나 접수가 안 끝났으면 진행 중. (계약일정은 발표 후라 제외.)
+    판정에 쓸 날짜가 하나도 없으면 보수적으로 제외.
+    """
     keys = [
-        "SUBSCRPT_RCEPT_ENDDE", "SPSPLY_RCEPT_ENDDE", "PRZWNER_PRESNATN_DE",
+        "PRZWNER_PRESNATN_DE",                          # 당첨자발표(가장 중요)
+        "RCEPT_ENDDE", "SUBSCRPT_RCEPT_ENDDE", "SPSPLY_RCEPT_ENDDE",
         "GNRL_RNK1_CRSPAREA_ENDDE", "GNRL_RNK1_ETC_AREA_ENDDE",
         "GNRL_RNK2_CRSPAREA_ENDDE", "GNRL_RNK2_ETC_AREA_ENDDE",
-        "CNTRCT_CNCLS_ENDDE",
     ]
     vals = [pick(d, k) for k in keys]
     vals = [v for v in vals if re.match(r"\d{4}-\d{2}-\d{2}", v)]
-    return max(vals) if vals else ""
+    return bool(vals) and max(vals) >= TODAY
 
 
 def fetch_model_areas() -> dict:
-    """주택관리번호 → 전용면적 집합. 실패 시 {}."""
-    try:
-        rows = fetch_pages(MODEL_BASE, MODEL_PAGES, MODEL_PER)
-    except Exception as e:  # noqa: BLE001
-        log(f"주택형(면적) API 실패: {e} — 면적 비움.")
-        return {}
+    """주택관리번호 → 전용면적 집합. APT는 HOUSE_TY, 오피스텔은 EXCLUSE_AR. 실패 시 {}."""
     areas = defaultdict(set)
-    for r in rows:
-        no = pick(r, "HOUSE_MANAGE_NO")
-        a = area_of(pick(r, "HOUSE_TY"))
-        if no and a:
-            areas[no].add(a)
+    try:
+        for r in fetch_pages(MODEL_BASE, MODEL_PAGES, MODEL_PER):   # 아파트
+            no, a = pick(r, "HOUSE_MANAGE_NO"), area_of(pick(r, "HOUSE_TY"))
+            if no and a:
+                areas[no].add(a)
+    except Exception as e:  # noqa: BLE001
+        log(f"아파트 주택형(면적) API 실패: {e} — 일부 면적 비움.")
+    try:
+        for r in fetch_pages(OFTL_MODEL_BASE, OFTL_PAGES, OFTL_PER):  # 오피스텔 등
+            no, a = pick(r, "HOUSE_MANAGE_NO"), area_of(pick(r, "EXCLUSE_AR", "HOUSE_TY"))
+            if no and a:
+                areas[no].add(a)
+    except Exception as e:  # noqa: BLE001
+        log(f"오피스텔 주택형(면적) API 실패: {e} — 일부 면적 비움.")
     log(f"면적 {len(areas)}개 공고")
     return areas
 
@@ -170,7 +185,7 @@ def collect_notices() -> list:
         no = pick(d, "HOUSE_MANAGE_NO")
         if not no:
             continue
-        if latest_date(d) and latest_date(d) < TODAY:   # 이미 끝난 공고 제외
+        if not is_open(d):   # 발표 끝났거나 일정 미상이면 제외
             continue
         label, gajeom = classify_apt(d)
         notices.append({
@@ -192,7 +207,7 @@ def collect_notices() -> list:
             no = pick(d, "HOUSE_MANAGE_NO")
             if not no:
                 continue
-            if latest_date(d) and latest_date(d) < TODAY:
+            if not is_open(d):
                 continue
             notices.append({
                 "name": pick(d, "HOUSE_NM") or "이름 미상",
@@ -223,7 +238,7 @@ def fetch_region_scores() -> dict:
         return {}
     best = {}   # region -> (month, avg, low, top)
     for r in rows:
-        if str(r.get("RESIDE_SECD", "")) not in ("01", ""):   # 해당지역(실거주권) 기준
+        if str(r.get("RESIDE_SECD", "")) != "01":   # 해당지역(실거주권) 당첨선 기준
             continue
         region = pick(r, "SUBSCRPT_AREA_CODE_NM")
         de = pick(r, "STAT_DE")

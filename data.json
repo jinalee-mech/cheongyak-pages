@@ -1,64 +1,471 @@
 {
-  "source": "demo",
-  "live": false,
-  "collectedAt": "2026-06-16T09:00:00+09:00",
+  "source": "github-actions",
+  "live": true,
+  "collectedAt": "2026-06-16T14:47:06+09:00",
   "notices": [
     {
-      "name": "(예시) 한강뷰 센트럴파크",
-      "region": "서울",
-      "area": "전용 59~84㎡",
-      "type": "민영 일반공급 (가점제)",
-      "gajeom": true,
-      "hasSpecial": true,
-      "schedule": { "notice": "2026-06-12", "special": "2026-06-22", "rank1": "2026-06-23", "result": "2026-06-30" },
-      "url": "https://www.applyhome.co.kr/"
-    },
-    {
-      "name": "(예시) 검단신도시 호반써밋",
+      "name": "인천계양 A9블록 신혼희망타운(공공분양)(본청약)",
       "region": "인천",
-      "area": "전용 74~99㎡",
-      "type": "민영 일반공급 (가점제)",
-      "gajeom": true,
-      "hasSpecial": true,
-      "schedule": { "notice": "2026-06-10", "special": "2026-06-20", "rank1": "2026-06-21", "result": "2026-06-28" },
-      "url": "https://www.applyhome.co.kr/"
+      "area": "전용 55㎡",
+      "type": "신혼희망타운",
+      "gajeom": false,
+      "hasSpecial": false,
+      "schedule": {
+        "notice": "2026-04-30",
+        "special": "",
+        "rank1": "2026-05-18",
+        "result": "2026-06-18"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026820003&pblancNo=2026820003"
     },
     {
-      "name": "(예시) LH 행복도시 공공분양",
-      "region": "세종",
-      "area": "전용 59~84㎡",
+      "name": "화성동탄2지구 C-27블록 공공분양주택",
+      "region": "경기",
+      "area": "전용 84㎡",
       "type": "국민·공공 분양",
       "gajeom": false,
-      "hasSpecial": true,
-      "schedule": { "notice": "2026-06-13", "special": "2026-06-24", "rank1": "2026-06-25", "result": "2026-07-02" },
-      "url": "https://www.applyhome.co.kr/"
+      "hasSpecial": false,
+      "schedule": {
+        "notice": "2026-05-29",
+        "special": "",
+        "rank1": "2026-06-09",
+        "result": "2026-06-25"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000230&pblancNo=2026000230"
     },
     {
-      "name": "(예시) 동탄 레이크파크 오피스텔",
+      "name": "익산 펠리피아",
+      "region": "전북",
+      "area": "전용 84~104㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-05-29",
+        "special": "2026-06-08",
+        "rank1": "2026-06-09",
+        "result": "2026-06-16"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000184&pblancNo=2026000184"
+    },
+    {
+      "name": "강릉 성보필리오 더센트럴힐즈",
+      "region": "강원",
+      "area": "전용 59~84㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-05-27",
+        "special": "2026-06-08",
+        "rank1": "2026-06-09",
+        "result": "2026-06-16"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000097&pblancNo=2026000097"
+    },
+    {
+      "name": "영통역 우미 린",
       "region": "경기",
-      "area": "전용 39~59㎡",
+      "area": "전용 76~119㎡",
       "type": "오피스텔",
       "gajeom": false,
       "hasSpecial": false,
-      "schedule": { "notice": "2026-06-14", "special": "", "rank1": "2026-06-24", "result": "2026-06-27" },
-      "url": "https://www.applyhome.co.kr/"
+      "schedule": {
+        "notice": "2026-06-08",
+        "special": "",
+        "rank1": "2026-06-11",
+        "result": "2026-06-17"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950056&pblancNo=2026950056&houseSecd=02"
     },
     {
-      "name": "(예시) 광안리 더샵 민간임대",
-      "region": "부산",
+      "name": "상무 양우내안에 퍼스트힐(조합원 취소분)",
+      "region": "광주",
+      "area": "전용 59~117㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-06-05",
+        "special": "2026-06-15",
+        "rank1": "2026-06-16",
+        "result": "2026-06-23"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000259&pblancNo=2026000259"
+    },
+    {
+      "name": "평택 고덕 우미 린 프레스티지(Abc-36BL)",
+      "region": "경기",
+      "area": "전용 84~111㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-06-05",
+        "special": "2026-06-15",
+        "rank1": "2026-06-16",
+        "result": "2026-06-23"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000237&pblancNo=2026000237"
+    },
+    {
+      "name": "백석시그니처자이 2단지",
+      "region": "충남",
       "area": "전용 84㎡",
-      "type": "임대주택",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-06-05",
+        "special": "2026-06-15",
+        "rank1": "2026-06-16",
+        "result": "2026-06-24"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000226&pblancNo=2026000226"
+    },
+    {
+      "name": "백석시그니처자이 1단지",
+      "region": "충남",
+      "area": "전용 59~115㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-06-05",
+        "special": "2026-06-15",
+        "rank1": "2026-06-16",
+        "result": "2026-06-23"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000225&pblancNo=2026000225"
+    },
+    {
+      "name": "알티에로 광안",
+      "region": "부산",
+      "area": "전용 151~191㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-06-05",
+        "special": "2026-06-15",
+        "rank1": "2026-06-16",
+        "result": "2026-06-23"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000148&pblancNo=2026000148"
+    },
+    {
+      "name": "호반써밋 첨단3지구(A8BL)",
+      "region": "전남",
+      "area": "전용 117~135㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-06-05",
+        "special": "2026-06-15",
+        "rank1": "2026-06-17",
+        "result": "2026-06-24"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000243&pblancNo=2026000243"
+    },
+    {
+      "name": "호반써밋 첨단3지구(A7BL)",
+      "region": "광주",
+      "area": "전용 84㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-06-05",
+        "special": "2026-06-16",
+        "rank1": "2026-06-17",
+        "result": "2026-06-25"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000242&pblancNo=2026000242"
+    },
+    {
+      "name": "선유 노블레르",
+      "region": "서울",
+      "area": "전용 49㎡",
+      "type": "오피스텔",
       "gajeom": false,
       "hasSpecial": false,
-      "schedule": { "notice": "2026-06-11", "special": "", "rank1": "2026-06-22", "result": "2026-06-26" },
-      "url": "https://www.applyhome.co.kr/"
+      "schedule": {
+        "notice": "2026-06-12",
+        "special": "",
+        "rank1": "2026-06-17",
+        "result": "2026-06-26"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950058&pblancNo=2026950058&houseSecd=02"
+    },
+    {
+      "name": "왕십리역 어반홈스 A동",
+      "region": "서울",
+      "area": "전용 32~38㎡",
+      "type": "오피스텔",
+      "gajeom": false,
+      "hasSpecial": false,
+      "schedule": {
+        "notice": "2026-06-12",
+        "special": "",
+        "rank1": "2026-06-17",
+        "result": "2026-06-26"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950055&pblancNo=2026950055&houseSecd=02"
+    },
+    {
+      "name": "북서울자이 폴라리스(보류지)",
+      "region": "서울",
+      "area": "전용 59~112㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": false,
+      "schedule": {
+        "notice": "2026-06-12",
+        "special": "",
+        "rank1": "2026-06-22",
+        "result": "2026-06-30"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000235&pblancNo=2026000235"
+    },
+    {
+      "name": "힐스테이트 장안 라보니타",
+      "region": "서울",
+      "area": "전용 74㎡",
+      "type": "오피스텔",
+      "gajeom": false,
+      "hasSpecial": false,
+      "schedule": {
+        "notice": "2026-06-15",
+        "special": "",
+        "rank1": "2026-06-22",
+        "result": "2026-06-25"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950057&pblancNo=2026950057&houseSecd=02"
+    },
+    {
+      "name": "신대방역 더하이브퍼스트",
+      "region": "서울",
+      "area": "전용 19~59㎡",
+      "type": "도시형생활주택",
+      "gajeom": false,
+      "hasSpecial": false,
+      "schedule": {
+        "notice": "2026-06-12",
+        "special": "",
+        "rank1": "2026-06-22",
+        "result": "2026-06-26"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950060&pblancNo=2026950060&houseSecd=02"
+    },
+    {
+      "name": "북오산자이 드포레",
+      "region": "경기",
+      "area": "전용 59~125㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-06-12",
+        "special": "2026-06-22",
+        "rank1": "2026-06-23",
+        "result": "2026-06-30"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000248&pblancNo=2026000248"
+    },
+    {
+      "name": "힐스테이트 양산더스카이 2단지",
+      "region": "경남",
+      "area": "전용 84~159㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-06-12",
+        "special": "2026-06-22",
+        "rank1": "2026-06-23",
+        "result": "2026-07-01"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000224&pblancNo=2026000224"
+    },
+    {
+      "name": "힐스테이트 양산더스카이 1단지",
+      "region": "경남",
+      "area": "전용 68~159㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-06-12",
+        "special": "2026-06-22",
+        "rank1": "2026-06-23",
+        "result": "2026-06-30"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000223&pblancNo=2026000223"
+    },
+    {
+      "name": "고덕국제신도시 수자인하우스디",
+      "region": "경기",
+      "area": "전용 84~101㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-06-11",
+        "special": "2026-06-22",
+        "rank1": "2026-06-23",
+        "result": "2026-06-30"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000258&pblancNo=2026000258"
+    },
+    {
+      "name": "더샵 검단레이크파크(AB23BL)",
+      "region": "인천",
+      "area": "전용 59~84㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-06-12",
+        "special": "2026-06-24",
+        "rank1": "2026-06-25",
+        "result": "2026-07-03"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000195&pblancNo=2026000195"
+    },
+    {
+      "name": "더샵 검단레이크파크(AB22BL)",
+      "region": "인천",
+      "area": "전용 59~84㎡",
+      "type": "민영 일반공급 (가점제)",
+      "gajeom": true,
+      "hasSpecial": true,
+      "schedule": {
+        "notice": "2026-06-12",
+        "special": "2026-06-24",
+        "rank1": "2026-06-25",
+        "result": "2026-07-02"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000194&pblancNo=2026000194"
+    },
+    {
+      "name": "e편한세상 분당 퍼스트빌리지(성남낙생지구 A-1BL) 신혼희망타운(공공분양)(본청약)",
+      "region": "경기",
+      "area": "전용 51~59㎡",
+      "type": "신혼희망타운",
+      "gajeom": false,
+      "hasSpecial": false,
+      "schedule": {
+        "notice": "2026-05-29",
+        "special": "",
+        "rank1": "2026-07-13",
+        "result": "2026-07-31"
+      },
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026820004&pblancNo=2026820004"
     }
   ],
   "regionScores": {
-    "서울": { "month": "2026.04", "avg": 58.0, "low": 48, "top": 74 },
-    "인천": { "month": "2026.04", "avg": 44.0, "low": 34, "top": 64 },
-    "경기": { "month": "2026.04", "avg": 48.3, "low": 26, "top": 79 },
-    "세종": { "month": "2026.03", "avg": 41.0, "low": 30, "top": 58 },
-    "부산": { "month": "2026.03", "avg": 44.5, "low": 35, "top": 54 }
+    "부산": {
+      "month": "2026.03",
+      "avg": 44.5,
+      "low": 35,
+      "top": 54
+    },
+    "경기": {
+      "month": "2026.04",
+      "avg": 48.3,
+      "low": 26,
+      "top": 79
+    },
+    "울산": {
+      "month": "2026.04",
+      "avg": 57.6,
+      "low": 51,
+      "top": 65
+    },
+    "대전": {
+      "month": "2026.04",
+      "avg": 47.9,
+      "low": 32,
+      "top": 74
+    },
+    "서울": {
+      "month": "2026.04",
+      "avg": 62.7,
+      "low": 32,
+      "top": 74
+    },
+    "전북": {
+      "month": "2026.04",
+      "avg": 59.2,
+      "low": 36,
+      "top": 74
+    },
+    "세종": {
+      "month": "2025.11",
+      "avg": 61.1,
+      "low": 46,
+      "top": 72
+    },
+    "대구": {
+      "month": "2026.03",
+      "avg": 58.9,
+      "low": 49,
+      "top": 67
+    },
+    "충북": {
+      "month": "2026.04",
+      "avg": 48.6,
+      "low": 32,
+      "top": 69
+    },
+    "인천": {
+      "month": "2026.03",
+      "avg": 60.3,
+      "low": 54,
+      "top": 69
+    },
+    "충남": {
+      "month": "2026.04",
+      "avg": 44.1,
+      "low": 25,
+      "top": 69
+    },
+    "강원": {
+      "month": "2025.12",
+      "avg": 29.0,
+      "low": 24,
+      "top": 34
+    },
+    "제주": {
+      "month": "2026.01",
+      "avg": 53.0,
+      "low": 37,
+      "top": 69
+    },
+    "경북": {
+      "month": "2026.04",
+      "avg": 50.4,
+      "low": 30,
+      "top": 72
+    },
+    "광주": {
+      "month": "2025.07",
+      "avg": 41.5,
+      "low": 22,
+      "top": 61
+    },
+    "전남": {
+      "month": "2026.04",
+      "avg": 50.8,
+      "low": 41,
+      "top": 58
+    },
+    "경남": {
+      "month": "2026.04",
+      "avg": 57.6,
+      "low": 36,
+      "top": 78
+    }
   }
 }
