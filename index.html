@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>청약 나침반 — 내 조건으로 보는 이번 주 분양</title>
+<title>청약 나침반 — 이번 주 분양 중인 청약</title>
 <style>
   :root{
     --bg:#f6f7f9; --card:#ffffff; --line:#e4e7ec; --ink:#1b1f27; --dim:#5b6472;
@@ -14,41 +14,24 @@
     background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
   a{color:var(--accent)}
   .wrap{max-width:880px;margin:0 auto;padding:28px 18px 80px}
-  header.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;justify-content:space-between;margin-bottom:6px}
+  header.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;justify-content:space-between;margin-bottom:18px}
   h1{font-size:22px;margin:0;letter-spacing:-.3px}
   .sub{color:var(--dim);font-size:13px;margin:2px 0 0}
   .badge{font-size:12px;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:3px 10px;white-space:nowrap}
   .badge.live{color:var(--good);border-color:#bfe6d4;background:#eef9f3;}
-  section{margin-top:28px}
-  .step-h{display:flex;align-items:center;gap:10px;margin:0 0 12px}
-  .step-h .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;
-    font-size:14px;font-weight:700;display:grid;place-items:center}
-  .step-h h2{font-size:17px;margin:0}
-  .step-h .hint{color:var(--dim);font-size:12.5px;margin-left:auto}
 
-  /* step 1 — 내 조건 */
-  .panel{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:16px;
-    box-shadow:0 1px 2px rgba(20,24,33,.04)}
-  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  @media(max-width:560px){.grid3{grid-template-columns:1fr}}
-  .field label{display:block;font-size:12.5px;color:var(--dim);margin-bottom:4px}
-  .field .q{color:var(--muted);font-size:11.5px}
-  input[type=number]{width:100%;background:#fff;color:var(--ink);border:1px solid var(--line);
-    border-radius:8px;padding:9px 10px;font-size:14px}
-  input[type=number]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(47,107,255,.12)}
-  .myscore{display:flex;align-items:baseline;gap:10px;margin-top:14px;border-top:1px solid var(--line);padding-top:14px;flex-wrap:wrap}
-  .myscore .num{font-size:28px;font-weight:700;letter-spacing:-.5px}
-  .myscore .num small{font-size:13px;color:var(--dim);font-weight:500}
-  .myscore .bd{color:var(--dim);font-size:13px}
-  .myscore .ask{color:var(--muted);font-size:13.5px}
-
-  /* step 2 — 분양 목록 */
   .summary{font-size:13.5px;color:var(--dim);margin-bottom:10px}
   .summary b{color:var(--ink)}
-  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-  select{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:13px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+  select{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px}
+  .fbtn{border:1px solid var(--accent);color:var(--accent);background:#eef3ff;border-radius:8px;
+    padding:8px 13px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+  .fbtn.set{background:var(--accent);color:#fff;border-color:var(--accent)}
   .chk{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--dim);border:1px solid var(--line);
-    border-radius:8px;padding:7px 10px;cursor:pointer;user-select:none}
+    border-radius:8px;padding:8px 11px;cursor:pointer;user-select:none}
+  .chk.disabled{opacity:.4;cursor:not-allowed}
+  .spacer{flex:1}
+
   .list{display:grid;gap:10px}
   .card{border:1px solid var(--line);border-left:4px solid var(--line);background:var(--card);border-radius:12px;
     padding:14px 16px;cursor:pointer;transition:border-color .12s, background .12s;box-shadow:0 1px 2px rgba(20,24,33,.04)}
@@ -59,7 +42,6 @@
   .card.elig-na{border-left-color:var(--accent)}
   .card.open{border-color:var(--accent)}
   .card.closed{opacity:.6;background:#f3f4f6 !important;border-left-color:#cfd4dc !important}
-  /* 상태 배지 */
   .st{font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;letter-spacing:-.2px}
   .st.ongoing{color:#0e7a4f;background:#e7f6ef;border:1px solid #bfe6d4}
   .st.upcoming{color:#1d4ed8;background:#eef3ff;border:1px solid #bcd0fb}
@@ -70,21 +52,18 @@
   .tag.gj{color:#1d4ed8;border-color:#bcd0fb;background:#eef3ff}
   .tag.no{color:var(--dim)}
   .tag.sp{color:#9a5b08;border-color:#f0dcb4;background:#fdf4e3}
-  /* eligibility badge */
   .eb{font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:999px;margin-left:auto}
   .eb.strong{color:#0e7a4f;background:#e7f6ef;border:1px solid #bfe6d4}
   .eb.good{color:#0e7a4f;background:#eef9f3;border:1px solid #cdeadd}
   .eb.edge{color:#9a5b08;background:#fdf4e3;border:1px solid #f0dcb4}
   .eb.weak{color:#a5281b;background:#fdecea;border:1px solid #f5cfc9}
   .eb.na{color:#1d4ed8;background:#eef3ff;border:1px solid #bcd0fb}
-  .eb.muted{color:var(--muted);background:#f1f2f5;border:1px solid var(--line)}
   .card .meta{color:var(--dim);font-size:13px;margin-top:5px}
   .card .sched{color:var(--muted);font-size:12.5px;margin-top:6px;display:flex;flex-wrap:wrap;gap:4px 14px}
   .card .sched b{color:var(--dim);font-weight:500}
   .card .more{color:var(--accent);font-size:12px;margin-top:8px}
   .empty{color:var(--dim);font-size:14px;border:1px dashed var(--line);border-radius:12px;padding:24px;text-align:center}
 
-  /* expand — 과거 데이터 */
   .expand{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
   .expand .lbl{font-size:12.5px;color:var(--dim);margin-bottom:8px}
   .expand .lbl b{color:var(--ink)}
@@ -96,6 +75,27 @@
   .scale{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}
   .bandinfo{font-size:13px;color:var(--dim);margin-top:8px}
   .bandinfo b{color:var(--ink)}
+
+  /* 모달 */
+  .modal{position:fixed;inset:0;background:rgba(20,24,33,.45);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+  .modal.show{display:flex}
+  .dialog{background:#fff;border-radius:14px;max-width:440px;width:100%;padding:22px;box-shadow:0 16px 48px rgba(0,0,0,.22)}
+  .dialog h3{margin:0 0 4px;font-size:17px}
+  .dialog .desc{color:var(--dim);font-size:13px;margin-bottom:16px}
+  .frow{margin-bottom:12px}
+  .frow label{display:block;font-size:12.5px;color:var(--dim);margin-bottom:4px}
+  .frow .q{color:var(--muted);font-size:11.5px}
+  .dialog input[type=number]{width:100%;background:#fff;color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:9px 10px;font-size:14px}
+  .dialog input[type=number]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(47,107,255,.12)}
+  .preview{font-size:13.5px;color:var(--dim);margin:4px 0 2px;min-height:22px}
+  .preview b{color:var(--ink);font-size:16px}
+  .modal-foot{display:flex;gap:8px;margin-top:16px}
+  .btn{border:none;border-radius:9px;padding:11px 14px;font-size:14px;font-weight:700;cursor:pointer}
+  .btn.primary{flex:1;background:var(--accent);color:#fff}
+  .btn.primary:disabled{background:#bcc6d8;cursor:not-allowed}
+  .btn.ghost{background:#eef0f3;color:var(--ink)}
+
   footer{margin-top:48px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:16px}
   footer code{color:var(--dim)}
 </style>
@@ -104,50 +104,26 @@
 <div class="wrap">
   <header class="top">
     <div>
-      <h1>청약 나침반</h1>
-      <p class="sub">내 조건을 넣으면, 이번 주 분양 중에서 <b>도전 가능한 곳</b>을 색으로 짚어줍니다.</p>
+      <h1>이번 주 분양 중인 청약</h1>
+      <p class="sub">청약홈 실데이터로 모집 중·예정 단지를 모았습니다. <b>내 자격 필터링</b>으로 도전 가능한 곳을 추려보세요.</p>
     </div>
     <span id="badge" class="badge">불러오는 중…</span>
   </header>
 
-  <!-- STEP 1 : 내 조건 입력 -->
-  <section id="step1">
-    <div class="step-h"><span class="n">1</span><h2>내 조건 입력 <span style="font-size:13px;color:var(--dim)">(가점 84점 만점)</span></h2></div>
-    <div class="panel">
-      <div class="grid3">
-        <div class="field">
-          <label>무주택 기간 <span class="q">(년)</span></label>
-          <input id="iNoHouse" type="number" min="0" max="40" step="1" placeholder="예: 7" />
-        </div>
-        <div class="field">
-          <label>부양가족 수 <span class="q">(본인 제외, 명)</span></label>
-          <input id="iFamily" type="number" min="0" max="10" step="1" placeholder="예: 2" />
-        </div>
-        <div class="field">
-          <label>청약통장 가입기간 <span class="q">(년)</span></label>
-          <input id="iAccount" type="number" min="0" max="40" step="1" placeholder="예: 8" />
-        </div>
-      </div>
-      <div id="myscore" class="myscore"><span class="ask">세 항목을 입력하면 내 가점이 계산됩니다. 무주택기간·부양가족은 자동 추정하지 않고 입력값만 사용합니다.</span></div>
-    </div>
-  </section>
+  <div id="summary" class="summary"></div>
 
-  <!-- STEP 2 : 이번 주 분양 + 자격 강조 -->
-  <section id="step2">
-    <div class="step-h"><span class="n">2</span><h2>이번 주 분양 중인 청약</h2>
-      <span class="hint">카드를 누르면 그 지역의 과거 당첨 데이터</span></div>
-    <div id="summary" class="summary"></div>
-    <div class="filters">
-      <select id="fRegion"><option value="">지역 전체</option></select>
-      <select id="fType">
-        <option value="">유형 전체</option>
-        <option value="gj">가점 적용(민영 일반)</option>
-        <option value="no">가점 외(추첨·공공·오피스텔)</option>
-      </select>
-      <label class="chk"><input type="checkbox" id="fElig" /> 도전 가능한 곳만</label>
-    </div>
-    <div id="list" class="list"></div>
-  </section>
+  <div class="toolbar">
+    <select id="fRegion"><option value="">지역 전체</option></select>
+    <select id="fType">
+      <option value="">유형 전체</option>
+      <option value="gj">가점 적용(민영 일반)</option>
+      <option value="no">가점 외(추첨·공공·오피스텔)</option>
+    </select>
+    <button id="openModal" class="fbtn">⚙ 내 자격 필터링</button>
+    <label id="eligWrap" class="chk disabled"><input type="checkbox" id="fElig" disabled /> 도전 가능한 곳만</label>
+  </div>
+
+  <div id="list" class="list"></div>
 
   <footer>
     <div>데이터: 한국부동산원 청약홈 — 공공데이터포털 Open API</div>
@@ -155,38 +131,42 @@
   </footer>
 </div>
 
+<!-- 자격 입력 모달 -->
+<div id="modal" class="modal" role="dialog" aria-modal="true">
+  <div class="dialog">
+    <h3>내 자격 입력</h3>
+    <p class="desc">가점 84점 산식으로 계산합니다. 무주택기간·부양가족은 자동 추정하지 않고 입력값만 사용합니다.</p>
+    <div class="frow">
+      <label>무주택 기간 <span class="q">(년)</span></label>
+      <input id="iNoHouse" type="number" min="0" max="40" step="1" placeholder="예: 7" />
+    </div>
+    <div class="frow">
+      <label>부양가족 수 <span class="q">(본인 제외, 명)</span></label>
+      <input id="iFamily" type="number" min="0" max="10" step="1" placeholder="예: 2" />
+    </div>
+    <div class="frow">
+      <label>청약통장 가입기간 <span class="q">(년)</span></label>
+      <input id="iAccount" type="number" min="0" max="40" step="1" placeholder="예: 8" />
+    </div>
+    <div id="preview" class="preview">세 항목을 입력하면 내 가점이 계산됩니다.</div>
+    <div class="modal-foot">
+      <button id="applyBtn" class="btn primary" disabled>적용하고 가능한 곳 보기</button>
+      <button id="closeModal" class="btn ghost">닫기</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const $ = s => document.querySelector(s);
-let DATA = null, OPEN = null;   // OPEN = 펼친 카드 index
+let DATA = null, OPEN = null, APPLIED = null;   // APPLIED = 적용된 내 가점(없으면 null)
 
 // ---- 84점 가점 산식 (한국부동산원 기준) ----------------------------------
 function noHousePts(y){ if(y==null||isNaN(y))return null; return y<1?2:Math.min(32,(Math.floor(y)+1)*2); }
 function familyPts(n){ if(n==null||isNaN(n))return null; return Math.min(35,5+Math.max(0,Math.floor(n))*5); }
 function accountPts(y){ if(y==null||isNaN(y))return null; if(y<0.5)return 1; if(y<1)return 2; return Math.min(17,Math.floor(y)+2); }
 function numOrNull(el){ const v=el.value.trim(); return v===''?null:Number(v); }
-function parts(){
-  return {nh:noHousePts(numOrNull($('#iNoHouse'))), fm:familyPts(numOrNull($('#iFamily'))), ac:accountPts(numOrNull($('#iAccount')))};
-}
-function myScore(){ const {nh,fm,ac}=parts(); return (nh==null||fm==null||ac==null)?null:nh+fm+ac; }
-
-// ---- 자격/가능성 판정 (내 가점 vs 지역 밴드) -----------------------------
-function bandOf(region){
-  const rs=(DATA.regionScores||{})[region]; if(!rs) return null;
-  const lo=rs.low ?? Math.max(0,Math.round(rs.avg-8));
-  const hi=rs.top ?? Math.round(rs.avg+8);
-  return {avg:rs.avg, lo, hi, month:rs.month};
-}
-function eligibility(n){
-  const my=myScore();
-  if(!n.gajeom) return {cls:'na', label:'가점 무관', kind:'na'};
-  if(my==null)  return {cls:'muted', label:'점수 입력 필요', kind:'need'};
-  const b=bandOf(n.region);
-  if(!b) return {cls:'muted', label:'지역 데이터 없음', kind:'nodata'};
-  if(my>=b.hi) return {cls:'strong', label:'유력', kind:'ok'};
-  if(my>=b.avg) return {cls:'good', label:'도전 가능', kind:'ok'};
-  if(my>=b.lo) return {cls:'edge', label:'경계', kind:'edge'};
-  return {cls:'weak', label:'열세', kind:'weak'};
-}
+function parts(){ return {nh:noHousePts(numOrNull($('#iNoHouse'))), fm:familyPts(numOrNull($('#iFamily'))), ac:accountPts(numOrNull($('#iAccount')))}; }
+function inputScore(){ const {nh,fm,ac}=parts(); return (nh==null||fm==null||ac==null)?null:nh+fm+ac; }
 
 // ---- 모집 상태 (오늘 날짜 기준) ------------------------------------------
 function todayStr(){ const d=new Date();
@@ -200,22 +180,32 @@ function statusOf(n){
 }
 const ST_ORDER={ongoing:0, upcoming:1, closed:2};
 
+// ---- 자격/가능성 (적용된 점수 기준) --------------------------------------
+function bandOf(region){
+  const rs=(DATA.regionScores||{})[region]; if(!rs) return null;
+  const lo=rs.low ?? Math.max(0,Math.round(rs.avg-8)), hi=rs.top ?? Math.round(rs.avg+8);
+  return {avg:rs.avg, lo, hi, month:rs.month};
+}
+function eligibility(n){   // APPLIED 없으면 null 반환(색 미적용)
+  if(APPLIED==null) return null;
+  if(!n.gajeom) return {cls:'na', label:'가점 무관', kind:'na'};
+  const b=bandOf(n.region);
+  if(!b) return {cls:'na', label:'지역 데이터 없음', kind:'nodata'};
+  if(APPLIED>=b.hi) return {cls:'strong', label:'유력', kind:'ok'};
+  if(APPLIED>=b.avg) return {cls:'good', label:'도전 가능', kind:'ok'};
+  if(APPLIED>=b.lo) return {cls:'edge', label:'경계', kind:'edge'};
+  return {cls:'weak', label:'열세', kind:'weak'};
+}
+
 // ---- 렌더 ----------------------------------------------------------------
 function esc(s){ return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 function fmtDate(s){ return (s&&/\d{4}-\d{2}-\d{2}/.test(s)) ? s.slice(5).replace('-','/') : '—'; }
-
-function renderMyScore(){
-  const box=$('#myscore'); const {nh,fm,ac}=parts(); const my=myScore();
-  if(my==null){ box.innerHTML=`<span class="ask">세 항목을 입력하면 내 가점이 계산됩니다. 무주택기간·부양가족은 자동 추정하지 않고 입력값만 사용합니다.</span>`; return; }
-  box.innerHTML=`<span class="num">${my}점 <small>/ 84점</small></span>
-    <span class="bd">무주택 ${nh} + 부양가족 ${fm} + 통장 ${ac}</span>`;
-}
 
 function bandHTML(n){
   const b=bandOf(n.region);
   if(!b) return `<div class="lbl">‘${esc(n.region)}’ 지역의 최근 당첨 가점 통계가 아직 없습니다.</div>`;
   const pct=v=>Math.max(0,Math.min(100,v/84*100));
-  const my=n.gajeom?myScore():null;
+  const my=(APPLIED!=null && n.gajeom)?APPLIED:null;
   const me=(my!=null)?`<div class="me" style="left:${pct(my)}%" data-label="내 ${my}점"></div>`:'';
   let verdict='';
   if(my!=null){
@@ -232,33 +222,33 @@ function bandHTML(n){
     <div class="scale"><span>0</span><span>20</span><span>40</span><span>60</span><span>84</span></div>
     <div class="bandinfo">최근 보통 <b>${b.lo}~${b.hi}점</b>대에서 당첨 (평균 <b>${b.avg}점</b>).</div>
     ${verdict?`<div class="bandinfo" style="margin-top:5px">${verdict}</div>`:
-      (n.gajeom?`<div class="bandinfo" style="margin-top:5px">1단계에서 가점을 입력하면 내 위치가 막대에 표시됩니다.</div>`:
+      (n.gajeom?`<div class="bandinfo" style="margin-top:5px">‘내 자격 필터링’을 적용하면 내 위치가 막대에 표시됩니다.</div>`:
         `<div class="bandinfo" style="margin-top:5px">이 공고는 가점제가 아니라, 위 밴드는 ‘참고 지역 분위기’로만 보세요.</div>`)}`;
 }
 
 function renderList(){
   const list=$('#list');
-  const r=$('#fRegion').value, t=$('#fType').value, onlyElig=$('#fElig').checked;
+  const r=$('#fRegion').value, t=$('#fType').value, onlyElig=$('#fElig').checked && !$('#fElig').disabled;
   let items=DATA.notices.map((n,i)=>({n,i,st:statusOf(n)})).filter(({n,st})=>{
     if(r && n.region!==r) return false;
     if(t==='gj' && !n.gajeom) return false;
     if(t==='no' && n.gajeom) return false;
-    if(onlyElig && (st.key==='closed' || eligibility(n).kind!=='ok')) return false;
+    if(onlyElig && (st.key==='closed' || (eligibility(n)||{}).kind!=='ok')) return false;
     return true;
   });
-  // 모집중 → 예정 → 마감 순, 같은 상태면 접수일 빠른 순
   items.sort((a,b)=> (ST_ORDER[a.st.key]-ST_ORDER[b.st.key])
     || ((a.n.schedule.open||a.n.schedule.rank1||'').localeCompare(b.n.schedule.open||b.n.schedule.rank1||'')));
   if(!items.length){ list.innerHTML=`<div class="empty">조건에 맞는 공고가 없습니다.</div>`; return; }
   list.innerHTML=items.map(({n,i,st})=>{
-    const e=eligibility(n);
+    const e=eligibility(n);   // null이면 색·배지 없음
     const gtag=n.gajeom?`<span class="tag gj">가점 적용</span>`:`<span class="tag no">가점 외 기준</span>`;
     const sp=n.hasSpecial?`<span class="tag sp">특별공급</span>`:'';
-    const eb=st.key==='closed'?'':`<span class="eb ${e.cls}">${e.label}</span>`;
+    const eb=(e && st.key!=='closed')?`<span class="eb ${e.cls}">${e.label}</span>`:'';
     const stb=`<span class="st ${st.key}">${st.label}</span>`;
     const s=n.schedule||{};
     const open=OPEN===i;
-    return `<div class="card elig-${e.cls} ${st.key==='closed'?'closed':''} ${open?'open':''}" data-i="${i}">
+    const eligCls=(e && st.key!=='closed')?`elig-${e.cls}`:'';
+    return `<div class="card ${eligCls} ${st.key==='closed'?'closed':''} ${open?'open':''}" data-i="${i}">
       <div class="row1"><span class="name">${esc(n.name)}</span>${stb}
         <span class="tag">${esc(n.type)}</span>${gtag}${sp}${eb}</div>
       <div class="meta">${esc(n.region)} · ${esc(n.area||'—')}</div>
@@ -271,20 +261,38 @@ function renderList(){
     </div>`;
   }).join('');
   list.querySelectorAll('.card').forEach(c=>c.onclick=()=>{
-    const i=+c.dataset.i; OPEN = (OPEN===i?null:i); renderList();
+    const i=+c.dataset.i; OPEN=(OPEN===i?null:i); renderList();
   });
 }
 
 function renderSummary(){
-  const box=$('#summary'); const my=myScore();
-  const live=DATA.notices.filter(n=>statusOf(n).key!=='closed').length;   // 모집중+예정
+  const box=$('#summary');
+  const live=DATA.notices.filter(n=>statusOf(n).key!=='closed').length;
   const gj=DATA.notices.filter(n=>n.gajeom).length;
-  if(my==null){ box.innerHTML=`모집 중·예정 <b>${live}곳</b> (가점제 ${gj}곳). 위에서 조건을 입력하면 가능성이 색으로 표시됩니다.`; return; }
-  const ok=DATA.notices.filter(n=>statusOf(n).key!=='closed' && eligibility(n).kind==='ok').length;
-  box.innerHTML=`내 <b>${my}점</b> 기준 · 모집 중·예정 <b>${live}곳</b> 중 <b style="color:var(--good)">도전 가능 ${ok}곳</b> <span style="color:var(--muted)">(초록 카드, 마감 제외)</span>`;
+  if(APPLIED==null){ box.innerHTML=`모집 중·예정 <b>${live}곳</b> (가점제 ${gj}곳). <b>내 자격 필터링</b>을 적용하면 도전 가능한 곳이 색으로 표시됩니다.`; return; }
+  const ok=DATA.notices.filter(n=>statusOf(n).key!=='closed' && (eligibility(n)||{}).kind==='ok').length;
+  box.innerHTML=`내 <b>${APPLIED}점</b> 기준 · 모집 중·예정 <b>${live}곳</b> 중 <b style="color:var(--good)">도전 가능 ${ok}곳</b> <span style="color:var(--muted)">(초록 카드, 마감 제외)</span>`;
 }
 
-function refresh(){ renderMyScore(); renderSummary(); renderList(); }
+function refresh(){ renderSummary(); renderList(); }
+
+// ---- 모달 ----------------------------------------------------------------
+function modalPreview(){
+  const sc=inputScore(), {nh,fm,ac}=parts();
+  const pv=$('#preview'), btn=$('#applyBtn');
+  if(sc==null){ pv.innerHTML='세 항목을 모두 입력하면 내 가점이 계산됩니다.'; btn.disabled=true; }
+  else{ pv.innerHTML=`내 가점 <b>${sc}점</b> / 84점 <span style="color:var(--muted)">(무주택 ${nh} + 부양가족 ${fm} + 통장 ${ac})</span>`; btn.disabled=false; }
+}
+function openModal(){ $('#modal').classList.add('show'); modalPreview(); setTimeout(()=>$('#iNoHouse').focus(),50); }
+function closeModal(){ $('#modal').classList.remove('show'); }
+function applyInfo(){
+  const sc=inputScore(); if(sc==null) return;
+  APPLIED=sc;
+  const chk=$('#fElig'), wrap=$('#eligWrap'), btn=$('#openModal');
+  chk.disabled=false; wrap.classList.remove('disabled');
+  btn.classList.add('set'); btn.textContent=`내 ${sc}점 · 자격 수정`;
+  closeModal(); refresh();
+}
 
 function fillRegionFilter(){
   const sel=$('#fRegion');
@@ -305,7 +313,12 @@ async function boot(){
   setBadge(); fillRegionFilter(); refresh();
   $('#fRegion').onchange=$('#fType').onchange=renderList;
   $('#fElig').onchange=renderList;
-  ['#iNoHouse','#iFamily','#iAccount'].forEach(id=>$(id).addEventListener('input',refresh));
+  $('#openModal').onclick=openModal;
+  $('#closeModal').onclick=closeModal;
+  $('#applyBtn').onclick=applyInfo;
+  $('#modal').onclick=e=>{ if(e.target===$('#modal')) closeModal(); };
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+  ['#iNoHouse','#iFamily','#iAccount'].forEach(id=>$(id).addEventListener('input',modalPreview));
 }
 boot();
 </script>
