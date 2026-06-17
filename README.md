@@ -2,7 +2,7 @@
 
 청약홈 공공데이터로 **"이번 주 분양 → 내 가점 → 이 지역 당첨선"** 세 단계만 보여주는 도구 — 기말 프로젝트.
 
-라이브 페이지: https://깃허브아이디.github.io/저장소이름/  ← Pages 설정 후 본인 주소로 수정
+라이브 페이지: https://jinalee-mech.github.io/cheongyak-pages/
 
 ## 무엇을 하나 (딱 3단계)
 
