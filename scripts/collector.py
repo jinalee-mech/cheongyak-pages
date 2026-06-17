@@ -271,9 +271,13 @@ def collect_notices(apt_rows, areas, price):
         elif "신혼희망" in secd or "신혼희망" in dtl: kind, cat = "신혼희망", "apt"
         elif "국민" in dtl: kind, cat = "국민", "apt"
         else: kind, cat = "민영", "apt"
+        regulated = pick(d, "SPECLT_RDN_EARTH_AT") == "Y" or pick(d, "MDAT_TRGET_AREA_SECD") == "Y"
+        amin = b.get("areaMin")
+        # 민영 일반공급이라도 전용 85㎡ 초과 + 비규제지역이면 가점제 적용 없이 추첨제 100%(주택공급규칙 §28)
         b.update({"cat": cat, "aptKind": kind, "typeLabel": f"{kind} 분양",
                   "hasSpecial": bool(pick(d, "SPSPLY_RCEPT_BGNDE")),
-                  "regulated": pick(d, "SPECLT_RDN_EARTH_AT") == "Y" or pick(d, "MDAT_TRGET_AREA_SECD") == "Y",
+                  "regulated": regulated,
+                  "lotteryOnly": bool(amin) and amin > 85 and not regulated,
                   "schedule": schedule_of(d, apt=True)})
         return b
     add(apt_rows, build_apt)

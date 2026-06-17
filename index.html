@@ -85,7 +85,7 @@
   .pu-m{font-size:12px;color:var(--dim);white-space:nowrap}
   .bandnote{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.6}
   .band .avg{position:absolute;top:0;bottom:0;width:2px;background:#94a3b8}
-  .band .avg::after{content:'평균';position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted)}
+  .band .avg::after{content:'평균';position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted);white-space:nowrap}
 
   .modal{position:fixed;inset:0;background:rgba(20,24,33,.45);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
   .modal.show{display:flex}
@@ -387,6 +387,10 @@ function bandHTML(n){
       : n.aptKind==='신혼희망' ? '신혼희망타운은 가점이 아니라 <b>자격·별도 가점항목</b>으로 정해집니다.'
       : '이 유형은 <b>가점이 아니라 추첨/자격요건</b>으로 정해집니다.';
     return `<div class="lbl">${why} 과거 가점 밴드 비교 대상이 아닙니다.</div>`;
+  }
+  if(n.lotteryOnly){
+    return `<div class="lbl">일반공급 주택형이 전용 <b>${n.areaMin}㎡</b>로 85㎡를 초과하고 <b>비규제지역</b>이라, 가점제 적용 없이 <b>추첨제 100%</b>로 선정됩니다(주택공급에 관한 규칙 §28). 과거 가점 밴드는 이 공고와 무관합니다.</div>
+      <div class="bandinfo">가점보다 <b>1순위 자격 충족 여부·예치금·해당지역 거주 여부·무주택(또는 1주택) 여부</b>가 당첨에 더 중요합니다.</div>`;
   }
   const cmpR=comparablePast(n);
   if(!cmpR) return regionFallbackHTML(n, `‘${esc(n.region)}’ 최근 24개월 민영 과거 단지가 거의 없습니다.`);
