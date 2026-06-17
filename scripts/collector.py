@@ -34,12 +34,16 @@ from collections import defaultdict
 from datetime import datetime, timezone, timedelta
 
 import lawd
+import molit
 
 SERVICE_KEY = os.environ.get("SERVICE_KEY", "").strip()
 DETAIL = "https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/"
 CMPET = "https://api.odcloud.kr/api/ApplyhomeInfoCmpetRtSvc/v1/"
 STAT = "https://api.odcloud.kr/api/ApplyhomeStatSvc/v1/getAPTApsPrzwnerStat"
-RTMS = "https://apis.data.go.kr/1613000/RTMSDataSvcAptTradeDev/getRTMSDataSvcAptTradeDev"
+RTMS_ENDPOINTS = [
+    "https://apis.data.go.kr/1613000/RTMSDataSvcAptTradeDev/getRTMSDataSvcAptTradeDev",  # 상세
+    "https://apis.data.go.kr/1613000/RTMSDataSvcAptTrade/getRTMSDataSvcAptTrade",         # 기본
+]
 
 KST = timezone(timedelta(hours=9))
 TODAY = datetime.now(KST).date().isoformat()
@@ -145,24 +149,44 @@ def base_fields(d, areas, price):
 
 
 # ===== 시세(국토부 실거래가 RTMS) — 키 미활성이면 건너뜀 =====================
-def _tag(s, name):
-    m = re.search(rf"<{name}>(.*?)</{name}>", s, re.S)
-    return m.group(1).strip() if m else ""
+def _tag(s, *names):
+    for name in names:
+        m = re.search(rf"<{name}>(.*?)</{name}>", s, re.S)
+        if m:
+            return m.group(1).strip()
+    return ""
+
+
+# 활성 엔드포인트(첫 성공으로 고정 → 매 호출 두 번 시도 방지)
+_RTMS_OK = {"url": None}
+
+
+def _rtms_call(url, lawd_cd, ym):
+    qs = urllib.parse.urlencode({"serviceKey": SERVICE_KEY, "LAWD_CD": lawd_cd,
+                                 "DEAL_YMD": ym, "numOfRows": 1000, "pageNo": 1})
+    req = urllib.request.Request(f"{url}?{qs}", headers={"Accept": "application/xml"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return r.read().decode("utf-8")
 
 
 def rtms_trades(lawd_cd, ym):
-    qs = urllib.parse.urlencode({"serviceKey": SERVICE_KEY, "LAWD_CD": lawd_cd,
-                                 "DEAL_YMD": ym, "numOfRows": 1000, "pageNo": 1})
-    req = urllib.request.Request(f"{RTMS}?{qs}", headers={"Accept": "application/xml"})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        xml = r.read().decode("utf-8")
-    out = []
-    for it in re.findall(r"<item>(.*?)</item>", xml, re.S):
-        af = to_float(_tag(it, "excluUseAr"))
-        aw = to_float(_tag(it, "dealAmount").replace(",", ""))
-        if af and aw:
-            out.append((_tag(it, "umdNm"), af, int(aw)))
-    return out
+    """Dev/기본 엔드포인트 + 영문/한글 태그 모두 대응. 둘 다 실패하면 예외."""
+    urls = [_RTMS_OK["url"]] if _RTMS_OK["url"] else RTMS_ENDPOINTS
+    last = None
+    for url in urls:
+        try:
+            xml = _rtms_call(url, lawd_cd, ym)
+        except Exception as e:  # noqa: BLE001
+            last = e; continue
+        _RTMS_OK["url"] = url
+        out = []
+        for it in re.findall(r"<item>(.*?)</item>", xml, re.S):
+            af = to_float(_tag(it, "excluUseAr", "전용면적"))
+            aw = to_float(_tag(it, "dealAmount", "거래금액").replace(",", ""))
+            if af and aw:
+                out.append((_tag(it, "umdNm", "법정동"), af, int(aw)))
+        return out
+    raise last if last else RuntimeError("RTMS 응답 없음")
 
 
 def recent_months(k=6):
@@ -175,50 +199,33 @@ def recent_months(k=6):
 
 
 def enrich_sise(items, addr_by_no, price_won):
-    """items: [(entry_dict, no, area)] (민영 APT). 각 entry에 sise(억)·ratio(분양가/시세%) 추가."""
-    months = recent_months(6)
-    resolved, need = {}, set()
-    for _, no, area in items:
-        codes, dong = lawd.resolve(addr_by_no.get(no, ""))
-        resolved[no] = (codes, dong)
-        need.update(codes)
-    if not need:
-        return
+    """items: [(entry_dict, no, area)] (민영 APT). 각 entry에 sise(억)·ratio(분양가/시세%) 추가.
+    국토부 실거래가 공개시스템(molit)에서 인근 동일 읍면동·유사 전용면적 중앙값을 시세로 사용.
+    data.go.kr RTMS API가 살아있으면 그쪽을 써도 되지만, 현재 502라 molit 경로 사용."""
     try:
-        rtms_trades(sorted(need)[0], months[0])   # 프로브 (401이면 예외)
+        molit.probe()
     except Exception as e:  # noqa: BLE001
-        log(f"시세 보류 — RTMS 미활성/실패({e}). 평단가로 폴백.")
+        log(f"시세 보류 — molit 접속 실패({e}). 평단가로 폴백.")
         return
-    trades, zero = defaultdict(list), []
-    for c in sorted(need):
-        cnt = 0
-        for ym in months:
-            try:
-                rows = rtms_trades(c, ym)
-                trades[c].extend(rows); cnt += len(rows)
-            except Exception:  # noqa: BLE001
-                pass
-        if cnt == 0:
-            zero.append(c)
-    if zero:
-        log(f"실거래 0건 시군구(코드 점검 필요): {zero}")
+    yr = datetime.now(KST).year
+    years = [str(yr), str(yr - 1)]
     n_ok = 0
     for entry, no, area in items:
-        codes, dong = resolved[no]
+        codes, dong = lawd.resolve(addr_by_no.get(no, ""))
         pw = price_won.get((no, area))
-        if not codes or not pw:
+        if not codes or not pw or not area:
             continue
-        pool = [t for c in codes for t in trades.get(c, [])]
-        same = [amt for (dg, af, amt) in pool if dong and dg == dong and abs(af - area) <= 3]
-        if len(same) < 3:
-            same = [amt for (dg, af, amt) in pool if abs(af - area) <= 3]
-        if len(same) < 3:
+        try:
+            amts = molit.sise_amounts(codes, dong, area, years)
+        except Exception:  # noqa: BLE001
+            amts = []
+        if len(amts) < 3:
             continue
-        sise = int(statistics.median(same))   # 만원
+        sise = int(statistics.median(amts))           # 만원
         entry["sise"] = round(sise / 10000, 1)        # 억
         entry["ratio"] = round(pw / sise * 100)       # 분양가/시세 %
         n_ok += 1
-    log(f"시세 매칭 {n_ok}개 단지 (실거래 {sum(len(v) for v in trades.values())}건)")
+    log(f"시세 매칭 {n_ok}개 단지 (molit, 거래캐시 {len(molit._trade_cache)}단지·시군구 {len(molit._emd_cache)})")
 
 
 # ===== 면적 + 평단가 ========================================================
@@ -386,12 +393,15 @@ def main():
         notices = collect_notices(apt_rows, areas, price)
         region_scores = fetch_region_scores()
         past_units = collect_past_units(apt_rows, areas, price)
-        # 시세(실거래가) 보강 — 키 미활성이면 내부에서 보류
+        # 시세(실거래가) 보강 — molit 접속 실패 시 내부에서 보류(평단가 폴백)
         addr_by_no = {pick(d, "HOUSE_MANAGE_NO"): pick(d, "HSSPLY_ADRES") for d in apt_rows}
-        items = [(n, n["no"], n["areaMin"]) for n in notices
-                 if n.get("cat") == "apt" and n.get("aptKind") == "민영" and n.get("areaMin")]
-        items += [(u, u["no"], u["area"]) for u in past_units]
-        enrich_sise(items, addr_by_no, price_won)
+        cur = [(n, n["no"], n["areaMin"]) for n in notices
+               if n.get("cat") == "apt" and n.get("aptKind") == "민영" and n.get("areaMin")]
+        # 과거단지는 '현재 공고의 비교 후보'가 될 수 있는 것만(같은 지역·면적 ±25㎡), 호출량 상한
+        ra = [(e["region"], e["areaMin"]) for e, _, _ in cur]
+        past_t = [(u, u["no"], u["area"]) for u in past_units
+                  if any(u["region"] == r and abs(u["area"] - a) <= 25 for r, a in ra)][:150]
+        enrich_sise(cur + past_t, addr_by_no, price_won)
     except Exception as e:  # noqa: BLE001
         log(f"수집 실패: {e} — data.json 유지.")
         return 0

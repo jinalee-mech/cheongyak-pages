@@ -406,11 +406,14 @@ function bandHTML(n){
       <span class="pu-m">${u.area}㎡ · ${esc(u.ym)} · 최저 ${u.low}점${u.rate!=null?` · ${u.rate}:1`:''}</span></a>`).join('');
   const hasSise=(n.ratio!=null && n.sise!=null);
   const bunyang=hasSise?(n.sise*n.ratio/100):null;
-  const basis = hasSise ? `분양가/시세 ${n.ratio}%대` : (n.pyeong?`평단가 ~${Math.round(n.pyeong)}만/평 유사`:'');
+  const basis = hasSise ? `분양가/시세 ${n.ratio}%` : (n.pyeong?`평단가 ~${Math.round(n.pyeong)}만/평 유사`:'');
+  const meritTxt = hasSise ? (n.ratio<100
+      ? `시세 대비 <b style="color:var(--good)">${100-n.ratio}% 저렴</b>`
+      : `인근(구축 포함) 시세 대비 <b style="color:#b06f10">${n.ratio-100}% 높음</b> <span style="color:var(--muted)">(신축 프리미엄)</span>`) : '';
   const merit = hasSise
-    ? `<div class="bandinfo" style="margin-top:6px">현재 단지 — 분양가 <b>${bunyang.toFixed(1)}억</b> · 인근 유사평형 실거래가 중앙값 <b>${n.sise}억</b> → 시세 대비 <b style="color:${n.ratio<100?'var(--good)':'#b06f10'}">${Math.abs(100-n.ratio)}% ${n.ratio<100?'저렴':'높음'}</b></div>` : '';
+    ? `<div class="bandinfo" style="margin-top:6px">현재 단지 — 분양가 <b>${bunyang.toFixed(1)}억</b> · 인근 동일평형 실거래 중앙값 <b>${n.sise}억</b> → ${meritTxt}</div>` : '';
   const note = hasSise
-    ? '※ 인근 동일 읍·면·동의 유사 전용면적 최근 실거래가(국토부) 중앙값 기준. 단지명을 누르면 청약홈 공고로 이동합니다.'
+    ? '※ 인근 동일 읍·면·동·유사 전용면적의 최근 실거래가(국토부, <b>신축·구축 혼재</b>) 중앙값 — 참고용. 단지명을 누르면 청약홈 공고로 이동합니다.'
     : '※ ‘분양가/시세’ 비율은 시세(실거래가) 연동 대기 중이라 <b>분양가(평단가) 유사도</b>로 근사했습니다. 단지명을 누르면 청약홈 공고로 이동합니다.';
   return `
     <div class="lbl">비교 기준 — <b>${esc(n.region)} · ${aLabel} · 민영 일반공급 · 최근 24개월</b>${basis?` · ${basis}`:''}${cmpR.width>5?` <span style="color:var(--muted)">(유사 표본이 적어 면적폭 확장)</span>`:''}</div>
