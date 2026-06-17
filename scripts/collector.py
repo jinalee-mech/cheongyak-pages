@@ -161,10 +161,14 @@ def _tag(s, *names):
 _RTMS_OK = {"url": None}
 
 
+_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
+
+
 def _rtms_call(url, lawd_cd, ym):
     qs = urllib.parse.urlencode({"serviceKey": SERVICE_KEY, "LAWD_CD": lawd_cd,
                                  "DEAL_YMD": ym, "numOfRows": 1000, "pageNo": 1})
-    req = urllib.request.Request(f"{url}?{qs}", headers={"Accept": "application/xml"})
+    # data.go.kr WAF가 User-Agent 없는 요청을 'Request Blocked(400)'로 막음 → 브라우저 UA 필수
+    req = urllib.request.Request(f"{url}?{qs}", headers={"Accept": "application/xml", "User-Agent": _UA})
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.read().decode("utf-8")
 
@@ -198,20 +202,67 @@ def recent_months(k=6):
     return out
 
 
+def _apply_sise(entry, amts, pw):
+    if len(amts) < 3:
+        return False
+    sise = int(statistics.median(amts))           # 만원
+    entry["sise"] = round(sise / 10000, 1)        # 억
+    entry["ratio"] = round(pw / sise * 100)       # 분양가/시세 %
+    return True
+
+
 def enrich_sise(items, addr_by_no, price_won):
     """items: [(entry_dict, no, area)] (민영 APT). 각 entry에 sise(억)·ratio(분양가/시세%) 추가.
-    국토부 실거래가 공개시스템(molit)에서 인근 동일 읍면동·유사 전용면적 중앙값을 시세로 사용.
-    data.go.kr RTMS API가 살아있으면 그쪽을 써도 되지만, 현재 502라 molit 경로 사용."""
+    1순위: 공식 data.go.kr RTMS API(인근 동일 읍면동·유사 전용면적 실거래 중앙값).
+    실패 시: 국토부 실거래가 공개시스템(molit) 내부 경로 폴백. 둘 다 안 되면 보류(평단가 폴백)."""
+    months = recent_months(6)
+    resolved = {}
+    for _, no, _a in items:
+        if no not in resolved:
+            resolved[no] = lawd.resolve(addr_by_no.get(no, ""))
+
+    # --- 1순위: 공식 RTMS API (UA 필수) ---
+    try:
+        rtms_trades("11680", months[0])   # 프로브
+        api_ok = True
+    except Exception as e:  # noqa: BLE001
+        api_ok = False
+        log(f"공식 RTMS API 불가({e}) → molit 경로 시도.")
+    if api_ok:
+        need = {c for codes, _ in resolved.values() for c in codes}
+        trades = defaultdict(list)
+        for c in sorted(need):
+            for ym in months:
+                try:
+                    trades[c].extend(rtms_trades(c, ym))
+                except Exception:  # noqa: BLE001
+                    pass
+        n_ok = 0
+        for entry, no, area in items:
+            codes, dong = resolved[no]
+            pw = price_won.get((no, area))
+            if not codes or not pw or not area:
+                continue
+            pool = [t for c in codes for t in trades.get(c, [])]
+            same = [amt for (dg, af, amt) in pool if dong and dg == dong and abs(af - area) <= 3]
+            if len(same) < 3:
+                same = [amt for (dg, af, amt) in pool if abs(af - area) <= 3]
+            if _apply_sise(entry, same, pw):
+                n_ok += 1
+        log(f"시세 매칭 {n_ok}개 단지 (공식 RTMS API, 거래 {sum(len(v) for v in trades.values())}건)")
+        return
+
+    # --- 2순위: molit 폴백 ---
     try:
         molit.probe()
     except Exception as e:  # noqa: BLE001
-        log(f"시세 보류 — molit 접속 실패({e}). 평단가로 폴백.")
+        log(f"시세 보류 — molit도 실패({e}). 평단가 폴백.")
         return
     yr = datetime.now(KST).year
     years = [str(yr), str(yr - 1)]
     n_ok = 0
     for entry, no, area in items:
-        codes, dong = lawd.resolve(addr_by_no.get(no, ""))
+        codes, dong = resolved[no]
         pw = price_won.get((no, area))
         if not codes or not pw or not area:
             continue
@@ -219,13 +270,9 @@ def enrich_sise(items, addr_by_no, price_won):
             amts = molit.sise_amounts(codes, dong, area, years)
         except Exception:  # noqa: BLE001
             amts = []
-        if len(amts) < 3:
-            continue
-        sise = int(statistics.median(amts))           # 만원
-        entry["sise"] = round(sise / 10000, 1)        # 억
-        entry["ratio"] = round(pw / sise * 100)       # 분양가/시세 %
-        n_ok += 1
-    log(f"시세 매칭 {n_ok}개 단지 (molit, 거래캐시 {len(molit._trade_cache)}단지·시군구 {len(molit._emd_cache)})")
+        if _apply_sise(entry, amts, pw):
+            n_ok += 1
+    log(f"시세 매칭 {n_ok}개 단지 (molit 폴백)")
 
 
 # ===== 면적 + 평단가 ========================================================

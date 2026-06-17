@@ -1,7 +1,7 @@
 {
   "source": "github-actions",
   "live": true,
-  "collectedAt": "2026-06-16T21:21:03+09:00",
+  "collectedAt": "2026-06-17T16:42:30+09:00",
   "notices": [
     {
       "no": "2026820003",
@@ -17,6 +17,7 @@
       "typeLabel": "신혼희망 분양",
       "hasSpecial": false,
       "regulated": false,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-04-30",
         "special": "",
@@ -26,58 +27,6 @@
         "open": "2026-05-18",
         "close": "2026-05-28"
       }
-    },
-    {
-      "no": "2026000184",
-      "name": "익산 펠리피아",
-      "region": "전북",
-      "metro": false,
-      "area": "전용 84~104㎡",
-      "areaMin": 84,
-      "pyeong": 1232,
-      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000184&pblancNo=2026000184",
-      "cat": "apt",
-      "aptKind": "민영",
-      "typeLabel": "민영 분양",
-      "hasSpecial": true,
-      "regulated": false,
-      "schedule": {
-        "notice": "2026-05-29",
-        "special": "2026-06-08",
-        "rank1": "2026-06-09",
-        "rank2": "2026-06-10",
-        "result": "2026-06-16",
-        "open": "2026-06-08",
-        "close": "2026-06-10"
-      },
-      "sise": 1.2,
-      "ratio": 337
-    },
-    {
-      "no": "2026000097",
-      "name": "강릉 성보필리오 더센트럴힐즈",
-      "region": "강원",
-      "metro": false,
-      "area": "전용 59~84㎡",
-      "areaMin": 59,
-      "pyeong": 1793,
-      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000097&pblancNo=2026000097",
-      "cat": "apt",
-      "aptKind": "민영",
-      "typeLabel": "민영 분양",
-      "hasSpecial": true,
-      "regulated": false,
-      "schedule": {
-        "notice": "2026-05-27",
-        "special": "2026-06-08",
-        "rank1": "2026-06-09",
-        "rank2": "2026-06-10",
-        "result": "2026-06-16",
-        "open": "2026-06-08",
-        "close": "2026-06-10"
-      },
-      "sise": 3.1,
-      "ratio": 148
     },
     {
       "no": "2026000230",
@@ -93,6 +42,7 @@
       "typeLabel": "국민 분양",
       "hasSpecial": false,
       "regulated": false,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-05-29",
         "special": "",
@@ -101,78 +51,6 @@
         "result": "2026-06-25",
         "open": "2026-06-09",
         "close": "2026-06-12"
-      }
-    },
-    {
-      "no": "2026910139",
-      "name": "신검단중앙역 금강펜테리움 센트럴파크(3차)",
-      "region": "인천",
-      "metro": true,
-      "area": "전용 98㎡",
-      "areaMin": 98,
-      "pyeong": null,
-      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026910139&pblancNo=2026910139",
-      "cat": "무순위",
-      "aptKind": null,
-      "typeLabel": "무순위",
-      "hasSpecial": false,
-      "regulated": false,
-      "schedule": {
-        "notice": "2026-06-04",
-        "special": "",
-        "rank1": "2026-06-09",
-        "rank2": "",
-        "result": "2026-06-16",
-        "open": "2026-06-09",
-        "close": "2026-06-09"
-      }
-    },
-    {
-      "no": "2026930020",
-      "name": "신검단중앙역 금강펜테리움 센트럴파크",
-      "region": "인천",
-      "metro": true,
-      "area": "전용 84㎡",
-      "areaMin": 84,
-      "pyeong": null,
-      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026930020&pblancNo=2026930020",
-      "cat": "불법행위재공급",
-      "aptKind": null,
-      "typeLabel": "불법행위 재공급",
-      "hasSpecial": false,
-      "regulated": false,
-      "schedule": {
-        "notice": "2026-06-05",
-        "special": "",
-        "rank1": "2026-06-10",
-        "rank2": "",
-        "result": "2026-06-16",
-        "open": "2026-06-10",
-        "close": "2026-06-10"
-      }
-    },
-    {
-      "no": "2026910140",
-      "name": "강릉 우미 린 더 프리미어",
-      "region": "강원",
-      "metro": false,
-      "area": "전용 84㎡",
-      "areaMin": 84,
-      "pyeong": null,
-      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026910140&pblancNo=2026910140",
-      "cat": "무순위",
-      "aptKind": null,
-      "typeLabel": "무순위",
-      "hasSpecial": false,
-      "regulated": false,
-      "schedule": {
-        "notice": "2026-06-05",
-        "special": "",
-        "rank1": "2026-06-10",
-        "rank2": "",
-        "result": "2026-06-16",
-        "open": "2026-06-10",
-        "close": "2026-06-10"
       }
     },
     {
@@ -237,6 +115,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": true,
       "regulated": false,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-06-05",
         "special": "2026-06-15",
@@ -245,7 +124,9 @@
         "result": "2026-06-23",
         "open": "2026-06-15",
         "close": "2026-06-17"
-      }
+      },
+      "sise": 1.7,
+      "ratio": 326
     },
     {
       "no": "2026000243",
@@ -261,6 +142,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": true,
       "regulated": false,
+      "lotteryOnly": true,
       "schedule": {
         "notice": "2026-06-05",
         "special": "2026-06-15",
@@ -285,6 +167,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": true,
       "regulated": false,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-06-05",
         "special": "2026-06-15",
@@ -293,7 +176,9 @@
         "result": "2026-06-23",
         "open": "2026-06-15",
         "close": "2026-06-17"
-      }
+      },
+      "sise": 3.4,
+      "ratio": 172
     },
     {
       "no": "2026000226",
@@ -309,6 +194,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": true,
       "regulated": false,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-06-05",
         "special": "2026-06-15",
@@ -318,8 +204,8 @@
         "open": "2026-06-15",
         "close": "2026-06-17"
       },
-      "sise": 3.1,
-      "ratio": 188
+      "sise": 2.9,
+      "ratio": 201
     },
     {
       "no": "2026000225",
@@ -335,6 +221,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": true,
       "regulated": false,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-06-05",
         "special": "2026-06-15",
@@ -343,7 +230,9 @@
         "result": "2026-06-23",
         "open": "2026-06-15",
         "close": "2026-06-17"
-      }
+      },
+      "sise": 1.7,
+      "ratio": 239
     },
     {
       "no": "2026000148",
@@ -359,6 +248,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": true,
       "regulated": false,
+      "lotteryOnly": true,
       "schedule": {
         "notice": "2026-06-05",
         "special": "2026-06-15",
@@ -367,7 +257,9 @@
         "result": "2026-06-23",
         "open": "2026-06-15",
         "close": "2026-06-17"
-      }
+      },
+      "sise": 23.1,
+      "ratio": 134
     },
     {
       "no": "2026930022",
@@ -623,6 +515,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": true,
       "regulated": false,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-06-05",
         "special": "2026-06-16",
@@ -631,7 +524,9 @@
         "result": "2026-06-25",
         "open": "2026-06-16",
         "close": "2026-06-18"
-      }
+      },
+      "sise": 3.6,
+      "ratio": 152
     },
     {
       "no": "2026950058",
@@ -695,6 +590,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": true,
       "regulated": false,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-06-12",
         "special": "2026-06-22",
@@ -703,7 +599,9 @@
         "result": "2026-06-30",
         "open": "2026-06-22",
         "close": "2026-06-24"
-      }
+      },
+      "sise": 2.7,
+      "ratio": 194
     },
     {
       "no": "2026000235",
@@ -719,6 +617,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": false,
       "regulated": true,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-06-12",
         "special": "",
@@ -728,8 +627,8 @@
         "open": "2026-06-22",
         "close": "2026-06-24"
       },
-      "sise": 7.8,
-      "ratio": 119
+      "sise": 7.0,
+      "ratio": 131
     },
     {
       "no": "2026000224",
@@ -745,6 +644,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": true,
       "regulated": false,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-06-12",
         "special": "2026-06-22",
@@ -753,7 +653,9 @@
         "result": "2026-07-01",
         "open": "2026-06-22",
         "close": "2026-06-24"
-      }
+      },
+      "sise": 3.3,
+      "ratio": 160
     },
     {
       "no": "2026000223",
@@ -769,6 +671,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": true,
       "regulated": false,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-06-12",
         "special": "2026-06-22",
@@ -777,7 +680,9 @@
         "result": "2026-06-30",
         "open": "2026-06-22",
         "close": "2026-06-24"
-      }
+      },
+      "sise": 2.0,
+      "ratio": 224
     },
     {
       "no": "2026000258",
@@ -793,6 +698,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": true,
       "regulated": false,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-06-11",
         "special": "2026-06-22",
@@ -801,6 +707,32 @@
         "result": "2026-06-30",
         "open": "2026-06-22",
         "close": "2026-06-24"
+      },
+      "sise": 3.4,
+      "ratio": 167
+    },
+    {
+      "no": "2026910158",
+      "name": "파주금촌 금호어울림(조합원 취소분)",
+      "region": "경기",
+      "metro": true,
+      "area": "전용 26~59㎡",
+      "areaMin": 26,
+      "pyeong": null,
+      "url": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026910158&pblancNo=2026910158",
+      "cat": "무순위",
+      "aptKind": null,
+      "typeLabel": "무순위",
+      "hasSpecial": false,
+      "regulated": false,
+      "schedule": {
+        "notice": "2026-06-16",
+        "special": "",
+        "rank1": "2026-06-22",
+        "rank2": "",
+        "result": "2026-06-25",
+        "open": "2026-06-22",
+        "close": "2026-06-22"
       }
     },
     {
@@ -889,6 +821,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": true,
       "regulated": false,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-06-12",
         "special": "2026-06-24",
@@ -898,8 +831,8 @@
         "open": "2026-06-24",
         "close": "2026-06-26"
       },
-      "sise": 3.3,
-      "ratio": 149
+      "sise": 2.4,
+      "ratio": 209
     },
     {
       "no": "2026000194",
@@ -915,6 +848,7 @@
       "typeLabel": "민영 분양",
       "hasSpecial": true,
       "regulated": false,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-06-12",
         "special": "2026-06-24",
@@ -924,8 +858,8 @@
         "open": "2026-06-24",
         "close": "2026-06-26"
       },
-      "sise": 3.6,
-      "ratio": 136
+      "sise": 2.0,
+      "ratio": 241
     },
     {
       "no": "2026820004",
@@ -941,6 +875,7 @@
       "typeLabel": "신혼희망 분양",
       "hasSpecial": false,
       "regulated": true,
+      "lotteryOnly": false,
       "schedule": {
         "notice": "2026-05-29",
         "special": "",
@@ -1115,9 +1050,7 @@
       "pyeong": 1733,
       "low": 59,
       "avg": 63,
-      "rate": 37.7,
-      "sise": 5.5,
-      "ratio": 104
+      "rate": 37.7
     },
     {
       "no": "2025000329",
@@ -1129,9 +1062,7 @@
       "pyeong": 1454,
       "low": 28,
       "avg": 50,
-      "rate": 22.4,
-      "sise": 4.8,
-      "ratio": 109
+      "rate": 22.4
     },
     {
       "no": "2025000064",
@@ -1143,9 +1074,7 @@
       "pyeong": 1326,
       "low": 37,
       "avg": 49,
-      "rate": 6.7,
-      "sise": 4.8,
-      "ratio": 94
+      "rate": 6.7
     },
     {
       "no": "2024000517",
@@ -1157,9 +1086,7 @@
       "pyeong": 1311,
       "low": 37,
       "avg": 51,
-      "rate": 8.1,
-      "sise": 4.8,
-      "ratio": 97
+      "rate": 8.1
     },
     {
       "no": "2024000356",
@@ -1195,7 +1122,9 @@
       "pyeong": 3275,
       "low": 39,
       "avg": 46,
-      "rate": 1.2
+      "rate": 1.2,
+      "sise": 4.5,
+      "ratio": 123
     },
     {
       "no": "2025000556",
@@ -1208,8 +1137,8 @@
       "low": 54,
       "avg": 58,
       "rate": 10.1,
-      "sise": 7.1,
-      "ratio": 86
+      "sise": 4.8,
+      "ratio": 127
     },
     {
       "no": "2025000429",
@@ -1222,8 +1151,8 @@
       "low": 49,
       "avg": 55,
       "rate": 7.7,
-      "sise": 5.2,
-      "ratio": 111
+      "sise": 4.8,
+      "ratio": 120
     },
     {
       "no": "2024000563",
@@ -1235,7 +1164,9 @@
       "pyeong": 3205,
       "low": 49,
       "avg": 52,
-      "rate": 4.7
+      "rate": 4.7,
+      "sise": 5.2,
+      "ratio": 113
     },
     {
       "no": "2026000070",
@@ -1247,7 +1178,9 @@
       "pyeong": 3114,
       "low": 59,
       "avg": 59,
-      "rate": 3.5
+      "rate": 3.5,
+      "sise": 4.5,
+      "ratio": 121
     },
     {
       "no": "2025000652",
@@ -1259,7 +1192,9 @@
       "pyeong": 3595,
       "low": 27,
       "avg": 38,
-      "rate": 1.1
+      "rate": 1.1,
+      "sise": 4.2,
+      "ratio": 158
     },
     {
       "no": "2025000139",
@@ -1271,7 +1206,9 @@
       "pyeong": 1960,
       "low": 54,
       "avg": 59,
-      "rate": 13.9
+      "rate": 13.9,
+      "sise": 2.3,
+      "ratio": 170
     },
     {
       "no": "2024000265",
@@ -1283,7 +1220,9 @@
       "pyeong": 3246,
       "low": 50,
       "avg": 56,
-      "rate": 5.5
+      "rate": 5.5,
+      "sise": 3.4,
+      "ratio": 191
     },
     {
       "no": "2025000429",
@@ -1296,8 +1235,8 @@
       "low": 59,
       "avg": 62,
       "rate": 12.8,
-      "sise": 7.4,
-      "ratio": 107
+      "sise": 6.2,
+      "ratio": 128
     },
     {
       "no": "2025000423",
@@ -1309,7 +1248,9 @@
       "pyeong": 3296,
       "low": 24,
       "avg": 34,
-      "rate": 1.2
+      "rate": 1.2,
+      "sise": 5.5,
+      "ratio": 127
     },
     {
       "no": "2024000502",
@@ -1346,8 +1287,8 @@
       "low": 47,
       "avg": 52,
       "rate": 2.3,
-      "sise": 2.3,
-      "ratio": 174
+      "sise": 2.2,
+      "ratio": 175
     },
     {
       "no": "2025000556",
@@ -1360,8 +1301,8 @@
       "low": 48,
       "avg": 53,
       "rate": 5.0,
-      "sise": 9.3,
-      "ratio": 105
+      "sise": 6.4,
+      "ratio": 153
     },
     {
       "no": "2026000043",
@@ -1385,7 +1326,9 @@
       "pyeong": 4015,
       "low": 52,
       "avg": 56,
-      "rate": 5.0
+      "rate": 5.0,
+      "sise": 6.6,
+      "ratio": 133
     },
     {
       "no": "2025000246",
@@ -1397,7 +1340,9 @@
       "pyeong": 2695,
       "low": 49,
       "avg": 49,
-      "rate": 4.0
+      "rate": 4.0,
+      "sise": 5.2,
+      "ratio": 118
     },
     {
       "no": "2024000442",
@@ -1410,8 +1355,8 @@
       "low": 39,
       "avg": 44,
       "rate": 1.5,
-      "sise": 11.2,
-      "ratio": 49
+      "sise": 6.6,
+      "ratio": 82
     },
     {
       "no": "2024000396",
@@ -1436,8 +1381,8 @@
       "low": 47,
       "avg": 54,
       "rate": 9.9,
-      "sise": 5.0,
-      "ratio": 117
+      "sise": 3.3,
+      "ratio": 175
     },
     {
       "no": "2026000152",
@@ -1462,8 +1407,8 @@
       "low": 45,
       "avg": 56,
       "rate": 6.2,
-      "sise": 4.8,
-      "ratio": 133
+      "sise": 4.1,
+      "ratio": 156
     },
     {
       "no": "2026000030",
@@ -1475,7 +1420,9 @@
       "pyeong": 1550,
       "low": 27,
       "avg": 40,
-      "rate": 2.0
+      "rate": 2.0,
+      "sise": 2.7,
+      "ratio": 141
     },
     {
       "no": "2026000019",
@@ -1488,8 +1435,8 @@
       "low": 29,
       "avg": 38,
       "rate": 1.2,
-      "sise": 8.4,
-      "ratio": 124
+      "sise": 6.0,
+      "ratio": 175
     },
     {
       "no": "2026000017",
@@ -1513,7 +1460,9 @@
       "pyeong": 1368,
       "low": 49,
       "avg": 49,
-      "rate": 2.0
+      "rate": 2.0,
+      "sise": 2.3,
+      "ratio": 149
     },
     {
       "no": "2025000652",
@@ -1525,7 +1474,9 @@
       "pyeong": 3738,
       "low": 51,
       "avg": 62,
-      "rate": 15.5
+      "rate": 15.5,
+      "sise": 6.0,
+      "ratio": 159
     },
     {
       "no": "2025000556",
@@ -1538,8 +1489,8 @@
       "low": 37,
       "avg": 53,
       "rate": 5.8,
-      "sise": 10.2,
-      "ratio": 115
+      "sise": 7.6,
+      "ratio": 154
     },
     {
       "no": "2025000555",
@@ -1552,8 +1503,8 @@
       "low": 43,
       "avg": 51,
       "rate": 5.4,
-      "sise": 5.0,
-      "ratio": 113
+      "sise": 3.6,
+      "ratio": 153
     },
     {
       "no": "2025000510",
@@ -1566,8 +1517,8 @@
       "low": 40,
       "avg": 52,
       "rate": 5.9,
-      "sise": 2.6,
-      "ratio": 301
+      "sise": 4.6,
+      "ratio": 172
     },
     {
       "no": "2025000472",
@@ -1580,8 +1531,8 @@
       "low": 23,
       "avg": 35,
       "rate": 1.3,
-      "sise": 5.2,
-      "ratio": 127
+      "sise": 5.8,
+      "ratio": 114
     },
     {
       "no": "2025000429",
@@ -1594,8 +1545,8 @@
       "low": 37,
       "avg": 53,
       "rate": 5.5,
-      "sise": 6.8,
-      "ratio": 173
+      "sise": 7.6,
+      "ratio": 154
     },
     {
       "no": "2025000423",
@@ -1607,7 +1558,9 @@
       "pyeong": 3640,
       "low": 27,
       "avg": 42,
-      "rate": 1.7
+      "rate": 1.7,
+      "sise": 6.6,
+      "ratio": 140
     },
     {
       "no": "2025000328",
@@ -1619,7 +1572,9 @@
       "pyeong": 7151,
       "low": 61,
       "avg": 66,
-      "rate": 14.9
+      "rate": 14.9,
+      "sise": 19.9,
+      "ratio": 89
     },
     {
       "no": "2025000255",
@@ -1632,8 +1587,8 @@
       "low": 33,
       "avg": 51,
       "rate": 4.8,
-      "sise": 3.0,
-      "ratio": 196
+      "sise": 2.7,
+      "ratio": 217
     },
     {
       "no": "2025000246",
@@ -1646,8 +1601,8 @@
       "low": 30,
       "avg": 40,
       "rate": 1.4,
-      "sise": 3.1,
-      "ratio": 248
+      "sise": 6.0,
+      "ratio": 129
     },
     {
       "no": "2025000233",
@@ -1673,7 +1628,9 @@
       "pyeong": 2588,
       "low": 58,
       "avg": 59,
-      "rate": 2.8
+      "rate": 2.8,
+      "sise": 3.9,
+      "ratio": 167
     },
     {
       "no": "2025000099",
@@ -1686,8 +1643,8 @@
       "low": 53,
       "avg": 53,
       "rate": 4.0,
-      "sise": 8.4,
-      "ratio": 101
+      "sise": 6.0,
+      "ratio": 143
     },
     {
       "no": "2025000094",
@@ -1712,8 +1669,8 @@
       "low": 47,
       "avg": 54,
       "rate": 8.1,
-      "sise": 5.1,
-      "ratio": 194
+      "sise": 7.9,
+      "ratio": 125
     },
     {
       "no": "2024000660",
@@ -1725,7 +1682,9 @@
       "pyeong": 2426,
       "low": 28,
       "avg": 44,
-      "rate": 2.0
+      "rate": 2.0,
+      "sise": 3.3,
+      "ratio": 181
     },
     {
       "no": "2024000637",
@@ -1737,7 +1696,9 @@
       "pyeong": 1864,
       "low": 48,
       "avg": 54,
-      "rate": 5.1
+      "rate": 5.1,
+      "sise": 4.5,
+      "ratio": 99
     },
     {
       "no": "2024000622",
@@ -1751,7 +1712,7 @@
       "avg": 37,
       "rate": 1.5,
       "sise": 3.8,
-      "ratio": 95
+      "ratio": 94
     },
     {
       "no": "2024000604",
@@ -1764,8 +1725,8 @@
       "low": 50,
       "avg": 56,
       "rate": 7.5,
-      "sise": 2.8,
-      "ratio": 200
+      "sise": 3.1,
+      "ratio": 181
     },
     {
       "no": "2024000595",
@@ -1777,7 +1738,9 @@
       "pyeong": 1522,
       "low": 45,
       "avg": 52,
-      "rate": 1.9
+      "rate": 1.9,
+      "sise": 2.3,
+      "ratio": 165
     },
     {
       "no": "2024000593",
@@ -1814,8 +1777,8 @@
       "low": 34,
       "avg": 52,
       "rate": 5.3,
-      "sise": 7.1,
-      "ratio": 153
+      "sise": 7.9,
+      "ratio": 138
     },
     {
       "no": "2024000502",
@@ -1842,8 +1805,8 @@
       "low": 30,
       "avg": 43,
       "rate": 2.6,
-      "sise": 2.4,
-      "ratio": 219
+      "sise": 2.6,
+      "ratio": 204
     },
     {
       "no": "2024000442",
@@ -1856,8 +1819,8 @@
       "low": 45,
       "avg": 50,
       "rate": 2.1,
-      "sise": 11.2,
-      "ratio": 49
+      "sise": 6.6,
+      "ratio": 82
     },
     {
       "no": "2024000265",
@@ -1869,7 +1832,9 @@
       "pyeong": 3791,
       "low": 46,
       "avg": 57,
-      "rate": 6.3
+      "rate": 6.3,
+      "sise": 11.7,
+      "ratio": 82
     },
     {
       "no": "2024000249",
@@ -1881,7 +1846,9 @@
       "pyeong": 3427,
       "low": 69,
       "avg": 71,
-      "rate": 53.7
+      "rate": 53.7,
+      "sise": 19.9,
+      "ratio": 44
     },
     {
       "no": "2024000210",
@@ -1907,7 +1874,9 @@
       "pyeong": 5762,
       "low": 64,
       "avg": 65,
-      "rate": 92.8
+      "rate": 92.8,
+      "sise": 13.4,
+      "ratio": 111
     },
     {
       "no": "2024000597",
@@ -1920,8 +1889,8 @@
       "low": 36,
       "avg": 40,
       "rate": 1.2,
-      "sise": 2.6,
-      "ratio": 193
+      "sise": 4.8,
+      "ratio": 107
     },
     {
       "no": "2024000291",
@@ -1933,7 +1902,9 @@
       "pyeong": 1863,
       "low": 26,
       "avg": 38,
-      "rate": 2.5
+      "rate": 2.5,
+      "sise": 1.5,
+      "ratio": 300
     },
     {
       "no": "2025000591",
@@ -1945,7 +1916,9 @@
       "pyeong": 1848,
       "low": 54,
       "avg": 60,
-      "rate": 6.3
+      "rate": 6.3,
+      "sise": 2.8,
+      "ratio": 164
     },
     {
       "no": "2025000287",
@@ -1957,7 +1930,9 @@
       "pyeong": 1988,
       "low": 47,
       "avg": 54,
-      "rate": 4.3
+      "rate": 4.3,
+      "sise": 4.3,
+      "ratio": 116
     },
     {
       "no": "2025000205",
@@ -1984,8 +1959,8 @@
       "low": 58,
       "avg": 65,
       "rate": 34.1,
-      "sise": 5.8,
-      "ratio": 153
+      "sise": 4.5,
+      "ratio": 195
     },
     {
       "no": "2025000287",
@@ -1997,7 +1972,9 @@
       "pyeong": 1974,
       "low": 59,
       "avg": 62,
-      "rate": 13.3
+      "rate": 13.3,
+      "sise": 3.2,
+      "ratio": 159
     },
     {
       "no": "2024000254",
@@ -2021,7 +1998,9 @@
       "pyeong": 5877,
       "low": 54,
       "avg": 54,
-      "rate": 17.0
+      "rate": 17.0,
+      "sise": 17.3,
+      "ratio": 95
     },
     {
       "no": "2025000380",
@@ -2033,7 +2012,9 @@
       "pyeong": 1520,
       "low": 41,
       "avg": 45,
-      "rate": 1.3
+      "rate": 1.3,
+      "sise": 4.8,
+      "ratio": 84
     },
     {
       "no": "2026000070",
@@ -2045,7 +2026,9 @@
       "pyeong": 2998,
       "low": 62,
       "avg": 62,
-      "rate": 2.0
+      "rate": 2.0,
+      "sise": 5.0,
+      "ratio": 168
     },
     {
       "no": "2025000501",
@@ -2058,8 +2041,8 @@
       "low": 69,
       "avg": 69,
       "rate": 60.4,
-      "sise": 19.8,
-      "ratio": 100
+      "sise": 19.1,
+      "ratio": 103
     },
     {
       "no": "2025000472",
@@ -2071,7 +2054,9 @@
       "pyeong": 2687,
       "low": 31,
       "avg": 34,
-      "rate": 1.5
+      "rate": 1.5,
+      "sise": 4.2,
+      "ratio": 183
     },
     {
       "no": "2026000043",
@@ -2095,7 +2080,9 @@
       "pyeong": 2975,
       "low": 48,
       "avg": 54,
-      "rate": 2.7
+      "rate": 2.7,
+      "sise": 3.3,
+      "ratio": 263
     },
     {
       "no": "2025000595",
@@ -2107,7 +2094,9 @@
       "pyeong": 5832,
       "low": 67,
       "avg": 67,
-      "rate": 8.0
+      "rate": 8.0,
+      "sise": 15.5,
+      "ratio": 118
     },
     {
       "no": "2024000330",
@@ -2119,7 +2108,9 @@
       "pyeong": 1453,
       "low": 37,
       "avg": 46,
-      "rate": 3.0
+      "rate": 3.0,
+      "sise": 3.2,
+      "ratio": 130
     },
     {
       "no": "2025000595",
@@ -2131,7 +2122,9 @@
       "pyeong": 5993,
       "low": 59,
       "avg": 62,
-      "rate": 9.5
+      "rate": 9.5,
+      "sise": 16.0,
+      "ratio": 118
     },
     {
       "no": "2026000098",
@@ -2143,7 +2136,9 @@
       "pyeong": 2268,
       "low": 46,
       "avg": 48,
-      "rate": 3.2
+      "rate": 3.2,
+      "sise": 3.8,
+      "ratio": 184
     },
     {
       "no": "2026000055",
@@ -2155,7 +2150,9 @@
       "pyeong": 2171,
       "low": 32,
       "avg": 41,
-      "rate": 1.2
+      "rate": 1.2,
+      "sise": 6.8,
+      "ratio": 108
     },
     {
       "no": "2025000556",
@@ -2168,8 +2165,8 @@
       "low": 58,
       "avg": 66,
       "rate": 11.7,
-      "sise": 10.4,
-      "ratio": 133
+      "sise": 10.9,
+      "ratio": 127
     },
     {
       "no": "2025000550",
@@ -2193,7 +2190,9 @@
       "pyeong": 2937,
       "low": 24,
       "avg": 46,
-      "rate": 2.2
+      "rate": 2.2,
+      "sise": 7.2,
+      "ratio": 126
     },
     {
       "no": "2025000514",
@@ -2218,8 +2217,8 @@
       "low": 69,
       "avg": 69,
       "rate": 29.5,
-      "sise": 14.3,
-      "ratio": 162
+      "sise": 16.1,
+      "ratio": 144
     },
     {
       "no": "2025000429",
@@ -2231,7 +2230,9 @@
       "pyeong": 4497,
       "low": 61,
       "avg": 68,
-      "rate": 9.0
+      "rate": 9.0,
+      "sise": 10.9,
+      "ratio": 125
     },
     {
       "no": "2025000412",
@@ -2243,7 +2244,9 @@
       "pyeong": 2335,
       "low": 32,
       "avg": 42,
-      "rate": 1.8
+      "rate": 1.8,
+      "sise": 3.8,
+      "ratio": 190
     },
     {
       "no": "2025000307",
@@ -2255,7 +2258,9 @@
       "pyeong": 2438,
       "low": 52,
       "avg": 58,
-      "rate": 14.3
+      "rate": 14.3,
+      "sise": 5.3,
+      "ratio": 133
     },
     {
       "no": "2025000295",
@@ -2267,7 +2272,9 @@
       "pyeong": 2401,
       "low": 21,
       "avg": 31,
-      "rate": 4.0
+      "rate": 4.0,
+      "sise": 5.3,
+      "ratio": 133
     },
     {
       "no": "2025000139",
@@ -2279,7 +2286,9 @@
       "pyeong": 2052,
       "low": 65,
       "avg": 65,
-      "rate": 73.0
+      "rate": 73.0,
+      "sise": 6.8,
+      "ratio": 93
     },
     {
       "no": "2025000104",
@@ -2291,7 +2300,9 @@
       "pyeong": 2238,
       "low": 39,
       "avg": 48,
-      "rate": 2.5
+      "rate": 2.5,
+      "sise": 7.0,
+      "ratio": 101
     },
     {
       "no": "2024000563",
@@ -2304,8 +2315,8 @@
       "low": 37,
       "avg": 46,
       "rate": 2.8,
-      "sise": 7.2,
-      "ratio": 194
+      "sise": 8.7,
+      "ratio": 162
     },
     {
       "no": "2024000559",
@@ -2317,7 +2328,9 @@
       "pyeong": 1223,
       "low": 19,
       "avg": 36,
-      "rate": 1.3
+      "rate": 1.3,
+      "sise": 2.8,
+      "ratio": 129
     },
     {
       "no": "2024000502",
@@ -2330,8 +2343,8 @@
       "low": 51,
       "avg": 61,
       "rate": 10.7,
-      "sise": 20.3,
-      "ratio": 108
+      "sise": 20.9,
+      "ratio": 105
     },
     {
       "no": "2024000290",
@@ -2343,7 +2356,9 @@
       "pyeong": 1854,
       "low": 40,
       "avg": 48,
-      "rate": 3.2
+      "rate": 3.2,
+      "sise": 2.1,
+      "ratio": 255
     },
     {
       "no": "2024000278",
@@ -2356,8 +2371,8 @@
       "low": 64,
       "avg": 66,
       "rate": 83.1,
-      "sise": 6.0,
-      "ratio": 81
+      "sise": 5.4,
+      "ratio": 89
     },
     {
       "no": "2024000265",
@@ -2369,7 +2384,9 @@
       "pyeong": 3572,
       "low": 64,
       "avg": 70,
-      "rate": 24.1
+      "rate": 24.1,
+      "sise": 14.1,
+      "ratio": 76
     },
     {
       "no": "2024000210",
@@ -2395,7 +2412,9 @@
       "pyeong": 2479,
       "low": 52,
       "avg": 52,
-      "rate": 10.0
+      "rate": 10.0,
+      "sise": 5.0,
+      "ratio": 156
     },
     {
       "no": "2025000328",
@@ -2407,7 +2426,9 @@
       "pyeong": 7150,
       "low": 58,
       "avg": 63,
-      "rate": 6.6
+      "rate": 6.6,
+      "sise": 20.9,
+      "ratio": 105
     },
     {
       "no": "2025000205",
@@ -2433,7 +2454,9 @@
       "pyeong": 2206,
       "low": 27,
       "avg": 39,
-      "rate": 1.9
+      "rate": 1.9,
+      "sise": 7.2,
+      "ratio": 92
     },
     {
       "no": "2024000597",
@@ -2445,7 +2468,9 @@
       "pyeong": 2187,
       "low": 45,
       "avg": 45,
-      "rate": 2.0
+      "rate": 2.0,
+      "sise": 6.8,
+      "ratio": 96
     },
     {
       "no": "2025000423",
@@ -2457,7 +2482,9 @@
       "pyeong": 3472,
       "low": 51,
       "avg": 60,
-      "rate": 2.5
+      "rate": 2.5,
+      "sise": 7.2,
+      "ratio": 152
     },
     {
       "no": "2024000457",
@@ -2471,7 +2498,7 @@
       "avg": 51,
       "rate": 5.8,
       "sise": 3.1,
-      "ratio": 203
+      "ratio": 205
     },
     {
       "no": "2026000019",
@@ -2484,8 +2511,8 @@
       "low": 31,
       "avg": 38,
       "rate": 2.0,
-      "sise": 9.4,
-      "ratio": 131
+      "sise": 9.8,
+      "ratio": 127
     },
     {
       "no": "2025000205",
@@ -2498,8 +2525,8 @@
       "low": 44,
       "avg": 50,
       "rate": 5.0,
-      "sise": 7.5,
-      "ratio": 113
+      "sise": 6.9,
+      "ratio": 122
     },
     {
       "no": "2024000668",
@@ -2511,7 +2538,9 @@
       "pyeong": 3997,
       "low": 45,
       "avg": 53,
-      "rate": 7.6
+      "rate": 7.6,
+      "sise": 8.7,
+      "ratio": 144
     },
     {
       "no": "2025000595",
@@ -2523,7 +2552,9 @@
       "pyeong": 5968,
       "low": 52,
       "avg": 55,
-      "rate": 9.1
+      "rate": 9.1,
+      "sise": 15.5,
+      "ratio": 129
     },
     {
       "no": "2024000254",
@@ -2548,8 +2579,8 @@
       "low": 32,
       "avg": 41,
       "rate": 3.0,
-      "sise": 5.9,
-      "ratio": 126
+      "sise": 4.0,
+      "ratio": 184
     },
     {
       "no": "2026000205",
@@ -2588,8 +2619,8 @@
       "low": 37,
       "avg": 46,
       "rate": 2.3,
-      "sise": 4.2,
-      "ratio": 213
+      "sise": 3.0,
+      "ratio": 296
     },
     {
       "no": "2026000098",
@@ -2602,8 +2633,8 @@
       "low": 48,
       "avg": 49,
       "rate": 1.9,
-      "sise": 4.0,
-      "ratio": 201
+      "sise": 4.7,
+      "ratio": 170
     },
     {
       "no": "2026000049",
@@ -2630,8 +2661,8 @@
       "low": 37,
       "avg": 46,
       "rate": 2.6,
-      "sise": 10.5,
-      "ratio": 129
+      "sise": 7.2,
+      "ratio": 188
     },
     {
       "no": "2026000017",
@@ -2655,7 +2686,9 @@
       "pyeong": 3560,
       "low": 69,
       "avg": 69,
-      "rate": 41.0
+      "rate": 41.0,
+      "sise": 6.3,
+      "ratio": 201
     },
     {
       "no": "2025000595",
@@ -2667,7 +2700,9 @@
       "pyeong": 6132,
       "low": 55,
       "avg": 61,
-      "rate": 14.0
+      "rate": 14.0,
+      "sise": 17.4,
+      "ratio": 125
     },
     {
       "no": "2025000581",
@@ -2680,8 +2715,8 @@
       "low": 32,
       "avg": 41,
       "rate": 1.5,
-      "sise": 1.9,
-      "ratio": 301
+      "sise": 3.1,
+      "ratio": 177
     },
     {
       "no": "2025000556",
@@ -2694,8 +2729,8 @@
       "low": 62,
       "avg": 62,
       "rate": 32.0,
-      "sise": 11.2,
-      "ratio": 146
+      "sise": 8.4,
+      "ratio": 195
     },
     {
       "no": "2025000555",
@@ -2708,8 +2743,8 @@
       "low": 35,
       "avg": 38,
       "rate": 3.3,
-      "sise": 5.9,
-      "ratio": 120
+      "sise": 4.5,
+      "ratio": 157
     },
     {
       "no": "2025000549",
@@ -2735,7 +2770,9 @@
       "pyeong": 3696,
       "low": 63,
       "avg": 68,
-      "rate": 31.9
+      "rate": 31.9,
+      "sise": 12.3,
+      "ratio": 102
     },
     {
       "no": "2025000514",
@@ -2760,8 +2797,8 @@
       "low": 58,
       "avg": 60,
       "rate": 34.0,
-      "sise": 3.4,
-      "ratio": 280
+      "sise": 3.5,
+      "ratio": 272
     },
     {
       "no": "2025000501",
@@ -2774,8 +2811,8 @@
       "low": 55,
       "avg": 65,
       "rate": 46.2,
-      "sise": 17.6,
-      "ratio": 152
+      "sise": 18.2,
+      "ratio": 147
     },
     {
       "no": "2025000499",
@@ -2788,8 +2825,8 @@
       "low": 37,
       "avg": 50,
       "rate": 9.4,
-      "sise": 5.9,
-      "ratio": 120
+      "sise": 4.0,
+      "ratio": 175
     },
     {
       "no": "2025000429",
@@ -2802,8 +2839,8 @@
       "low": 63,
       "avg": 67,
       "rate": 19.0,
-      "sise": 7.8,
-      "ratio": 203
+      "sise": 8.4,
+      "ratio": 188
     },
     {
       "no": "2025000423",
@@ -2815,7 +2852,9 @@
       "pyeong": 3779,
       "low": 35,
       "avg": 60,
-      "rate": 8.6
+      "rate": 8.6,
+      "sise": 8.0,
+      "ratio": 163
     },
     {
       "no": "2025000422",
@@ -2827,7 +2866,9 @@
       "pyeong": 1983,
       "low": 57,
       "avg": 57,
-      "rate": 10.0
+      "rate": 10.0,
+      "sise": 5.5,
+      "ratio": 130
     },
     {
       "no": "2025000412",
@@ -2840,8 +2881,8 @@
       "low": 34,
       "avg": 44,
       "rate": 8.0,
-      "sise": 4.0,
-      "ratio": 204
+      "sise": 4.7,
+      "ratio": 173
     },
     {
       "no": "2025000365",
@@ -2854,8 +2895,8 @@
       "low": 37,
       "avg": 50,
       "rate": 10.9,
-      "sise": 5.4,
-      "ratio": 225
+      "sise": 6.3,
+      "ratio": 194
     },
     {
       "no": "2025000328",
@@ -2867,7 +2908,9 @@
       "pyeong": 7144,
       "low": 49,
       "avg": 57,
-      "rate": 5.8
+      "rate": 5.8,
+      "sise": 23.5,
+      "ratio": 104
     },
     {
       "no": "2025000307",
@@ -2879,7 +2922,9 @@
       "pyeong": 2410,
       "low": 20,
       "avg": 41,
-      "rate": 6.9
+      "rate": 6.9,
+      "sise": 5.3,
+      "ratio": 150
     },
     {
       "no": "2025000246",
@@ -2892,8 +2937,8 @@
       "low": 69,
       "avg": 69,
       "rate": 19.0,
-      "sise": 4.4,
-      "ratio": 252
+      "sise": 6.3,
+      "ratio": 177
     },
     {
       "no": "2025000233",
@@ -2906,8 +2951,8 @@
       "low": 28,
       "avg": 38,
       "rate": 1.5,
-      "sise": 7.1,
-      "ratio": 112
+      "sise": 7.0,
+      "ratio": 114
     },
     {
       "no": "2025000222",
@@ -2919,7 +2964,9 @@
       "pyeong": 2119,
       "low": 46,
       "avg": 55,
-      "rate": 6.0
+      "rate": 6.0,
+      "sise": 4.5,
+      "ratio": 154
     },
     {
       "no": "2025000205",
@@ -2932,8 +2979,8 @@
       "low": 62,
       "avg": 62,
       "rate": 28.0,
-      "sise": 4.6,
-      "ratio": 163
+      "sise": 5.0,
+      "ratio": 151
     },
     {
       "no": "2025000200",
@@ -2945,7 +2992,9 @@
       "pyeong": 1645,
       "low": 37,
       "avg": 46,
-      "rate": 11.7
+      "rate": 11.7,
+      "sise": 3.4,
+      "ratio": 163
     },
     {
       "no": "2025000129",
@@ -2957,7 +3006,9 @@
       "pyeong": 2240,
       "low": 23,
       "avg": 47,
-      "rate": 4.0
+      "rate": 4.0,
+      "sise": 7.9,
+      "ratio": 94
     },
     {
       "no": "2025000116",
@@ -2970,8 +3021,8 @@
       "low": 34,
       "avg": 43,
       "rate": 2.5,
-      "sise": 2.5,
-      "ratio": 194
+      "sise": 2.4,
+      "ratio": 199
     },
     {
       "no": "2025000104",
@@ -2985,7 +3036,7 @@
       "avg": 46,
       "rate": 2.5,
       "sise": 3.9,
-      "ratio": 202
+      "ratio": 204
     },
     {
       "no": "2024000668",
@@ -2997,7 +3048,9 @@
       "pyeong": 4060,
       "low": 37,
       "avg": 58,
-      "rate": 11.4
+      "rate": 11.4,
+      "sise": 8.7,
+      "ratio": 158
     },
     {
       "no": "2024000664",
@@ -3009,7 +3062,9 @@
       "pyeong": 1628,
       "low": 30,
       "avg": 46,
-      "rate": 8.7
+      "rate": 8.7,
+      "sise": 5.5,
+      "ratio": 97
     },
     {
       "no": "2024000649",
@@ -3033,7 +3088,9 @@
       "pyeong": 1446,
       "low": 37,
       "avg": 43,
-      "rate": 2.5
+      "rate": 2.5,
+      "sise": 5.1,
+      "ratio": 96
     },
     {
       "no": "2024000604",
@@ -3045,7 +3102,9 @@
       "pyeong": 2270,
       "low": 47,
       "avg": 58,
-      "rate": 10.8
+      "rate": 10.8,
+      "sise": 4.0,
+      "ratio": 201
     },
     {
       "no": "2024000603",
@@ -3057,7 +3116,9 @@
       "pyeong": 2292,
       "low": 37,
       "avg": 47,
-      "rate": 2.1
+      "rate": 2.1,
+      "sise": 4.0,
+      "ratio": 199
     },
     {
       "no": "2024000601",
@@ -3069,7 +3130,9 @@
       "pyeong": 1930,
       "low": 34,
       "avg": 53,
-      "rate": 3.8
+      "rate": 3.8,
+      "sise": 5.5,
+      "ratio": 116
     },
     {
       "no": "2024000593",
@@ -3093,7 +3156,9 @@
       "pyeong": 4564,
       "low": 37,
       "avg": 47,
-      "rate": 5.5
+      "rate": 5.5,
+      "sise": 7.1,
+      "ratio": 222
     },
     {
       "no": "2024000526",
@@ -3105,7 +3170,9 @@
       "pyeong": 1900,
       "low": 28,
       "avg": 39,
-      "rate": 2.0
+      "rate": 2.0,
+      "sise": 2.3,
+      "ratio": 282
     },
     {
       "no": "2024000516",
